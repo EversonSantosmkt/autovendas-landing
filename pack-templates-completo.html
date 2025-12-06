@@ -1,0 +1,1423 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pack de Templates Completo | AutoVendas Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-orange: #FF6B00;
+            --secondary-orange: #FF9500;
+            --accent-red: #FF3D00;
+            --accent-green: #00FF64;
+            --dark-bg: #0A0A0F;
+            --dark-card: #12121A;
+            --dark-border: #1E1E2A;
+            --text-primary: #FFFFFF;
+            --text-secondary: #A0A0B0;
+            --gradient-fire: linear-gradient(135deg, #FF6B00, #FF3D00, #FF9500);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            background: var(--dark-card);
+            border-bottom: 1px solid var(--dark-border);
+            padding: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-fire);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .logo-text {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+        }
+
+        .logo-text span {
+            background: var(--gradient-fire);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header-stats {
+            display: flex;
+            gap: 30px;
+        }
+
+        .header-stat {
+            text-align: center;
+        }
+
+        .header-stat-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            color: var(--primary-orange);
+            line-height: 1;
+        }
+
+        .header-stat-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: var(--dark-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 30px;
+            padding: 10px 20px;
+            gap: 10px;
+            min-width: 300px;
+        }
+
+        .search-box input {
+            background: transparent;
+            border: none;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            width: 100%;
+            outline: none;
+        }
+
+        .search-box input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .search-box i {
+            color: var(--text-secondary);
+        }
+
+        /* ===== MAIN LAYOUT ===== */
+        .main-container {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            min-height: calc(100vh - 90px);
+        }
+
+        /* ===== SIDEBAR ===== */
+        .sidebar {
+            width: 280px;
+            background: var(--dark-card);
+            border-right: 1px solid var(--dark-border);
+            padding: 25px;
+            position: sticky;
+            top: 90px;
+            height: calc(100vh - 90px);
+            overflow-y: auto;
+        }
+
+        .sidebar-title {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .nav-section {
+            margin-bottom: 30px;
+        }
+
+        .nav-section-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            padding-left: 10px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-bottom: 5px;
+            color: var(--text-secondary);
+        }
+
+        .nav-item:hover {
+            background: rgba(255, 107, 0, 0.1);
+            color: var(--text-primary);
+        }
+
+        .nav-item.active {
+            background: var(--gradient-fire);
+            color: white;
+        }
+
+        .nav-item i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .nav-item-count {
+            margin-left: auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2px 10px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+        }
+
+        .nav-item.active .nav-item-count {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        /* ===== CONTENT ===== */
+        .content {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .content-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .content-title i {
+            color: var(--primary-orange);
+        }
+
+        .content-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-action {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            color: var(--text-secondary);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-action:hover {
+            border-color: var(--primary-orange);
+            color: var(--primary-orange);
+        }
+
+        .btn-action.primary {
+            background: var(--gradient-fire);
+            border: none;
+            color: white;
+        }
+
+        .btn-action.primary:hover {
+            box-shadow: 0 0 20px rgba(255, 107, 0, 0.4);
+        }
+
+        /* ===== SUBCATEGORY TABS ===== */
+        .subcategory-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .subcategory-tab {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            color: var(--text-secondary);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .subcategory-tab:hover {
+            border-color: var(--primary-orange);
+            color: var(--primary-orange);
+        }
+
+        .subcategory-tab.active {
+            background: var(--primary-orange);
+            border-color: var(--primary-orange);
+            color: white;
+        }
+
+        /* ===== TEMPLATES GRID ===== */
+        .templates-grid {
+            display: grid;
+            gap: 15px;
+        }
+
+        .template-card {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+            transition: all 0.2s ease;
+        }
+
+        .template-card:hover {
+            border-color: var(--primary-orange);
+            background: rgba(255, 107, 0, 0.03);
+        }
+
+        .template-content {
+            flex: 1;
+        }
+
+        .template-text {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .template-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .template-tag {
+            background: rgba(255, 107, 0, 0.1);
+            color: var(--primary-orange);
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+        }
+
+        .template-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-copy {
+            background: transparent;
+            border: 1px solid var(--dark-border);
+            color: var(--text-secondary);
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .btn-copy:hover {
+            background: var(--primary-orange);
+            border-color: var(--primary-orange);
+            color: white;
+        }
+
+        .btn-copy.copied {
+            background: var(--accent-green);
+            border-color: var(--accent-green);
+            color: white;
+        }
+
+        /* ===== TOAST NOTIFICATION ===== */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--accent-green);
+            color: #000;
+            padding: 15px 25px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            box-shadow: 0 10px 40px rgba(0, 255, 100, 0.3);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* ===== EMPTY STATE ===== */
+        .empty-state {
+            text-align: center;
+            padding: 60px;
+            color: var(--text-secondary);
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.3;
+        }
+
+        .empty-state h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .sidebar {
+                display: none;
+            }
+
+            .main-container {
+                flex-direction: column;
+            }
+
+            .header-stats {
+                display: none;
+            }
+
+            .search-box {
+                min-width: 200px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+
+            .search-box {
+                width: 100%;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .content-title {
+                font-size: 1.8rem;
+            }
+
+            .template-card {
+                flex-direction: column;
+            }
+
+            .template-actions {
+                width: 100%;
+            }
+
+            .btn-copy {
+                flex: 1;
+                justify-content: center;
+            }
+        }
+
+        /* ===== MOBILE NAV ===== */
+        .mobile-nav {
+            display: none;
+            background: var(--dark-card);
+            padding: 15px;
+            overflow-x: auto;
+            border-bottom: 1px solid var(--dark-border);
+        }
+
+        .mobile-nav-items {
+            display: flex;
+            gap: 10px;
+        }
+
+        .mobile-nav-item {
+            background: var(--dark-bg);
+            border: 1px solid var(--dark-border);
+            padding: 10px 20px;
+            border-radius: 25px;
+            white-space: nowrap;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+        }
+
+        .mobile-nav-item.active {
+            background: var(--gradient-fire);
+            border-color: transparent;
+            color: white;
+        }
+
+        @media (max-width: 1024px) {
+            .mobile-nav {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon"><i class="fas fa-copy"></i></div>
+                <div class="logo-text">PACK DE <span>TEMPLATES</span></div>
+            </div>
+
+            <div class="header-stats">
+                <div class="header-stat">
+                    <div class="header-stat-number" id="totalTemplates">512</div>
+                    <div class="header-stat-label">Templates</div>
+                </div>
+                <div class="header-stat">
+                    <div class="header-stat-number">15</div>
+                    <div class="header-stat-label">Categorias</div>
+                </div>
+                <div class="header-stat">
+                    <div class="header-stat-number" id="copiedCount">0</div>
+                    <div class="header-stat-label">Copiados</div>
+                </div>
+            </div>
+
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Buscar templates...">
+            </div>
+        </div>
+    </header>
+
+    <!-- MOBILE NAV -->
+    <div class="mobile-nav">
+        <div class="mobile-nav-items" id="mobileNav">
+            <!-- Preenchido via JS -->
+        </div>
+    </div>
+
+    <!-- MAIN CONTAINER -->
+    <div class="main-container">
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="sidebar-title">Navegação</div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Títulos</div>
+                <div class="nav-item active" data-category="titulos-eletronicos">
+                    <i class="fas fa-mobile-alt"></i>
+                    <span>Eletrônicos</span>
+                    <span class="nav-item-count">35</span>
+                </div>
+                <div class="nav-item" data-category="titulos-moveis">
+                    <i class="fas fa-couch"></i>
+                    <span>Móveis</span>
+                    <span class="nav-item-count">30</span>
+                </div>
+                <div class="nav-item" data-category="titulos-veiculos">
+                    <i class="fas fa-car"></i>
+                    <span>Veículos</span>
+                    <span class="nav-item-count">30</span>
+                </div>
+                <div class="nav-item" data-category="titulos-roupas">
+                    <i class="fas fa-tshirt"></i>
+                    <span>Roupas</span>
+                    <span class="nav-item-count">25</span>
+                </div>
+                <div class="nav-item" data-category="titulos-infantil">
+                    <i class="fas fa-baby"></i>
+                    <span>Infantil</span>
+                    <span class="nav-item-count">20</span>
+                </div>
+                <div class="nav-item" data-category="titulos-esportes">
+                    <i class="fas fa-futbol"></i>
+                    <span>Esportes</span>
+                    <span class="nav-item-count">15</span>
+                </div>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Descrições</div>
+                <div class="nav-item" data-category="descricoes-curtas">
+                    <i class="fas fa-align-left"></i>
+                    <span>Curtas</span>
+                    <span class="nav-item-count">50</span>
+                </div>
+                <div class="nav-item" data-category="descricoes-medias">
+                    <i class="fas fa-align-center"></i>
+                    <span>Médias</span>
+                    <span class="nav-item-count">50</span>
+                </div>
+                <div class="nav-item" data-category="descricoes-detalhadas">
+                    <i class="fas fa-align-justify"></i>
+                    <span>Detalhadas</span>
+                    <span class="nav-item-count">50</span>
+                </div>
+                <div class="nav-item" data-category="descricoes-persuasivas">
+                    <i class="fas fa-magic"></i>
+                    <span>Persuasivas</span>
+                    <span class="nav-item-count">52</span>
+                </div>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Respostas Chat</div>
+                <div class="nav-item" data-category="respostas-saudacao">
+                    <i class="fas fa-hand-wave"></i>
+                    <span>Saudação</span>
+                    <span class="nav-item-count">20</span>
+                </div>
+                <div class="nav-item" data-category="respostas-negociacao">
+                    <i class="fas fa-handshake"></i>
+                    <span>Negociação</span>
+                    <span class="nav-item-count">25</span>
+                </div>
+                <div class="nav-item" data-category="respostas-objecoes">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Objeções</span>
+                    <span class="nav-item-count">25</span>
+                </div>
+                <div class="nav-item" data-category="respostas-fechamento">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Fechamento</span>
+                    <span class="nav-item-count">30</span>
+                </div>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Gatilhos Mentais</div>
+                <div class="nav-item" data-category="gatilhos-urgencia">
+                    <i class="fas fa-clock"></i>
+                    <span>Urgência</span>
+                    <span class="nav-item-count">20</span>
+                </div>
+                <div class="nav-item" data-category="gatilhos-escassez">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>Escassez</span>
+                    <span class="nav-item-count">15</span>
+                </div>
+                <div class="nav-item" data-category="gatilhos-social">
+                    <i class="fas fa-users"></i>
+                    <span>Prova Social</span>
+                    <span class="nav-item-count">20</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- CONTENT -->
+        <main class="content">
+            <div class="content-header">
+                <h1 class="content-title">
+                    <i class="fas fa-mobile-alt"></i>
+                    <span id="categoryTitle">Títulos para Eletrônicos</span>
+                </h1>
+                <div class="content-actions">
+                    <button class="btn-action" onclick="copyAll()">
+                        <i class="fas fa-copy"></i> Copiar Todos
+                    </button>
+                    <button class="btn-action primary" onclick="downloadCategory()">
+                        <i class="fas fa-download"></i> Baixar TXT
+                    </button>
+                </div>
+            </div>
+
+            <div class="templates-grid" id="templatesGrid">
+                <!-- Templates serão inseridos via JS -->
+            </div>
+        </main>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Template copiado!</span>
+    </div>
+
+    <script>
+        // ===== BANCO DE DADOS DE TEMPLATES =====
+        const templatesDB = {
+            // TÍTULOS - ELETRÔNICOS
+            "titulos-eletronicos": {
+                title: "Títulos para Eletrônicos",
+                icon: "fa-mobile-alt",
+                templates: [
+                    { text: "[URGENTE] iPhone 13 Pro 256GB - Único Dono - Bateria 96%", tags: ["iPhone", "Urgência"] },
+                    { text: "Samsung Galaxy S23 Ultra - NA CAIXA - Nota Fiscal", tags: ["Samsung", "Novo"] },
+                    { text: "MacBook Air M2 - Usado 3 Meses - Garantia Apple Ativa", tags: ["Apple", "Garantia"] },
+                    { text: "PS5 + 2 Controles + 5 Jogos - Oportunidade Única!", tags: ["Games", "Combo"] },
+                    { text: "Smart TV LG 55\" 4K - Impecável - Aceito Cartão", tags: ["TV", "Parcelamento"] },
+                    { text: "AirPods Pro 2 - LACRADO - Pronta Entrega", tags: ["Apple", "Lacrado"] },
+                    { text: "Notebook Gamer Acer Nitro 5 - RTX 3060 - Parcelo 12x", tags: ["Notebook", "Gamer"] },
+                    { text: "iPad Pro 12.9 M2 - Com Apple Pencil - Aceito Troca", tags: ["iPad", "Troca"] },
+                    { text: "Xbox Series X - Pouco Uso - Aceito Propostas", tags: ["Games", "Negociável"] },
+                    { text: "Câmera Canon T7i + Lente 18-55mm + Bolsa - Completa", tags: ["Câmera", "Kit"] },
+                    { text: "Apple Watch Series 8 - 45mm - GPS - Caixa Original", tags: ["Apple", "Watch"] },
+                    { text: "JBL Boombox 2 - Original - Som Potente - Impecável", tags: ["Áudio", "JBL"] },
+                    { text: "Monitor Gamer 27\" 144Hz - Samsung Odyssey - Garantia", tags: ["Monitor", "Gamer"] },
+                    { text: "Drone DJI Mini 3 Pro - Completo - Voou Pouco", tags: ["Drone", "DJI"] },
+                    { text: "Nintendo Switch OLED + 3 Jogos - Estado de Novo", tags: ["Games", "Nintendo"] },
+                    { text: "iPhone 14 Pro Max 256GB - Garantia Apple - Impecável", tags: ["iPhone", "Garantia"] },
+                    { text: "Fone Sony WH-1000XM5 - Noise Cancelling - Na Caixa", tags: ["Áudio", "Sony"] },
+                    { text: "GoPro Hero 11 - Com Acessórios - Usada 2x", tags: ["Câmera", "GoPro"] },
+                    { text: "PC Gamer Completo - RTX 4070 - i7 13700K - Monstro!", tags: ["PC", "Gamer"] },
+                    { text: "Kindle Paperwhite - Última Geração - Como Novo", tags: ["Kindle", "Leitura"] },
+                    { text: "Samsung Galaxy Watch 5 Pro - 45mm - Preto - Completo", tags: ["Samsung", "Watch"] },
+                    { text: "Projetor Epson Full HD - 3000 Lumens - Home Theater", tags: ["Projetor", "Casa"] },
+                    { text: "Mesa Digitalizadora Wacom - Medium - Para Designers", tags: ["Design", "Wacom"] },
+                    { text: "Chromecast Google TV 4K - Lacrado - Pronta Entrega", tags: ["Google", "Streaming"] },
+                    { text: "Ring Light Profissional 18\" + Tripé - Youtubers", tags: ["Foto", "YouTube"] },
+                    { text: "Teclado Mecânico Razer - RGB - Switches Red - Gamer", tags: ["Gamer", "Razer"] },
+                    { text: "Mouse Logitech G Pro Wireless - Usado por Pro Player", tags: ["Gamer", "Logitech"] },
+                    { text: "Cadeira Gamer ThunderX3 - Ergonômica - Seminova", tags: ["Gamer", "Cadeira"] },
+                    { text: "Microfone Blue Yeti - USB - Perfeito para Podcast", tags: ["Áudio", "Podcast"] },
+                    { text: "Webcam Logitech C920 - Full HD - Seminova", tags: ["Webcam", "Logitech"] },
+                    { text: "SSD NVMe 1TB Samsung 980 Pro - Lacrado - Garantia", tags: ["Hardware", "SSD"] },
+                    { text: "Placa de Vídeo RTX 3080 - Usada em Jogos Leves", tags: ["Hardware", "GPU"] },
+                    { text: "Roteador Wi-Fi 6 - TP-Link Archer AX73 - Potente", tags: ["Rede", "WiFi"] },
+                    { text: "Echo Dot 5ª Geração - Alexa - Lacrado na Caixa", tags: ["Amazon", "Smart"] },
+                    { text: "Impressora HP Laser - Multifuncional - Wi-Fi - Nova", tags: ["Impressora", "HP"] }
+                ]
+            },
+
+            // TÍTULOS - MÓVEIS
+            "titulos-moveis": {
+                title: "Títulos para Móveis",
+                icon: "fa-couch",
+                templates: [
+                    { text: "Sofá Retrátil e Reclinável 3 Lugares - NOVO - Entrego Hoje", tags: ["Sofá", "Novo"] },
+                    { text: "Guarda-Roupa Casal 6 Portas - Montagem Grátis Inclusa", tags: ["Quarto", "Montagem"] },
+                    { text: "Mesa de Jantar + 6 Cadeiras - Madeira Maciça - Linda!", tags: ["Jantar", "Madeira"] },
+                    { text: "Cama Box Queen Size - Molas Ensacadas - Parcelo 10x", tags: ["Cama", "Parcelamento"] },
+                    { text: "Rack para TV até 65\" - Design Moderno - Entrego Montado", tags: ["Sala", "Rack"] },
+                    { text: "Escrivaninha Home Office - Com Gavetas - Perfeita!", tags: ["Escritório", "Home Office"] },
+                    { text: "Conjunto Estofado 2 e 3 Lugares - Suede - Impecável", tags: ["Sofá", "Conjunto"] },
+                    { text: "Armário de Cozinha Completo - 11 Portas - Novo!", tags: ["Cozinha", "Armário"] },
+                    { text: "Cômoda 6 Gavetas - MDF - Branca - Pronta Entrega", tags: ["Quarto", "Cômoda"] },
+                    { text: "Beliche com Escada e Gavetas - Madeira - Infantil", tags: ["Infantil", "Beliche"] },
+                    { text: "Painel para TV 60\" - LED Embutido - Super Moderno", tags: ["Sala", "Painel"] },
+                    { text: "Poltrona Decorativa - Veludo - Cor Mostarda - Nova", tags: ["Decoração", "Poltrona"] },
+                    { text: "Mesa de Centro - Vidro Temperado - Design Italiano", tags: ["Sala", "Mesa"] },
+                    { text: "Cadeira de Escritório Presidente - Couro - Ergonômica", tags: ["Escritório", "Cadeira"] },
+                    { text: "Estante para Livros - 5 Prateleiras - Madeira Rústica", tags: ["Decoração", "Estante"] },
+                    { text: "Sapateira com Espelho - 2 Portas - Organização Total", tags: ["Quarto", "Sapateira"] },
+                    { text: "Penteadeira com Espelho e Banqueta - Branca - Linda!", tags: ["Quarto", "Penteadeira"] },
+                    { text: "Sofá-Cama Casal - Prático - Ótimo para Visitas", tags: ["Sofá", "Funcional"] },
+                    { text: "Mesa de Cabeceira - Par - Gaveta e Nicho - MDF", tags: ["Quarto", "Cabeceira"] },
+                    { text: "Balcão de Cozinha com Cooktop - Completo - Lindo!", tags: ["Cozinha", "Balcão"] },
+                    { text: "Cristaleira de Vidro - 4 Prateleiras - Clássica", tags: ["Sala", "Cristaleira"] },
+                    { text: "Cabeceira Queen Estofada - Capitonê - Bege - Nova", tags: ["Quarto", "Cabeceira"] },
+                    { text: "Aparador com Espelho - Hall de Entrada - Elegante", tags: ["Decoração", "Aparador"] },
+                    { text: "Bar Adega - 2 Portas - Suporte para Taças - Lindo!", tags: ["Sala", "Bar"] },
+                    { text: "Colchão Ortopédico Queen - D45 - Usado 6 Meses", tags: ["Cama", "Colchão"] },
+                    { text: "Prateleira Flutuante Kit 3 Peças - Decorativa", tags: ["Decoração", "Prateleira"] },
+                    { text: "Buffet Retrô - 3 Portas - Pés Palito - Vintage", tags: ["Sala", "Buffet"] },
+                    { text: "Banqueta Alta para Cozinha - Kit com 2 - Novas", tags: ["Cozinha", "Banqueta"] },
+                    { text: "Berço Americano + Colchão - Branco - Seminovo", tags: ["Infantil", "Berço"] },
+                    { text: "Roupeiro 4 Portas com Espelho - Casal - Espaçoso", tags: ["Quarto", "Roupeiro"] }
+                ]
+            },
+
+            // TÍTULOS - VEÍCULOS
+            "titulos-veiculos": {
+                title: "Títulos para Veículos",
+                icon: "fa-car",
+                templates: [
+                    { text: "Honda Civic 2020 - Único Dono - Revisões Concessionária", tags: ["Honda", "Sedan"] },
+                    { text: "Fiat Argo 2022 - 28.000km - IPVA Pago - Impecável", tags: ["Fiat", "Hatch"] },
+                    { text: "Toyota Corolla XEi 2021 - Automático - Aceito Troca", tags: ["Toyota", "Sedan"] },
+                    { text: "VW Gol 2019 - Completo - Parcelo no Cartão", tags: ["VW", "Popular"] },
+                    { text: "Honda CG 160 Titan - 2023 - 8.000km - Novíssima", tags: ["Moto", "Honda"] },
+                    { text: "Jeep Renegade 2021 - 4x4 - Diesel - Baixa KM", tags: ["Jeep", "SUV"] },
+                    { text: "Hyundai HB20 2022 - Automático - Único Dono - Lindo", tags: ["Hyundai", "Hatch"] },
+                    { text: "Chevrolet Onix Plus 2023 - Premier - Top de Linha", tags: ["Chevrolet", "Sedan"] },
+                    { text: "Ford Ka 2020 - 1.5 Automático - Pneus Novos", tags: ["Ford", "Hatch"] },
+                    { text: "Yamaha Fazer 250 - 2022 - ABS - Documentação OK", tags: ["Moto", "Yamaha"] },
+                    { text: "Volkswagen T-Cross 2022 - TSI - Único Dono - Garantia", tags: ["VW", "SUV"] },
+                    { text: "Nissan Kicks 2021 - CVT - Couro - Multimídia", tags: ["Nissan", "SUV"] },
+                    { text: "Renault Kwid 2022 - Zen - Completo - Econômico", tags: ["Renault", "Popular"] },
+                    { text: "Honda HR-V 2020 - EXL - Teto Solar - Impecável", tags: ["Honda", "SUV"] },
+                    { text: "Fiat Mobi 2021 - Like - Direção Elétrica - 30.000km", tags: ["Fiat", "Popular"] },
+                    { text: "Chevrolet Tracker 2022 - Turbo - Premier - Completo", tags: ["Chevrolet", "SUV"] },
+                    { text: "Toyota Hilux 2020 - SRV - 4x4 - Diesel - Cabine Dupla", tags: ["Toyota", "Picape"] },
+                    { text: "BMW 320i 2019 - Sport - Teto - Revisada BMW", tags: ["BMW", "Premium"] },
+                    { text: "Mercedes C180 2020 - Avantgarde - Único Dono", tags: ["Mercedes", "Premium"] },
+                    { text: "Audi A3 Sedan 2021 - Prestige Plus - Garantia Audi", tags: ["Audi", "Premium"] },
+                    { text: "Honda CB 500F - 2022 - 5.000km - Moto de Garagem", tags: ["Moto", "Honda"] },
+                    { text: "Kawasaki Ninja 400 - 2023 - Verde - Estado de Zero", tags: ["Moto", "Kawasaki"] },
+                    { text: "Fiat Strada 2022 - Endurance - Cabine Plus - Nova", tags: ["Fiat", "Picape"] },
+                    { text: "VW Saveiro 2021 - Cross - Cabine Dupla - Completa", tags: ["VW", "Picape"] },
+                    { text: "Citroën C3 2023 - Novo Modelo - 10.000km - Lindo!", tags: ["Citroën", "Hatch"] },
+                    { text: "Peugeot 208 2022 - Griffe - Teto Panorâmico", tags: ["Peugeot", "Hatch"] },
+                    { text: "Caoa Chery Tiggo 5X 2022 - Turbo - 7 Lugares", tags: ["Chery", "SUV"] },
+                    { text: "Compass 2021 - Limited - Diesel - 4x4 - Teto", tags: ["Jeep", "SUV"] },
+                    { text: "Corolla Cross 2022 - XRE - Híbrido - Econômico", tags: ["Toyota", "SUV"] },
+                    { text: "Civic Touring 2022 - Turbo - Top - Aceito Proposta", tags: ["Honda", "Sedan"] }
+                ]
+            },
+
+            // TÍTULOS - ROUPAS
+            "titulos-roupas": {
+                title: "Títulos para Roupas",
+                icon: "fa-tshirt",
+                templates: [
+                    { text: "Vestido Longo Festa - Usado 1x - Tamanho M - Lindo!", tags: ["Vestido", "Festa"] },
+                    { text: "Jaqueta Jeans Feminina - Nova com Etiqueta - G", tags: ["Jaqueta", "Novo"] },
+                    { text: "Tênis Nike Air Max - Original - Número 42 - Perfeito", tags: ["Tênis", "Nike"] },
+                    { text: "Conjunto Fitness Feminino - Várias Cores - P ao GG", tags: ["Fitness", "Conjunto"] },
+                    { text: "Camisa Social Hugo Boss - Original - M - Impecável", tags: ["Social", "Marca"] },
+                    { text: "Bolsa Michael Kors - Original - Com Dust Bag", tags: ["Bolsa", "Luxo"] },
+                    { text: "Calça Jeans Levi's 501 - Masculina - 44 - Clássica", tags: ["Jeans", "Levi's"] },
+                    { text: "Moletom Adidas Original - Novo - Tamanho G", tags: ["Moletom", "Adidas"] },
+                    { text: "Sandália Arezzo - Couro Legítimo - 37 - Novíssima", tags: ["Sandália", "Arezzo"] },
+                    { text: "Blazer Feminino Alfaiataria - Usado 2x - M - Elegante", tags: ["Blazer", "Trabalho"] },
+                    { text: "Tênis Adidas Ultraboost - Original - 40 - Na Caixa", tags: ["Tênis", "Adidas"] },
+                    { text: "Relógio Fossil - Masculino - Couro - Caixa Original", tags: ["Relógio", "Fossil"] },
+                    { text: "Óculos Ray-Ban Aviador - Original - Com Case", tags: ["Óculos", "Ray-Ban"] },
+                    { text: "Mochila Nike - Grande - Notebook - Nova", tags: ["Mochila", "Nike"] },
+                    { text: "Casaco de Couro Legítimo - Masculino - G - Vintage", tags: ["Casaco", "Couro"] },
+                    { text: "Saia Midi Plissada - Preta - M - Elegante", tags: ["Saia", "Elegante"] },
+                    { text: "Cinto Gucci - Masculino - Original - 100cm", tags: ["Cinto", "Luxo"] },
+                    { text: "Bota Coturno Feminina - Couro - 36 - Estilosa", tags: ["Bota", "Feminino"] },
+                    { text: "Pijama Seda - Feminino - M - Luxuoso - Novo", tags: ["Pijama", "Luxo"] },
+                    { text: "Suéter Lacoste - Original - M - Azul Marinho", tags: ["Suéter", "Lacoste"] },
+                    { text: "Carteira Louis Vuitton - Masculina - Original", tags: ["Carteira", "Luxo"] },
+                    { text: "Chapéu Panamá - Palha Natural - Unissex - Elegante", tags: ["Chapéu", "Elegante"] },
+                    { text: "Calça Social Masculina - Preta - 42 - Slim Fit", tags: ["Calça", "Social"] },
+                    { text: "Cropped Tricot - Várias Cores - P ao G - Novos", tags: ["Cropped", "Tricot"] },
+                    { text: "Sapatênis Democrata - Couro - 43 - Confortável", tags: ["Sapato", "Democrata"] }
+                ]
+            },
+
+            // TÍTULOS - INFANTIL
+            "titulos-infantil": {
+                title: "Títulos para Produtos Infantis",
+                icon: "fa-baby",
+                templates: [
+                    { text: "Carrinho de Bebê Chicco - 3 em 1 - Estado de Novo", tags: ["Carrinho", "Chicco"] },
+                    { text: "Berço Americano + Colchão - Branco - Usado 8 Meses", tags: ["Berço", "Completo"] },
+                    { text: "Cadeirinha para Auto - 0 a 25kg - Cosco - Segura", tags: ["Cadeirinha", "Segurança"] },
+                    { text: "Brinquedos Educativos - Lote com 20 Peças - Ótimo!", tags: ["Brinquedos", "Lote"] },
+                    { text: "Roupas de Bebê - Lote Menino 0-6 Meses - 30 Peças", tags: ["Roupas", "Lote"] },
+                    { text: "Bicicleta Infantil Aro 16 - Com Rodinhas - Perfeita", tags: ["Bicicleta", "Infantil"] },
+                    { text: "Andador para Bebê - Musical - Usado Pouco", tags: ["Andador", "Musical"] },
+                    { text: "Cama Infantil - Montessoriana - Casinha - Linda!", tags: ["Cama", "Montessori"] },
+                    { text: "Kit Higiene Bebê - 6 Peças - Porcelana - Novo", tags: ["Higiene", "Kit"] },
+                    { text: "Mamadeiras Avent - Kit com 3 - Usadas 3 Meses", tags: ["Mamadeira", "Avent"] },
+                    { text: "Bebê Conforto Burigotto - Até 13kg - Perfeito Estado", tags: ["Bebê Conforto", "Burigotto"] },
+                    { text: "Tapete de Atividades - Fisher Price - Completo", tags: ["Tapete", "Fisher Price"] },
+                    { text: "Moisés com Suporte - Capota - Usado 4 Meses", tags: ["Moisés", "Bebê"] },
+                    { text: "Patinete Infantil - 3 Rodas - LED - Dobrável", tags: ["Patinete", "Infantil"] },
+                    { text: "Boneca Baby Alive - Come e Faz Cocô - Completa", tags: ["Boneca", "Baby Alive"] },
+                    { text: "LEGO Classic - 1000 Peças - Novo Lacrado", tags: ["LEGO", "Brinquedo"] },
+                    { text: "Fantasia Frozen Elsa - Tamanho 6 - Com Acessórios", tags: ["Fantasia", "Frozen"] },
+                    { text: "Triciclo Infantil - Com Empurrador - Usado Pouco", tags: ["Triciclo", "Infantil"] },
+                    { text: "Poltrona Infantil - Personagens - Lavável - Nova", tags: ["Poltrona", "Decoração"] },
+                    { text: "Banheira de Bebê - Com Suporte - Rosa - Seminova", tags: ["Banheira", "Bebê"] }
+                ]
+            },
+
+            // TÍTULOS - ESPORTES
+            "titulos-esportes": {
+                title: "Títulos para Esportes",
+                icon: "fa-futbol",
+                templates: [
+                    { text: "Esteira Ergométrica - Semi Profissional - 110v", tags: ["Esteira", "Fitness"] },
+                    { text: "Bicicleta Caloi - Aro 29 - 21 Marchas - Alumínio", tags: ["Bicicleta", "MTB"] },
+                    { text: "Kit Halteres + Anilhas - 40kg Total - Musculação", tags: ["Musculação", "Kit"] },
+                    { text: "Raquete de Tênis Wilson - Pro Staff - Seminova", tags: ["Tênis", "Wilson"] },
+                    { text: "Prancha de Surf 6'2 - Fibra - Com Quilhas - Boa!", tags: ["Surf", "Prancha"] },
+                    { text: "Saco de Pancada + Luvas - Profissional - Completo", tags: ["Boxe", "Kit"] },
+                    { text: "Mesa de Ping Pong - Oficial - Dobrável - Com Rede", tags: ["Ping Pong", "Mesa"] },
+                    { text: "Bola de Basquete Spalding - NBA - Original - Nova", tags: ["Basquete", "Spalding"] },
+                    { text: "Skate Profissional - Maple - Rolamentos ABEC 9", tags: ["Skate", "Pro"] },
+                    { text: "Barraca Camping 4 Pessoas - Impermeável - Nautika", tags: ["Camping", "Barraca"] },
+                    { text: "Vara de Pesca + Molinete - Kit Completo - Novo", tags: ["Pesca", "Kit"] },
+                    { text: "Chuteira Nike Mercurial - Society - 42 - Seminova", tags: ["Futebol", "Nike"] },
+                    { text: "Caiaque Individual - Fibra - Com Remo - Estável", tags: ["Caiaque", "Náutico"] },
+                    { text: "Bicicleta Ergométrica - Spinning - Profissional", tags: ["Spinning", "Fitness"] },
+                    { text: "Patins Inline - Profissional - 40 - Pouco Uso", tags: ["Patins", "Inline"] }
+                ]
+            },
+
+            // DESCRIÇÕES - CURTAS
+            "descricoes-curtas": {
+                title: "Descrições Curtas",
+                icon: "fa-align-left",
+                templates: [
+                    { text: "Produto em perfeito estado, usado poucas vezes. Acompanha todos os acessórios originais. Aceito cartão.", tags: ["Geral", "Curta"] },
+                    { text: "Seminovo, funcionando 100%. Único dono, sempre bem cuidado. Entrego em mãos na região.", tags: ["Geral", "Curta"] },
+                    { text: "Na caixa original com nota fiscal. Garantia ainda válida. Parcelo no cartão.", tags: ["Novo", "Garantia"] },
+                    { text: "Pouco uso, estado de novo. Vendo por não usar mais. Preço negociável para pagamento à vista.", tags: ["Seminovo", "Negociável"] },
+                    { text: "Original e em ótimo estado. Sem marcas de uso. Entrego na estação de metrô mais próxima.", tags: ["Original", "Entrega"] },
+                    { text: "Produto impecável, sem detalhes. Motivo da venda: upgrade. Aceito proposta.", tags: ["Upgrade", "Proposta"] },
+                    { text: "Usado apenas 2 meses. Acompanha caixa e manual. Aceito troca por item do meu interesse.", tags: ["Pouco Uso", "Troca"] },
+                    { text: "Em perfeitas condições de uso. Preço justo e final. Respondo rápido.", tags: ["Bom Estado", "Preço Final"] },
+                    { text: "Comprado há 6 meses, nota fiscal disponível. Vendo abaixo do preço de mercado.", tags: ["Recente", "Abaixo"] },
+                    { text: "Estado excelente, como novo. Sem arranhões ou marcas. Aceito PIX com desconto.", tags: ["Excelente", "PIX"] },
+                    { text: "Funcionando perfeitamente. Inclui todos os cabos e acessórios. Entrego hoje.", tags: ["Completo", "Entrega"] },
+                    { text: "Seminovo, usado com muito cuidado. Acompanha case de proteção. Preço a combinar.", tags: ["Cuidado", "Case"] },
+                    { text: "Produto original, comprado em loja autorizada. Vendo por falta de uso.", tags: ["Original", "Loja"] },
+                    { text: "Ótimo estado, funciona 100%. Aceito cartão de crédito em até 3x sem juros.", tags: ["Parcelamento", "Cartão"] },
+                    { text: "Usado poucas vezes, conservado em ambiente fechado. Preço especial para venda rápida.", tags: ["Conservado", "Rápida"] },
+                    { text: "Produto com mínimos sinais de uso. Nada que comprometa. Melhor custo-benefício da região.", tags: ["Mínimo Uso", "Custo"] },
+                    { text: "Na caixa lacrada, nunca aberto. Comprei e não precisei usar. Preço de custo.", tags: ["Lacrado", "Custo"] },
+                    { text: "Seminovo de vitrine, estado impecável. Acompanha garantia de loja.", tags: ["Vitrine", "Garantia"] },
+                    { text: "Bem conservado, sem defeitos. Vendo por necessidade financeira. Escuto propostas.", tags: ["Conservado", "Propostas"] },
+                    { text: "Produto revisado e funcionando. Pronto para uso imediato. Entrego em toda região.", tags: ["Revisado", "Região"] },
+                    { text: "Estado de zero, comprado mês passado. Arrependimento de compra. Preço justo.", tags: ["Novo", "Justo"] },
+                    { text: "Original com nota. Aceito troca por algo do meu interesse + volta se necessário.", tags: ["Original", "Troca Volta"] },
+                    { text: "Impecável, de colecionador. Guardado com todo cuidado. Raridade.", tags: ["Colecionador", "Raridade"] },
+                    { text: "Pouco tempo de uso, perfeito estado. Inclui brinde surpresa. Não perca!", tags: ["Brinde", "Surpresa"] },
+                    { text: "Ótimo produto, sempre funcionou bem. Motivo: estou me mudando. Oportunidade!", tags: ["Mudança", "Oportunidade"] },
+                    { text: "Produto premium, alta qualidade. Pequenos sinais de uso. Preço abaixo do mercado.", tags: ["Premium", "Abaixo"] },
+                    { text: "Usado por poucos meses. Acompanha certificado de autenticidade. Original 100%.", tags: ["Autenticidade", "Certificado"] },
+                    { text: "Estado novo, na caixa original. Presente que não serviu. Preço especial.", tags: ["Presente", "Especial"] },
+                    { text: "Sem marcas, sem riscos, sem defeitos. Produto de procedência. Garantia de satisfação.", tags: ["Perfeito", "Garantia"] },
+                    { text: "Usado apenas em ambiente interno. Conservação impecável. Fotos reais do produto.", tags: ["Interno", "Fotos Reais"] },
+                    { text: "Produto funcionando 100%. Bateria/peças em ótimo estado. Não aceito trocas.", tags: ["Funcionando", "Sem Troca"] },
+                    { text: "Comprei novo, usei pouco. Não tenho mais necessidade. Primeiro que chamar leva.", tags: ["Pouco Uso", "Primeiro Leva"] },
+                    { text: "Vendendo para liberar espaço. Tudo original e em ordem. Preço pra vender rápido.", tags: ["Espaço", "Rápido"] },
+                    { text: "Item raro, difícil de encontrar. Estado colecionável. Para conhecedores.", tags: ["Raro", "Colecionável"] },
+                    { text: "Qualidade premium, usado com moderação. Sem vícios ocultos. Compra segura.", tags: ["Premium", "Segura"] },
+                    { text: "Produto revisado por técnico. Laudo disponível. Garantia de 30 dias.", tags: ["Técnico", "Laudo"] },
+                    { text: "Na caixa original, com manuais. Comprado para presente, não foi usado.", tags: ["Caixa", "Presente"] },
+                    { text: "Excelente oportunidade! Produto em dia, sem pendências. Documentação completa.", tags: ["Oportunidade", "Documentação"] },
+                    { text: "Seminovo, cara de novo. Tratado com muito zelo. Aceito PIX ou cartão.", tags: ["Zelo", "PIX"] },
+                    { text: "Produto de qualidade, marca reconhecida. Leve detalhe estético. Funcionamento perfeito.", tags: ["Qualidade", "Detalhe"] },
+                    { text: "Em mãos para teste. Pode vir ver antes de comprar. Transparência total.", tags: ["Teste", "Transparência"] },
+                    { text: "Vendo por motivo de viagem. Precisando de dinheiro. Aceito proposta justa.", tags: ["Viagem", "Proposta"] },
+                    { text: "Produto top de linha, o melhor da categoria. Oportunidade única.", tags: ["Top de Linha", "Único"] },
+                    { text: "Conservado, funcional, bonito. Tudo que você precisa. Preço imbatível.", tags: ["Completo", "Imbatível"] },
+                    { text: "Sem segredo, sem defeito oculto. O que você vê é o que você leva.", tags: ["Transparente", "Honesto"] },
+                    { text: "Produto com histórico de cuidado. Nunca apresentou problema. Confiável.", tags: ["Cuidado", "Confiável"] },
+                    { text: "Aceito sua proposta! Vamos negociar. Quero vender ainda hoje.", tags: ["Negociação", "Hoje"] },
+                    { text: "Produto diferenciado, acima da média. Para quem busca qualidade.", tags: ["Diferenciado", "Qualidade"] },
+                    { text: "Tudo funcionando, tudo original. Garantia de procedência. Vem tranquilo!", tags: ["Original", "Procedência"] },
+                    { text: "Barbada! Preço imperdível. Aproveite antes que acabe. Última unidade.", tags: ["Barbada", "Última"] }
+                ]
+            },
+
+            // DESCRIÇÕES - MÉDIAS
+            "descricoes-medias": {
+                title: "Descrições Médias",
+                icon: "fa-align-center",
+                templates: [
+                    { text: "Produto em excelente estado de conservação, funcionando perfeitamente. Sempre guardado em local seco e arejado. Acompanha todos os acessórios originais incluindo caixa e manual. Aceito cartão de crédito em até 6x sem juros ou desconto especial para pagamento via PIX.", tags: ["Completo", "Parcelamento"] },
+                    { text: "Seminovo com pouquíssimo uso, aparência de produto novo. Comprado há menos de 6 meses em loja autorizada, nota fiscal disponível para comprovação. Garantia de fábrica ainda válida. Motivo da venda: upgrade para modelo superior.", tags: ["Seminovo", "Garantia"] },
+                    { text: "Único dono desde a compra, sempre tratado com muito cuidado. Nunca apresentou qualquer problema ou defeito. Funcionamento 100% garantido. Produto original com todas as características de fábrica preservadas. Entrego em mãos na região ou envio pelos Correios.", tags: ["Único Dono", "Envio"] },
+                    { text: "Oportunidade imperdível! Produto premium sendo vendido por preço de seminovo. Estado impecável, sem marcas de uso visíveis. Acompanha acessórios extras que não vêm de fábrica. Aceito troca por item do meu interesse com volta se necessário.", tags: ["Premium", "Troca"] },
+                    { text: "Produto revisado e testado antes do anúncio. Tudo funcionando conforme especificações originais. Bateria/componentes em ótimo estado. Pequenos sinais de uso que não comprometem em nada a funcionalidade. Preço negociável para venda rápida.", tags: ["Revisado", "Negociável"] },
+                    { text: "Comprado para projeto que não aconteceu, por isso está praticamente sem uso. Lacre original violado apenas para conferência. Produto nunca foi utilizado na prática. Vendo pelo valor que paguei, sem interesse em lucro.", tags: ["Sem Uso", "Custo"] },
+                    { text: "Item de colecionador em estado excepcional. Guardado em condições ideais desde a aquisição. Difícil de encontrar nesse estado de conservação. Produto para quem realmente entende e valoriza. Não aceito trocas, apenas venda.", tags: ["Colecionador", "Raro"] },
+                    { text: "Estou vendendo porque preciso levantar uma grana urgente. Produto está em perfeitas condições, pode testar à vontade antes de levar. Preço está bem abaixo do mercado. Aceito propostas justas. Respondo rápido.", tags: ["Urgente", "Propostas"] },
+                    { text: "Produto original adquirido em loja oficial. Usado por apenas 3 meses de forma esporádica. Estado de conservação acima da média. Acompanha caixa, manuais e acessórios completos. Entrego na região ou combino ponto de encontro.", tags: ["Original", "Esporádico"] },
+                    { text: "Vendendo por mudança de cidade, não tenho como levar. Produto está em dia, funcionando 100%. Sempre teve manutenção preventiva em dia. Documentação completa disponível para verificação. Preço especial para quem fechar rápido.", tags: ["Mudança", "Manutenção"] },
+                    { text: "Excelente custo-benefício! Produto de qualidade superior por preço acessível. Pequenas marcas de uso que são normais. Funcionalidade totalmente preservada. Ideal para quem busca economia sem abrir mão da qualidade.", tags: ["Custo-Benefício", "Economia"] },
+                    { text: "Seminovo em ótimo estado, usado com muito cuidado durante todo o período. Sempre limpo e guardado adequadamente após o uso. Sem qualquer tipo de defeito ou mau funcionamento. Aceito cartão ou PIX com pequeno desconto.", tags: ["Cuidado", "Desconto"] },
+                    { text: "Produto de primeira linha, top da categoria. Estado geral muito bom, com mínimos sinais de uso. Nenhum problema relatado durante o tempo de uso. Acompanha certificado de garantia estendida. Preço justo e negociável.", tags: ["Top", "Garantia Estendida"] },
+                    { text: "Vendo com dor no coração, mas preciso. Produto que sempre funcionou perfeitamente. Bem conservado, higienizado e pronto para uso. Entrego com todos os complementos originais. Aceito proposta, mas sem exageros.", tags: ["Conservado", "Proposta"] },
+                    { text: "Produto profissional de alta performance. Usado em ambiente controlado e com manutenção regular. Estado de funcionamento impecável. Pequenos sinais estéticos que não afetam o uso. Oportunidade para profissionais da área.", tags: ["Profissional", "Performance"] },
+                    { text: "Na caixa original com todos os acessórios de fábrica. Lacres internos ainda intactos. Produto armazenado corretamente, nunca exposto a condições adversas. Garantia oficial válida. Aceito parcelamento no cartão.", tags: ["Caixa", "Lacres"] },
+                    { text: "Produto raro de encontrar no mercado, ainda mais nesse estado. Conservação nota 10. Funcionamento perfeito em todos os aspectos. Acompanha itens bônus adquiridos separadamente. Só vendo, não aceito trocas.", tags: ["Raro", "Bônus"] },
+                    { text: "Usado apenas para testes, praticamente novo. Motivo da venda: não atendeu minha necessidade específica. Produto perfeito para quem precisa exatamente disso. Preço de desapego, bem abaixo do mercado.", tags: ["Testes", "Desapego"] },
+                    { text: "Comprado na Black Friday do ano passado, usado poucas vezes. Estado excelente, difícil encontrar melhor. Todos os itens originais inclusos. Aceito negociação para pagamento à vista. Entrego limpo e revisado.", tags: ["Black Friday", "Negociação"] },
+                    { text: "Produto de qualidade comprovada, marca referência no segmento. Funcionando sem nenhuma ressalva. Pequenos detalhes estéticos pelo uso. Nada que comprometa. Ótima oportunidade para adquirir produto premium por menos.", tags: ["Qualidade", "Premium"] },
+                    { text: "Seminovo com cara de zero km. Difícil achar igual. Sempre guardei com muito zelo e cuidado. Produto para pessoas exigentes que não abrem mão da qualidade. Preço firme, mas escuto propostas sensatas.", tags: ["Zero KM", "Exigente"] },
+                    { text: "Vendendo porque ganhei outro igual. Este aqui tem história de cuidado. Funciona perfeitamente, testado e aprovado. Acompanha tudo que veio na compra original. Aceito PIX, cartão ou dinheiro.", tags: ["Ganhei", "Testado"] },
+                    { text: "Produto comprado para uso específico que já foi finalizado. Estado de conservação surpreendente. Nenhum defeito ou problema. Acompanha manual e acessórios originais. Oportunidade única.", tags: ["Uso Específico", "Surpreendente"] },
+                    { text: "Item original, cuidadosamente mantido desde a compra. Revisões em dia, funcionamento garantido. Não apresenta vícios ou problemas ocultos. Transparência total - pode testar à vontade. Preço especial para venda imediata.", tags: ["Mantido", "Transparência"] },
+                    { text: "Produto em estado de novo, usado menos de 5 vezes. Guardei porque achei que fosse usar mais. Está parado há meses. Melhor vender para quem vai dar uso. Preço de oportunidade.", tags: ["Parado", "Oportunidade"] },
+                    { text: "Qualidade superior, produto diferenciado. Estado geral muito acima da média. Funciona como deveria, sem exceções. Aceito sua visita para conferência antes da compra. Negociamos na hora.", tags: ["Superior", "Conferência"] },
+                    { text: "Estou me mudando e preciso vender. Produto em excelente estado, sempre funcionou perfeitamente. Aceito proposta justa. Preço já está bem abaixo do mercado. Aproveite enquanto está disponível.", tags: ["Mudando", "Disponível"] },
+                    { text: "Produto autêntico com certificado de origem. Estado impecável de conservação. Guardado em local apropriado. Todos os documentos disponíveis. Ideal para quem valoriza procedência.", tags: ["Autêntico", "Procedência"] },
+                    { text: "Bem conservado, funcionando 100%. Pequenos sinais de uso normais. Bateria/componentes em ótimo estado. Acessórios originais inclusos. Preço fixo, sem margem para negociação.", tags: ["Conservado", "Preço Fixo"] },
+                    { text: "Produto top de linha que não uso mais. Estado de conservação excelente. Funcionamento perfeito, pode testar. Acompanha todos os itens originais. Preço especial para venda rápida.", tags: ["Top", "Venda Rápida"] },
+                    { text: "Seminovo com menos de 1 ano de uso. Sempre mantido com cuidado. Sem defeitos ou problemas. Aceito troca por item de menor valor + diferença em dinheiro.", tags: ["1 Ano", "Troca Diferença"] },
+                    { text: "Produto premium sendo desapegado. Estado nota 9. Mínimos sinais de uso que não comprometem. Funcionamento 100% garantido. Oportunidade para quem busca qualidade.", tags: ["Desapego", "Nota 9"] },
+                    { text: "Comprei e não me adaptei. Produto praticamente novo. Usado menos de 10 vezes. Acompanha tudo que veio na caixa. Vendo pelo que paguei. Sem interesse em lucro.", tags: ["Não Adaptei", "Custo"] },
+                    { text: "Vendendo porque preciso de dinheiro. Produto em perfeito estado. Sempre cuidei muito bem. Pode vir testar à vontade. Aceito proposta, mas nada absurdo.", tags: ["Preciso", "Testar"] },
+                    { text: "Item de qualidade, marca conhecida. Estado geral muito bom. Funcionamento perfeito. Pequenos detalhes estéticos normais de uso. Preço justo pelo que oferece.", tags: ["Qualidade", "Justo"] },
+                    { text: "Produto original com todos os selos de autenticidade. Estado de conservação acima do esperado. Funcionamento impecável. Documentação completa. Aceito cartão em até 12x.", tags: ["Autenticidade", "12x"] },
+                    { text: "Seminovo em condições excepcionais. Pouco uso, muito cuidado. Todos os componentes originais. Garantia estendida ainda válida. Preço negociável para pagamento à vista.", tags: ["Excepcional", "Garantia"] },
+                    { text: "Estou vendendo para comprar outra coisa. Produto em ótimo estado. Funciona perfeitamente. Aceito troca por item do meu interesse. Podemos negociar valores.", tags: ["Troca", "Negociar"] },
+                    { text: "Produto revisado por profissional da área. Tudo em ordem, funcionando como deveria. Pequenos sinais de uso. Acompanha laudo técnico. Garantia de 30 dias.", tags: ["Revisado", "Laudo"] },
+                    { text: "Oportunidade única de adquirir produto premium por preço de usado. Estado de conservação impecável. Funcionamento garantido. Aceito PIX com desconto especial.", tags: ["Premium", "PIX Desconto"] },
+                    { text: "Vendendo porque não tenho mais espaço. Produto em excelente estado. Sempre guardado corretamente. Todos os acessórios inclusos. Preço de ocasião.", tags: ["Espaço", "Ocasião"] },
+                    { text: "Produto de alta qualidade, marca referência. Estado muito bom, funciona 100%. Mínimos sinais de uso. Aceito propostas justas. Respondo rápido.", tags: ["Alta Qualidade", "Propostas"] },
+                    { text: "Seminovo com pouquíssimas marcas de uso. Funcionamento impecável testado. Acompanha todos os itens originais de fábrica. Preço especial para quem fechar hoje.", tags: ["Poucas Marcas", "Hoje"] },
+                    { text: "Item raro em estado colecionável. Guardado em condições ideais. Documentação completa. Só vendo para conhecedores que valorizam. Preço firme.", tags: ["Raro", "Conhecedores"] },
+                    { text: "Produto comprado recentemente, sem uso. Ainda no período de garantia de fábrica. Vendo por arrependimento de compra. Preço de custo, não viso lucro.", tags: ["Recente", "Arrependimento"] },
+                    { text: "Bem cuidado, funcionando perfeitamente. Estado de conservação surpreendente pelo tempo de uso. Aceito troca por item similar + volta se necessário.", tags: ["Bem Cuidado", "Similar"] },
+                    { text: "Estou vendendo vários itens por mudança. Este aqui está em excelente estado. Funciona 100%. Preço especial para levar hoje. Aceito cartão.", tags: ["Mudança", "Cartão"] },
+                    { text: "Produto original importado. Estado impecável. Pouco uso. Documentação completa. Garantia internacional válida. Oportunidade para quem busca qualidade premium.", tags: ["Importado", "Internacional"] },
+                    { text: "Vendendo para renovar. Produto em ótimo estado, sempre funcionou bem. Manutenção em dia. Aceito proposta justa. Preço já está abaixo do mercado.", tags: ["Renovar", "Manutenção"] },
+                    { text: "Seminovo praticamente sem uso. Comprei, usei 2 vezes, guardei. Está parado há meses. Melhor passar pra frente. Preço de desapego.", tags: ["Parado", "Desapego"] }
+                ]
+            },
+
+            // DESCRIÇÕES - DETALHADAS
+            "descricoes-detalhadas": {
+                title: "Descrições Detalhadas",
+                icon: "fa-align-justify",
+                templates: [
+                    { text: "Olá! Estou vendendo este produto que adquiri há aproximadamente 8 meses em loja oficial autorizada. Durante todo esse período, foi usado de forma esporádica e sempre com muito cuidado. O estado de conservação é excelente, praticamente como novo, sem marcas de uso visíveis ou qualquer tipo de defeito.\n\nO produto funciona 100%, foi testado antes do anúncio e está pronto para uso imediato. Acompanha todos os acessórios originais de fábrica, incluindo caixa, manuais, cabos e carregadores. A nota fiscal está disponível para comprovação de procedência e ativação de garantia se necessário.\n\nMotivo da venda: estou fazendo upgrade para um modelo mais recente e preciso liberar espaço. Aceito cartão de crédito em até 10x sem juros ou desconto especial de 5% para pagamento via PIX. Também aceito propostas razoáveis.\n\nEntrego em mãos em local público (shopping, estação de metrô) ou envio pelos Correios com frete por conta do comprador. Qualquer dúvida, só chamar que respondo rapidamente!", tags: ["Detalhada", "Completa"] },
+                    { text: "Atenção compradores exigentes! Este é daqueles produtos que você raramente encontra no mercado de usados, ainda mais nesse estado de conservação impecável.\n\nHistórico: Comprei novo há 1 ano para um projeto específico que durou apenas 3 meses. Depois disso, ficou guardado em ambiente climatizado, protegido de poeira e umidade. Literalmente parece que acabou de sair da caixa.\n\nCondição atual: Funcionamento 100% em todos os aspectos testados. Bateria/componentes em estado de novo. Nenhum risco, arranhão ou marca de uso. Esteticamente perfeito.\n\nO que acompanha: Produto principal, todos os acessórios originais, caixa com isopor de proteção, manuais em português, nota fiscal eletrônica, certificado de garantia (ainda válido por mais 6 meses).\n\nFormas de pagamento: PIX (desconto de 8%), cartão de crédito (até 12x com juros da maquininha), transferência bancária ou dinheiro em espécie.\n\nNão aceito trocas - apenas venda. Preço está 30% abaixo da tabela por conta do estado e urgência em vender. Oportunidade real!", tags: ["Exigentes", "Impecável"] },
+                    { text: "LEIA COM ATENÇÃO - Transparência total!\n\nVendendo este produto que foi meu companheiro por 2 anos de uso intenso. Sim, foi bem usado, e é por isso que o preço está tão atrativo.\n\nPontos positivos:\n- Funcionamento 100% garantido\n- Todos os recursos operando normalmente\n- Sem problemas mecânicos ou eletrônicos\n- Bateria/componentes ainda com boa vida útil\n- Acessórios originais inclusos\n\nPontos de atenção:\n- Marcas de uso visíveis (arranhões leves na estrutura)\n- Pequeno desgaste nas partes mais manuseadas\n- Caixa original um pouco danificada\n\nMesmo assim, funciona perfeitamente e tem muito tempo de vida pela frente. Ideal para quem busca economia e não se importa com detalhes estéticos.\n\nPreço FIXO e justo pelo que oferece. Não aceito propostas absurdas. Aceito cartão, PIX ou dinheiro. Entrego na região ou combino envio.", tags: ["Transparência", "Usado"] },
+                    { text: "🔥 OPORTUNIDADE ÚNICA 🔥\n\nSe você está procurando um produto de qualidade premium por um preço acessível, sua busca acabou!\n\nEstou vendendo este item que comprei há 6 meses pensando em usar no dia a dia, mas minha rotina mudou e ele ficou parado. Resultado: produto praticamente novo, com menos de 20 utilizações no total.\n\nSobre o estado de conservação:\n→ Visual: 9.5/10 (mínimas marcas imperceptíveis)\n→ Funcionamento: 10/10 (perfeito em tudo)\n→ Bateria/Componentes: 10/10 (praticamente novo)\n→ Acessórios: 10/10 (todos originais e em perfeito estado)\n\nDiferenciais desta oferta:\n✓ Nota fiscal para garantia\n✓ Caixa original perfeita\n✓ Manuais e documentação\n✓ Acessórios extras que comprei à parte\n✓ Garantia ainda válida por 6 meses\n\nFormas de pagamento flexíveis:\n• PIX: desconto de 10%\n• Cartão: até 12x (juros da maquininha)\n• Dinheiro: aceito\n• Troca: avalio propostas interessantes\n\nPor que estou vendendo barato? Simples: preciso do dinheiro e prefiro vender rápido do que ficar meses tentando. Aproveite!", tags: ["Oportunidade", "Premium"] }
+                ]
+            },
+
+            // DESCRIÇÕES - PERSUASIVAS
+            "descricoes-persuasivas": {
+                title: "Descrições Persuasivas",
+                icon: "fa-magic",
+                templates: [
+                    { text: "⚠️ ATENÇÃO: Este anúncio não vai durar muito!\n\nSe você está vendo isso, é porque ainda está disponível - mas não por muito tempo. Já recebi 5 mensagens hoje e estou priorizando quem fechar primeiro.\n\nProduto em estado impecável, funcionando 100%. Preço 40% abaixo do mercado porque preciso vender HOJE. Primeiro que chamar e fechar, leva.", tags: ["Urgência", "Escassez"] },
+                    { text: "🏆 MELHOR CUSTO-BENEFÍCIO DA REGIÃO!\n\nPesquisei antes de anunciar: você NÃO vai encontrar esse produto nesse estado por esse preço em lugar nenhum. Garantido.\n\nEstado de novo, funcionamento perfeito, todos os acessórios. E ainda parcelo no cartão. O que mais você precisa?\n\nMas atenção: esse preço é só até sexta-feira. Depois, volta ao valor normal de mercado.", tags: ["Custo-Benefício", "Prazo"] },
+                    { text: "💡 VOCÊ ESTÁ PRESTES A FAZER UM ÓTIMO NEGÓCIO\n\nEnquanto outros estão pedindo R$ X por produtos com defeito e sem acessórios, estou oferecendo:\n\n✅ Produto original e funcionando 100%\n✅ Todos os acessórios de fábrica\n✅ Nota fiscal para garantia\n✅ Estado de conservação nota 10\n\nPor um preço que você não vai acreditar. Sério, me agradeça depois.", tags: ["Comparação", "Valor"] },
+                    { text: "🤔 AINDA EM DÚVIDA?\n\nEntendo sua cautela - eu também sou assim quando compro. Por isso, ofereço:\n\n→ Teste completo antes de levar\n→ Fotos extras e vídeo funcionando\n→ Toda documentação disponível\n→ Garantia pessoal de 7 dias\n\nSe não gostar, devolvemos seu dinheiro. Simples assim. Agora você não tem mais desculpa para não levar, certo?", tags: ["Garantia", "Confiança"] },
+                    { text: "📢 ÚLTIMA UNIDADE - PREÇO DE DESAPEGO!\n\nOlha, vou ser sincero: esse produto vale muito mais do que estou pedindo. Mas preciso vender rápido por motivos pessoais.\n\nNormalmente esse item é vendido por R$ X. Estou passando por R$ Y. Economia de R$ Z no seu bolso.\n\nNão vou baixar mais. Não vou guardar. Primeiro que vier com o valor, leva hoje mesmo.", tags: ["Desapego", "Economia"] },
+                    { text: "🎯 PARA QUEM SABE RECONHECER QUALIDADE\n\nEste não é um produto qualquer. É [marca/modelo específico], referência absoluta no mercado. E está em estado de exposição.\n\nSe você entende do assunto, sabe que é raro encontrar nessa condição. Se não entende, confie: você está diante de uma oportunidade que não vai se repetir.\n\nPreço firme para quem valoriza. Sem propostas absurdas, por favor.", tags: ["Qualidade", "Exclusividade"] },
+                    { text: "💰 INVISTA CERTO - ECONOMIZE R$ XXX!\n\nVamos fazer as contas juntos:\n\n• Produto novo na loja: R$ X\n• Este produto (estado de novo): R$ Y\n• Sua economia: R$ Z\n\nCom essa diferença você paga uma viagem, um jantar especial ou guarda para emergências. E ainda leva um produto que funciona EXATAMENTE igual ao novo.\n\nDecisão inteligente é isso aí.", tags: ["Economia", "Inteligente"] },
+                    { text: "⏰ OFERTA RELÂMPAGO - VÁLIDA ATÉ MEIA-NOITE!\n\nNão vou ficar repetindo esse anúncio. Hoje é o dia de vender e amanhã esse preço não existe mais.\n\nProduto perfeito, funcionando 100%, com todos os acessórios. Estou praticamente dando de presente.\n\nSe você estava esperando a oportunidade certa, ela chegou. Chama no chat agora e garante o seu.", tags: ["Relâmpago", "Prazo"] }
+                ]
+            },
+
+            // RESPOSTAS - SAUDAÇÃO
+            "respostas-saudacao": {
+                title: "Respostas de Saudação",
+                icon: "fa-hand-wave",
+                templates: [
+                    { text: "Olá! Tudo bem? 😊 Sim, o produto ainda está disponível! Como posso te ajudar?", tags: ["Amigável"] },
+                    { text: "Oi! Está disponível sim! Qual sua região para combinarmos a entrega?", tags: ["Direto"] },
+                    { text: "Boa tarde! Obrigado pelo interesse! Sim, ainda tenho. Posso te ajudar com mais informações?", tags: ["Cordial"] },
+                    { text: "E aí! Beleza? Disponível sim! Tá interessado mesmo ou só pesquisando preços? 😄", tags: ["Informal"] },
+                    { text: "Olá! Ainda tenho sim! É exatamente o que está nas fotos. Quer que eu mande mais detalhes?", tags: ["Informativo"] },
+                    { text: "Oi! Disponível e pronto para entrega! Você é de qual bairro/cidade?", tags: ["Objetivo"] },
+                    { text: "Olá! Fico feliz com seu interesse! Sim, está disponível. Pode perguntar o que quiser!", tags: ["Receptivo"] },
+                    { text: "Boa noite! Disponível sim! Já vou adiantando: aceito cartão e faço entrega. Mais alguma dúvida?", tags: ["Proativo"] },
+                    { text: "Oi! Tá disponível! Esse produto é muito bom, tenho certeza que vai gostar. O que precisa saber?", tags: ["Entusiasmado"] },
+                    { text: "Olá! Sim, ainda está disponível! Estou online agora, qualquer dúvida pode perguntar!", tags: ["Disponível"] },
+                    { text: "E aí! Disponível e negociável! Qual sua melhor oferta?", tags: ["Negociador"] },
+                    { text: "Oi! Tá disponível sim! Só pra confirmar: você viu todas as fotos do anúncio?", tags: ["Confirmação"] },
+                    { text: "Olá! Está disponível! Esse é o último que tenho. Interesse real?", tags: ["Escassez"] },
+                    { text: "Boa tarde! Disponível e com preço especial pra quem fechar hoje! Vamos conversar?", tags: ["Urgência"] },
+                    { text: "Oi! Tudo joia? Disponível sim! Respondo rapidinho, pode mandar suas dúvidas!", tags: ["Ágil"] },
+                    { text: "Olá! Que bom que se interessou! Sim, ainda tenho. É pra você mesmo ou pra presentear?", tags: ["Personalizado"] },
+                    { text: "E aí, blz? Disponível! Tô vendendo porque comprei outro. Tá novo, pode confiar!", tags: ["Casual"] },
+                    { text: "Olá! Disponível sim! Você chegou na hora certa, tava quase tirando o anúncio!", tags: ["Timing"] },
+                    { text: "Oi! Ainda tenho sim! Me conta: o que te chamou atenção no anúncio?", tags: ["Curioso"] },
+                    { text: "Olá! Disponível e ansioso pra vender! Me fala o que você precisa saber 😊", tags: ["Motivado"] }
+                ]
+            },
+
+            // RESPOSTAS - NEGOCIAÇÃO
+            "respostas-negociacao": {
+                title: "Respostas de Negociação",
+                icon: "fa-handshake",
+                templates: [
+                    { text: "Olha, o preço já está bem abaixo do mercado, mas se você fechar agora, consigo tirar mais R$ X. Fechamos?", tags: ["Desconto"] },
+                    { text: "Entendo que quer desconto, mas esse valor é o mínimo que posso fazer. O produto vale cada centavo, garanto!", tags: ["Preço Firme"] },
+                    { text: "Posso fazer por esse valor SÓ se você buscar hoje. Se eu tiver que entregar, aí fica o preço do anúncio.", tags: ["Condição"] },
+                    { text: "Cara, vou ser honesto: já tive propostas melhores e não aceitei. Mas se fechar agora no PIX, consigo R$ X.", tags: ["Honestidade"] },
+                    { text: "Esse preço é para venda rápida. Se eu for esperar, vendo pelo preço cheio em outro lugar. Aproveita!", tags: ["Urgência"] },
+                    { text: "Consigo parcelar em até 6x no cartão. Assim fica mais suave pra você. O que acha?", tags: ["Parcelamento"] },
+                    { text: "Se você levar os dois itens juntos, faço um preço especial no combo. Interessado?", tags: ["Combo"] },
+                    { text: "Não consigo baixar mais no preço, mas posso incluir [acessório/brinde] sem custo. Fecha?", tags: ["Brinde"] },
+                    { text: "Vou pensar na sua proposta, mas não posso garantir. Se alguém cobrir antes, vou vender. Ok?", tags: ["Pressão"] },
+                    { text: "Consigo fazer o desconto, mas só se você vier buscar até amanhã. Depois disso, volta ao preço normal.", tags: ["Prazo"] },
+                    { text: "Aceito sua proposta se você pagar via PIX. No cartão, precisa ser o valor cheio. Pode ser?", tags: ["PIX"] },
+                    { text: "Esse é o menor valor que consigo. Tô vendendo no prejuízo já. Mas se você tem interesse real, vamos conversar.", tags: ["Prejuízo"] },
+                    { text: "Não tenho como baixar mais, mas garanto que você não vai se arrepender. Produto tá impecável!", tags: ["Garantia"] },
+                    { text: "Olha, tenho outra pessoa interessada oferecendo o mesmo valor. Quem fechar primeiro, leva.", tags: ["Competição"] },
+                    { text: "Consigo fazer R$ X, mas é minha última palavra. Menos que isso não dá mesmo.", tags: ["Final"] },
+                    { text: "Se você está comparando preços, pode comparar. Mas duvido que encontre nesse estado por esse valor.", tags: ["Comparação"] },
+                    { text: "Vou manter esse preço até sexta. Depois vou reajustar pro valor de mercado. Aproveita enquanto dá!", tags: ["Deadline"] },
+                    { text: "Pra você eu faço! Mas não conta pra ninguém, senão todo mundo vai querer desconto também 😄", tags: ["Exclusivo"] },
+                    { text: "Aceito troca + diferença em dinheiro. O que você tem pra oferecer?", tags: ["Troca"] },
+                    { text: "Posso segurar até amanhã pra você decidir. Mas se aparecer alguém com o valor cheio, vou vender. Blz?", tags: ["Reserva"] },
+                    { text: "Cara, pelo estado do produto e tudo que acompanha, esse preço tá dado. Mas faço R$ X à vista.", tags: ["Valor"] },
+                    { text: "Não dá pra baixar mais no preço, mas pago o frete pra você. Serve?", tags: ["Frete"] },
+                    { text: "Deixa eu ver... consigo tirar R$ X. Mas aí é pagamento hoje e buscar amanhã. Pode ser?", tags: ["Condições"] },
+                    { text: "Tenho flexibilidade no pagamento: metade agora, metade na entrega. O que acha?", tags: ["Parcelado"] },
+                    { text: "Vou aceitar sua proposta porque preciso vender logo. Mas sabe que tá levando barato, né?", tags: ["Aceitar"] }
+                ]
+            },
+
+            // RESPOSTAS - OBJEÇÕES
+            "respostas-objecoes": {
+                title: "Respostas para Objeções",
+                icon: "fa-shield-alt",
+                templates: [
+                    { text: "Entendo sua preocupação! Por isso ofereço: venha ver pessoalmente, teste à vontade antes de decidir. Transparência total!", tags: ["Teste"] },
+                    { text: "Olha, o produto tem nota fiscal da loja oficial. Posso te mandar foto agora. Mais original impossível!", tags: ["Nota Fiscal"] },
+                    { text: "Funciona 100%, pode confiar! Se quiser, faço uma chamada de vídeo agora e mostro funcionando ao vivo.", tags: ["Vídeo"] },
+                    { text: "O preço tá bom porque preciso vender rápido, não porque tem defeito. Pode vir testar sem compromisso!", tags: ["Preço"] },
+                    { text: "Tenho vários feedbacks positivos de vendas anteriores. Posso te passar contato de outros compradores.", tags: ["Referência"] },
+                    { text: "O produto está exatamente como nas fotos. Não escondo nada. Se não gostar pessoalmente, sem problema.", tags: ["Fotos Reais"] },
+                    { text: "A garantia de fábrica ainda está válida. Qualquer problema, você aciona direto a autorizada.", tags: ["Garantia"] },
+                    { text: "Aceito pagamento só depois que você testar e aprovar. Assim você não corre nenhum risco.", tags: ["Pagamento Depois"] },
+                    { text: "Posso encontrar em local público, shopping ou estação de metrô. Sua segurança é prioridade também!", tags: ["Local Público"] },
+                    { text: "Não tenho nada a esconder! Me passa seu WhatsApp que mando um vídeo detalhado do produto agora.", tags: ["WhatsApp"] },
+                    { text: "Esse produto foi revisado por técnico há 1 mês. Tenho o laudo, posso te enviar se quiser.", tags: ["Laudo"] },
+                    { text: "Sou vendedor há X anos, zero reclamação. Minha reputação é meu maior patrimônio, não vou arriscar.", tags: ["Reputação"] },
+                    { text: "Se preferir, podemos fechar via plataforma segura tipo Mercado Pago. Assim você tem proteção.", tags: ["Plataforma"] },
+                    { text: "Posso emitir um recibo de compra e venda com nossos dados. Tudo certinho e documentado.", tags: ["Recibo"] },
+                    { text: "Entendo a desconfiança, é normal. Mas te garanto: se não atender suas expectativas, nem feche negócio.", tags: ["Compreensão"] },
+                    { text: "O produto estava guardado, por isso está nesse estado. Último uso foi há X meses. Posso provar!", tags: ["Estado"] },
+                    { text: "Bateria/componentes ainda em ótimo estado. Posso te mostrar o nível atual funcionando.", tags: ["Componentes"] },
+                    { text: "Se você está em dúvida sobre o valor, pesquisa aí o preço médio. Vai ver que tá mais do que justo.", tags: ["Pesquisa"] },
+                    { text: "Comprei de loja autorizada, tenho todos os documentos. Procedência 100% garantida.", tags: ["Procedência"] },
+                    { text: "Posso dar uma garantia pessoal de 7 dias. Se apresentar defeito, devolvo seu dinheiro.", tags: ["Garantia Pessoal"] },
+                    { text: "Aceito te encontrar no banco pra você verificar as notas antes de pagar. Transparência total!", tags: ["Banco"] },
+                    { text: "O produto é original sim! Tenho código de verificação, você pode checar no site do fabricante.", tags: ["Código"] },
+                    { text: "Essas marcas são mínimas e normais de uso. Não afetam em nada o funcionamento. Quer ver de perto?", tags: ["Marcas"] },
+                    { text: "A descrição está 100% correta. Se quando você ver não estiver como eu falei, nem precisa levar.", tags: ["Descrição"] },
+                    { text: "Não sou loja, sou pessoa física vendendo meu próprio item. Por isso consigo fazer esse preço.", tags: ["Pessoa Física"] }
+                ]
+            },
+
+            // RESPOSTAS - FECHAMENTO
+            "respostas-fechamento": {
+                title: "Respostas de Fechamento",
+                icon: "fa-check-circle",
+                templates: [
+                    { text: "Perfeito! Então fechamos assim: você busca hoje às Xh no local Y. Confirma?", tags: ["Confirmar"] },
+                    { text: "Ótimo! Me passa seu endereço que já calculo o frete e te mando o valor total.", tags: ["Frete"] },
+                    { text: "Fechado! Minha chave PIX é [chave]. Assim que cair, separo o produto pra você.", tags: ["PIX"] },
+                    { text: "Combinado! Vou reservar pra você até amanhã às 18h. Depois disso libero pra outras pessoas, ok?", tags: ["Reserva"] },
+                    { text: "Perfeito! Vou te mandar a localização certinha pelo WhatsApp. Qual seu número?", tags: ["WhatsApp"] },
+                    { text: "Fechado então! Só pra confirmar: você quer o produto + [acessório] por R$ X, correto?", tags: ["Resumo"] },
+                    { text: "Boa! Então te encontro amanhã às Xh na estação Y. Me manda uma mensagem quando estiver chegando!", tags: ["Encontro"] },
+                    { text: "Combinado! Vou preparar tudo certinho pra você: produto, acessórios, nota fiscal. Até amanhã!", tags: ["Preparar"] },
+                    { text: "Fechamos! Segura aí que já vou postar nos Correios. Te mando o código de rastreio hoje ainda.", tags: ["Envio"] },
+                    { text: "Perfeito! Pagamento confirmado! Vou embalar com cuidado e te mando foto antes de enviar.", tags: ["Confirmado"] },
+                    { text: "Ótimo negócio! Tenho certeza que você vai gostar. Qualquer dúvida depois, pode me chamar!", tags: ["Pós-venda"] },
+                    { text: "Negócio fechado! Me confirma: cartão em X vezes ou PIX com desconto?", tags: ["Pagamento"] },
+                    { text: "Combinado! Vou separar tudo e te mando foto do pacote pronto. Endereço de entrega certinho qual é?", tags: ["Pacote"] },
+                    { text: "Fechou! Prazer fazer negócio com você. Se gostar, me indica pros amigos! 😄", tags: ["Indicação"] },
+                    { text: "Perfeito! Reservado no seu nome. Amanhã às Xh na frente do shopping. Carro cor Y. Até lá!", tags: ["Detalhes"] },
+                    { text: "Negócio feito! Me manda o comprovante do PIX que já te confirmo o recebimento.", tags: ["Comprovante"] },
+                    { text: "Combinado! Vou testar mais uma vez antes de entregar pra garantir que tá tudo 100%. Até mais!", tags: ["Testar"] },
+                    { text: "Fechado! Obrigado pela preferência. Vou preparar tudo e te aviso quando estiver pronto pra entrega.", tags: ["Agradecimento"] },
+                    { text: "Ótimo! Negócio fechado. Guarda meu contato: se precisar de algo no futuro, pode me chamar!", tags: ["Contato"] },
+                    { text: "Combinado! Manda o endereço completo com CEP que já calculo o frete mais em conta pra você.", tags: ["CEP"] },
+                    { text: "Perfeito, fechamos! Só confirma: você prefere Sedex ou PAC? Vou te passar o valor de cada um.", tags: ["Modalidade"] },
+                    { text: "Boa! Vou mandar no privado os dados pra pagamento. Assim que confirmar, já despacho!", tags: ["Privado"] },
+                    { text: "Fechou! Me encontra na portaria do shopping às Xh. Vou estar de camisa Y. Até lá!", tags: ["Visual"] },
+                    { text: "Combinado! Fico no aguardo do pagamento. Assim que cair, te mando mensagem confirmando!", tags: ["Aguardo"] },
+                    { text: "Negócio fechado! Parabéns pela compra. Tenho certeza que você fez um ótimo negócio!", tags: ["Parabéns"] },
+                    { text: "Perfeito! Vou embalar com carinho e mandar foto do pacote. Amanhã já está na transportadora!", tags: ["Embalar"] },
+                    { text: "Fechamos! Você fez uma excelente escolha. Qualquer problema, me procura que resolvo!", tags: ["Suporte"] },
+                    { text: "Ótimo! Vou preparar tudo e te aviso quando despachar. Você vai receber o código de rastreio!", tags: ["Rastreio"] },
+                    { text: "Combinado! Prazer enorme fazer negócio contigo. Sucesso com seu novo produto!", tags: ["Sucesso"] },
+                    { text: "Fechado! Me confirma: quer que eu passe o Mercado Pago pra ter a garantia da plataforma?", tags: ["Mercado Pago"] }
+                ]
+            },
+
+            // GATILHOS - URGÊNCIA
+            "gatilhos-urgencia": {
+                title: "Gatilhos de Urgência",
+                icon: "fa-clock",
+                templates: [
+                    { text: "⚠️ URGENTE: Preciso vender HOJE! Primeira proposta razoável, leva!", tags: ["Hoje"] },
+                    { text: "🔥 OFERTA RELÂMPAGO: Esse preço só vale até meia-noite!", tags: ["Meia-Noite"] },
+                    { text: "⏰ Preço promocional por tempo LIMITADO - não perca essa oportunidade!", tags: ["Limitado"] },
+                    { text: "🚨 ATENÇÃO: Várias pessoas interessadas! Quem fechar primeiro, leva!", tags: ["Concorrência"] },
+                    { text: "💥 SÓ HOJE: Desconto especial pra quem fechar nas próximas 2 horas!", tags: ["2 Horas"] },
+                    { text: "⌛ Esse anúncio vai sair do ar amanhã. Se interessou, é agora ou nunca!", tags: ["Amanhã"] },
+                    { text: "🎯 ÚLTIMA CHAMADA: Depois de hoje, não aceito mais esse valor!", tags: ["Última"] },
+                    { text: "⚡ VENDA RÁPIDA: Preciso liberar espaço urgente! Preço de desapego!", tags: ["Desapego"] },
+                    { text: "📢 Esse preço é só pra quem REALMENTE quer comprar, não pra curiosos!", tags: ["Sério"] },
+                    { text: "🔔 AVISO: Tenho 3 pessoas na fila. Quem confirmar primeiro, garante!", tags: ["Fila"] },
+                    { text: "💨 Indo embora da cidade! Tudo deve ser vendido até sexta-feira!", tags: ["Mudança"] },
+                    { text: "⏱️ Contagem regressiva: faltam 24 horas pra esse preço especial!", tags: ["24h"] },
+                    { text: "🏃 Não deixe pra depois! Oportunidade assim não aparece todo dia!", tags: ["Depois"] },
+                    { text: "🎁 BÔNUS: Quem comprar hoje ganha [brinde] de presente!", tags: ["Bônus"] },
+                    { text: "⚠️ Preço válido enquanto eu não arrumar outro comprador. Corre!", tags: ["Válido"] },
+                    { text: "🔴 AO VIVO: Estou vendendo agora. Quem chamar primeiro, negociamos!", tags: ["Ao Vivo"] },
+                    { text: "💰 Preço de BLACK FRIDAY... mas só até hoje!", tags: ["Black Friday"] },
+                    { text: "🚀 Quero vender rápido! Faça sua proposta AGORA!", tags: ["Proposta"] },
+                    { text: "📍 Estou na região agora! Quem quiser ver pessoalmente, é a hora!", tags: ["Agora"] },
+                    { text: "⏳ Oportunidade com prazo: até domingo nesse valor!", tags: ["Domingo"] }
+                ]
+            },
+
+            // GATILHOS - ESCASSEZ
+            "gatilhos-escassez": {
+                title: "Gatilhos de Escassez",
+                icon: "fa-exclamation-triangle",
+                templates: [
+                    { text: "🔴 ÚLTIMA UNIDADE! Quando vender, não tenho mais!", tags: ["Última"] },
+                    { text: "⚠️ ÚNICO NO MERCADO nesse estado e preço!", tags: ["Único"] },
+                    { text: "🏆 RARIDADE: Difícil de encontrar, ainda mais assim!", tags: ["Raro"] },
+                    { text: "📦 ESTOQUE ZERADO nas lojas! Aproveite enquanto eu tenho!", tags: ["Estoque"] },
+                    { text: "🔥 Modelo DESCONTINUADO pelo fabricante!", tags: ["Descontinuado"] },
+                    { text: "💎 EDIÇÃO LIMITADA - pouquíssimas unidades produzidas!", tags: ["Limitada"] },
+                    { text: "🚫 NÃO FABRICAM MAIS! Sua última chance de ter um!", tags: ["Não Fabricam"] },
+                    { text: "⭐ PEÇA DE COLECIONADOR em estado impecável!", tags: ["Colecionador"] },
+                    { text: "🎯 Só tenho ESSE! Não consigo outro igual!", tags: ["Único Disponível"] },
+                    { text: "📍 EXCLUSIVIDADE: Único anúncio da região!", tags: ["Exclusivo"] },
+                    { text: "🔒 RESERVADO para quem realmente quer! Sério somente!", tags: ["Reservado"] },
+                    { text: "⚡ Quantidade LIMITADÍSSIMA - não vai durar!", tags: ["Limitadíssima"] },
+                    { text: "🏅 Versão ESPECIAL que não vende em loja!", tags: ["Especial"] },
+                    { text: "💯 UM DOS ÚLTIMOS do Brasil nesse estado!", tags: ["Últimos"] },
+                    { text: "🎁 Item RARO + acessórios que não existem mais!", tags: ["Combo Raro"] }
+                ]
+            },
+
+            // GATILHOS - PROVA SOCIAL
+            "gatilhos-social": {
+                title: "Gatilhos de Prova Social",
+                icon: "fa-users",
+                templates: [
+                    { text: "⭐⭐⭐⭐⭐ Mais de 50 vendas realizadas com 100% de satisfação!", tags: ["Avaliações"] },
+                    { text: "👥 Já vendi para mais de 100 pessoas. Pode perguntar pra qualquer uma!", tags: ["Vendas"] },
+                    { text: "💬 \"Produto excelente, exatamente como descrito!\" - Cliente anterior", tags: ["Depoimento"] },
+                    { text: "🏆 Vendedor verificado com reputação impecável!", tags: ["Verificado"] },
+                    { text: "📱 Posso passar contato de clientes anteriores pra você conferir!", tags: ["Referências"] },
+                    { text: "✅ Mais de 200 negociações concluídas com sucesso!", tags: ["Negociações"] },
+                    { text: "🌟 Todos os meus compradores recomendam! Veja os feedbacks!", tags: ["Recomendação"] },
+                    { text: "👍 Zero reclamações em X anos vendendo!", tags: ["Zero Reclamação"] },
+                    { text: "📸 Veja as fotos de entregas anteriores nos meus destaques!", tags: ["Entregas"] },
+                    { text: "🤝 Confiança comprovada: cliente volta pra comprar de novo!", tags: ["Retorno"] },
+                    { text: "💯 Nota máxima em todas as plataformas que vendo!", tags: ["Nota"] },
+                    { text: "🔐 Vendedor antigo e confiável - pode pesquisar meu histórico!", tags: ["Histórico"] },
+                    { text: "⚡ Entrega rápida confirmada por dezenas de compradores!", tags: ["Entrega"] },
+                    { text: "👨‍👩‍👧‍👦 Milhares de famílias já compraram comigo!", tags: ["Famílias"] },
+                    { text: "🎖️ Reconhecido como um dos melhores vendedores da região!", tags: ["Reconhecido"] },
+                    { text: "📊 Taxa de satisfação de 99%! Os números não mentem!", tags: ["Estatística"] },
+                    { text: "✨ Clientes antigos sempre voltam! Isso diz muito, né?", tags: ["Fidelidade"] },
+                    { text: "🏅 Selo de vendedor confiável em múltiplas plataformas!", tags: ["Selo"] },
+                    { text: "👏 Obrigado pelos mais de 500 feedbacks positivos!", tags: ["Feedbacks"] },
+                    { text: "💪 Minha reputação fala por si! Pode confiar!", tags: ["Reputação"] }
+                ]
+            }
+        };
+
+        // Estado atual
+        let currentCategory = 'titulos-eletronicos';
+        let copiedCount = 0;
+
+        // Renderizar templates
+        function renderTemplates(category) {
+            const data = templatesDB[category];
+            if (!data) return;
+
+            const grid = document.getElementById('templatesGrid');
+            const title = document.getElementById('categoryTitle');
+
+            title.innerHTML = `<i class="fas ${data.icon}"></i> ${data.title}`;
+
+            grid.innerHTML = data.templates.map((item, index) => `
+                <div class="template-card">
+                    <div class="template-content">
+                        <div class="template-text">${item.text.replace(/\n/g, '<br>')}</div>
+                        <div class="template-tags">
+                            ${item.tags.map(tag => `<span class="template-tag">${tag}</span>`).join('')}
+                        </div>
+                    </div>
+                    <div class="template-actions">
+                        <button class="btn-copy" onclick="copyTemplate(this, \`${item.text.replace(/`/g, '\\`').replace(/\n/g, '\\n')}\`)">
+                            <i class="fas fa-copy"></i> Copiar
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Copiar template
+        function copyTemplate(btn, text) {
+            // Decodificar quebras de linha
+            const decodedText = text.replace(/\\n/g, '\n');
+
+            navigator.clipboard.writeText(decodedText).then(() => {
+                btn.innerHTML = '<i class="fas fa-check"></i> Copiado!';
+                btn.classList.add('copied');
+
+                copiedCount++;
+                document.getElementById('copiedCount').textContent = copiedCount;
+
+                showToast('Template copiado com sucesso!');
+
+                setTimeout(() => {
+                    btn.innerHTML = '<i class="fas fa-copy"></i> Copiar';
+                    btn.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        // Copiar todos
+        function copyAll() {
+            const data = templatesDB[currentCategory];
+            if (!data) return;
+
+            const allTexts = data.templates.map(t => t.text).join('\n\n---\n\n');
+            navigator.clipboard.writeText(allTexts).then(() => {
+                copiedCount += data.templates.length;
+                document.getElementById('copiedCount').textContent = copiedCount;
+                showToast(`${data.templates.length} templates copiados!`);
+            });
+        }
+
+        // Download categoria
+        function downloadCategory() {
+            const data = templatesDB[currentCategory];
+            if (!data) return;
+
+            const content = data.templates.map((t, i) => `${i + 1}. ${t.text}`).join('\n\n');
+            const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${currentCategory}.txt`;
+            a.click();
+            URL.revokeObjectURL(url);
+
+            showToast('Arquivo baixado com sucesso!');
+        }
+
+        // Toast
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMessage').textContent = message;
+            toast.classList.add('show');
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Busca
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const cards = document.querySelectorAll('.template-card');
+
+            cards.forEach(card => {
+                const text = card.querySelector('.template-text').textContent.toLowerCase();
+                card.style.display = text.includes(query) ? 'flex' : 'none';
+            });
+        });
+
+        // Navegação
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', () => {
+                document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+
+                currentCategory = item.dataset.category;
+                renderTemplates(currentCategory);
+                document.getElementById('searchInput').value = '';
+            });
+        });
+
+        // Mobile Nav
+        function renderMobileNav() {
+            const nav = document.getElementById('mobileNav');
+            const categories = [
+                { id: 'titulos-eletronicos', name: 'Eletrônicos', icon: 'fa-mobile-alt' },
+                { id: 'titulos-moveis', name: 'Móveis', icon: 'fa-couch' },
+                { id: 'titulos-veiculos', name: 'Veículos', icon: 'fa-car' },
+                { id: 'descricoes-curtas', name: 'Descrições', icon: 'fa-align-left' },
+                { id: 'respostas-saudacao', name: 'Respostas', icon: 'fa-comments' },
+                { id: 'gatilhos-urgencia', name: 'Gatilhos', icon: 'fa-fire' }
+            ];
+
+            nav.innerHTML = categories.map(cat => `
+                <div class="mobile-nav-item ${cat.id === currentCategory ? 'active' : ''}" data-category="${cat.id}">
+                    <i class="fas ${cat.icon}"></i> ${cat.name}
+                </div>
+            `).join('');
+
+            nav.querySelectorAll('.mobile-nav-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    nav.querySelectorAll('.mobile-nav-item').forEach(i => i.classList.remove('active'));
+                    item.classList.add('active');
+
+                    currentCategory = item.dataset.category;
+                    renderTemplates(currentCategory);
+
+                    // Também atualiza sidebar se visível
+                    document.querySelectorAll('.nav-item').forEach(i => {
+                        i.classList.toggle('active', i.dataset.category === currentCategory);
+                    });
+                });
+            });
+        }
+
+        // Calcular total de templates
+        function calculateTotal() {
+            let total = 0;
+            Object.values(templatesDB).forEach(cat => {
+                total += cat.templates.length;
+            });
+            document.getElementById('totalTemplates').textContent = total;
+        }
+
+        // Init
+        renderTemplates(currentCategory);
+        renderMobileNav();
+        calculateTotal();
+    </script>
+</body>
+</html>
