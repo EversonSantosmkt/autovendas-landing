@@ -1,0 +1,1811 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia Anti-Bloqueio - AutoVendas Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-orange: #FF6B00;
+            --secondary-orange: #FF9500;
+            --accent-red: #FF3D00;
+            --dark-bg: #0A0A0F;
+            --dark-card: #12121A;
+            --dark-border: #1E1E2A;
+            --text-primary: #FFFFFF;
+            --text-secondary: #B0B0C0;
+            --gradient-fire: linear-gradient(135deg, #FF6B00, #FF3D00, #FF9500);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        /* ===== PAGE STRUCTURE ===== */
+        .page {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--dark-bg);
+            min-height: 100vh;
+            padding: 60px 50px;
+            page-break-after: always;
+        }
+
+        .page:last-child {
+            page-break-after: avoid;
+        }
+
+        /* ===== COVER PAGE ===== */
+        .cover {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            min-height: 100vh;
+            background: linear-gradient(180deg, #0A0A0F 0%, #15151F 50%, #0A0A0F 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cover::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 107, 0, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .cover-badge {
+            background: var(--gradient-fire);
+            padding: 10px 30px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+        }
+
+        .cover-icon {
+            width: 120px;
+            height: 120px;
+            background: var(--gradient-fire);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            margin-bottom: 40px;
+            box-shadow: 0 0 60px rgba(255, 107, 0, 0.4);
+        }
+
+        .cover h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 4.5rem;
+            letter-spacing: 4px;
+            line-height: 1;
+            margin-bottom: 20px;
+        }
+
+        .cover h1 span {
+            display: block;
+            background: var(--gradient-fire);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .cover-subtitle {
+            font-size: 1.4rem;
+            color: var(--text-secondary);
+            margin-bottom: 60px;
+            max-width: 500px;
+        }
+
+        .cover-footer {
+            position: absolute;
+            bottom: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cover-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            background: var(--gradient-fire);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .cover-year {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* ===== INDEX PAGE ===== */
+        .index-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3rem;
+            letter-spacing: 3px;
+            margin-bottom: 50px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid var(--primary-orange);
+        }
+
+        .index-list {
+            list-style: none;
+        }
+
+        .index-item {
+            display: flex;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--dark-border);
+            transition: all 0.3s ease;
+        }
+
+        .index-number {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-fire);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+        .index-content {
+            flex: 1;
+        }
+
+        .index-content h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .index-content p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .index-page {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            color: var(--primary-orange);
+        }
+
+        /* ===== CHAPTER STYLES ===== */
+        .chapter-header {
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid var(--primary-orange);
+        }
+
+        .chapter-number {
+            display: inline-block;
+            background: var(--gradient-fire);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        .chapter-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3rem;
+            letter-spacing: 2px;
+            line-height: 1.1;
+        }
+
+        .chapter-title span {
+            background: var(--gradient-fire);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ===== CONTENT STYLES ===== */
+        h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            letter-spacing: 1px;
+            margin: 40px 0 20px;
+            color: var(--primary-orange);
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin: 30px 0 15px;
+            color: var(--text-primary);
+        }
+
+        p {
+            margin-bottom: 20px;
+            color: var(--text-secondary);
+        }
+
+        strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .highlight {
+            color: var(--primary-orange);
+            font-weight: 600;
+        }
+
+        /* ===== ALERT BOXES ===== */
+        .alert-box {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-left: 4px solid var(--primary-orange);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .alert-box.danger {
+            border-left-color: var(--accent-red);
+            background: rgba(255, 61, 0, 0.05);
+        }
+
+        .alert-box.success {
+            border-left-color: #00FF64;
+            background: rgba(0, 255, 100, 0.05);
+        }
+
+        .alert-box.warning {
+            border-left-color: #FFD700;
+            background: rgba(255, 215, 0, 0.05);
+        }
+
+        .alert-box-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .alert-box-header i {
+            font-size: 1.3rem;
+            color: var(--primary-orange);
+        }
+
+        .alert-box.danger .alert-box-header i {
+            color: var(--accent-red);
+        }
+
+        .alert-box.success .alert-box-header i {
+            color: #00FF64;
+        }
+
+        .alert-box.warning .alert-box-header i {
+            color: #FFD700;
+        }
+
+        .alert-box-header h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .alert-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ===== LISTS ===== */
+        ul, ol {
+            margin: 20px 0 20px 25px;
+            color: var(--text-secondary);
+        }
+
+        li {
+            margin-bottom: 12px;
+            padding-left: 10px;
+        }
+
+        ul li::marker {
+            color: var(--primary-orange);
+        }
+
+        ol li::marker {
+            color: var(--primary-orange);
+            font-weight: 700;
+        }
+
+        /* ===== CHECKLIST ===== */
+        .checklist {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .checklist li {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 15px 20px;
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .checklist li i {
+            color: #00FF64;
+            font-size: 1.1rem;
+            margin-top: 3px;
+        }
+
+        .checklist li.danger i {
+            color: var(--accent-red);
+        }
+
+        /* ===== STATS GRID ===== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .stat-card-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3rem;
+            background: var(--gradient-fire);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        .stat-card-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* ===== TIMELINE ===== */
+        .timeline {
+            position: relative;
+            margin: 30px 0;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--gradient-fire);
+            border-radius: 3px;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding: 20px 0 20px 30px;
+            border-bottom: 1px solid var(--dark-border);
+        }
+
+        .timeline-item:last-child {
+            border-bottom: none;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -36px;
+            top: 25px;
+            width: 15px;
+            height: 15px;
+            background: var(--primary-orange);
+            border-radius: 50%;
+            border: 3px solid var(--dark-bg);
+        }
+
+        .timeline-day {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.3rem;
+            color: var(--primary-orange);
+            margin-bottom: 10px;
+        }
+
+        /* ===== TABLE ===== */
+        .table-container {
+            overflow-x: auto;
+            margin: 30px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--dark-card);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        th {
+            background: var(--gradient-fire);
+            padding: 15px 20px;
+            text-align: left;
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        td {
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--dark-border);
+            color: var(--text-secondary);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* ===== QUOTE ===== */
+        .quote {
+            background: var(--dark-card);
+            border-left: 4px solid var(--primary-orange);
+            padding: 30px;
+            margin: 30px 0;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .quote p {
+            font-size: 1.2rem;
+            font-style: italic;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .quote-author {
+            color: var(--primary-orange);
+            font-weight: 600;
+        }
+
+        /* ===== STEP BOX ===== */
+        .step-box {
+            display: flex;
+            gap: 20px;
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-fire);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .step-content h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .step-content p {
+            margin-bottom: 0;
+        }
+
+        /* ===== ICON LIST ===== */
+        .icon-list {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .icon-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-left: 0;
+        }
+
+        .icon-list li i {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 107, 0, 0.15);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-orange);
+            flex-shrink: 0;
+        }
+
+        /* ===== FINAL CTA ===== */
+        .final-cta {
+            text-align: center;
+            padding: 60px 40px;
+            background: var(--dark-card);
+            border: 2px solid var(--primary-orange);
+            border-radius: 24px;
+            margin: 50px 0;
+            box-shadow: 0 0 60px rgba(255, 107, 0, 0.2);
+        }
+
+        .final-cta h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        .final-cta p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        .final-cta-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            background: var(--gradient-fire);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ===== PAGE NUMBER ===== */
+        .page-number {
+            text-align: center;
+            padding-top: 40px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .page-number span {
+            background: var(--dark-card);
+            padding: 8px 20px;
+            border-radius: 20px;
+        }
+
+        /* ===== PRINT STYLES ===== */
+        @media print {
+            body {
+                background: white;
+                color: #1a1a1a;
+            }
+
+            .page {
+                background: white;
+                padding: 40px;
+            }
+
+            .alert-box, .step-box, .stat-card, table, .checklist li {
+                background: #f5f5f5;
+                border-color: #ddd;
+            }
+
+            .cover {
+                background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== CAPA ===== -->
+    <div class="page cover">
+        <div class="cover-badge">Guia Exclusivo</div>
+        <div class="cover-icon">
+            <i class="fas fa-shield-alt"></i>
+        </div>
+        <h1>
+            GUIA<br>
+            <span>ANTI-BLOQUEIO</span>
+        </h1>
+        <p class="cover-subtitle">
+            O manual definitivo para proteger suas contas e escalar suas vendas no maior marketplace de rede social do mundo
+        </p>
+        <div class="cover-footer">
+            <div class="cover-logo">AUTOVENDAS PRO</div>
+            <div class="cover-year">Edição 2025 - Todos os direitos reservados</div>
+        </div>
+    </div>
+
+    <!-- ===== ÍNDICE ===== -->
+    <div class="page">
+        <h1 class="index-title">ÍNDICE</h1>
+        <ul class="index-list">
+            <li class="index-item">
+                <div class="index-number">01</div>
+                <div class="index-content">
+                    <h3>Por Que Contas São Bloqueadas</h3>
+                    <p>Entenda os motivos reais por trás dos bloqueios</p>
+                </div>
+                <div class="index-page">04</div>
+            </li>
+            <li class="index-item">
+                <div class="index-number">02</div>
+                <div class="index-content">
+                    <h3>O Algoritmo de Detecção</h3>
+                    <p>Como a plataforma identifica comportamentos suspeitos</p>
+                </div>
+                <div class="index-page">07</div>
+            </li>
+            <li class="index-item">
+                <div class="index-number">03</div>
+                <div class="index-content">
+                    <h3>Preparando Contas Novas</h3>
+                    <p>O processo de aquecimento passo a passo</p>
+                </div>
+                <div class="index-page">11</div>
+            </li>
+            <li class="index-item">
+                <div class="index-number">04</div>
+                <div class="index-content">
+                    <h3>Padrões de Uso Seguros</h3>
+                    <p>Limites diários e comportamentos recomendados</p>
+                </div>
+                <div class="index-page">16</div>
+            </li>
+            <li class="index-item">
+                <div class="index-number">05</div>
+                <div class="index-content">
+                    <h3>Configurações Recomendadas</h3>
+                    <p>Ajustes ideais no AutoVendas Pro</p>
+                </div>
+                <div class="index-page">21</div>
+            </li>
+            <li class="index-item">
+                <div class="index-number">06</div>
+                <div class="index-content">
+                    <h3>Sinais de Alerta</h3>
+                    <p>Quando parar e o que observar</p>
+                </div>
+                <div class="index-page">25</div>
+            </li>
+            <li class="index-item">
+                <div class="index-number">07</div>
+                <div class="index-content">
+                    <h3>Recuperando Contas Bloqueadas</h3>
+                    <p>Procedimentos para reverter restrições</p>
+                </div>
+                <div class="index-page">29</div>
+            </li>
+            <li class="index-item">
+                <div class="index-number">08</div>
+                <div class="index-content">
+                    <h3>Checklist Diário de Proteção</h3>
+                    <p>Sua rotina de segurança completa</p>
+                </div>
+                <div class="index-page">33</div>
+            </li>
+            <li class="index-item">
+                <div class="index-number"><i class="fas fa-star"></i></div>
+                <div class="index-content">
+                    <h3>Bônus: Dicas Avançadas</h3>
+                    <p>Estratégias dos top vendedores</p>
+                </div>
+                <div class="index-page">36</div>
+            </li>
+        </ul>
+        <div class="page-number"><span>02</span></div>
+    </div>
+
+    <!-- ===== INTRODUÇÃO ===== -->
+    <div class="page">
+        <div class="chapter-header">
+            <div class="chapter-number">Introdução</div>
+            <h1 class="chapter-title">ANTES DE <span>COMEÇAR</span></h1>
+        </div>
+
+        <p>Se você está lendo este guia, é porque entende que <strong>proteger suas contas é tão importante quanto vender</strong>. De nada adianta publicar 1.000 anúncios por dia se suas contas forem bloqueadas na semana seguinte.</p>
+
+        <p>Este guia foi criado com base em <span class="highlight">milhares de horas de testes</span>, análise de padrões de bloqueio e feedback de centenas de usuários do AutoVendas Pro que operam no marketplace diariamente.</p>
+
+        <div class="alert-box success">
+            <div class="alert-box-header">
+                <i class="fas fa-check-circle"></i>
+                <h4>O Que Você Vai Aprender</h4>
+            </div>
+            <p>Ao final deste guia, você terá um sistema completo de proteção que vai permitir escalar suas vendas com segurança, minimizando drasticamente o risco de bloqueios e maximizando a longevidade das suas contas.</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-card-number">87%</div>
+                <div class="stat-card-label">Redução em bloqueios</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-number">3x</div>
+                <div class="stat-card-label">Mais tempo de conta</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-number">500+</div>
+                <div class="stat-card-label">Usuários aplicando</div>
+            </div>
+        </div>
+
+        <div class="quote">
+            <p>"O segredo não é evitar a automação, é fazer a automação parecer humana."</p>
+            <span class="quote-author">— Equipe AutoVendas Pro</span>
+        </div>
+
+        <p>Leia cada capítulo com atenção. Aplique as técnicas gradualmente. E lembre-se: <strong>paciência e consistência são suas maiores aliadas</strong>.</p>
+
+        <div class="page-number"><span>03</span></div>
+    </div>
+
+    <!-- ===== CAPÍTULO 1 ===== -->
+    <div class="page">
+        <div class="chapter-header">
+            <div class="chapter-number">Capítulo 01</div>
+            <h1 class="chapter-title">POR QUE CONTAS SÃO <span>BLOQUEADAS</span></h1>
+        </div>
+
+        <p>Antes de aprender a se proteger, você precisa entender <strong>exatamente por que os bloqueios acontecem</strong>. Conhecer o inimigo é o primeiro passo para vencê-lo.</p>
+
+        <h2>OS 5 PRINCIPAIS MOTIVOS</h2>
+
+        <ul class="icon-list">
+            <li>
+                <i class="fas fa-bolt"></i>
+                <div>
+                    <strong>Volume Anormal de Atividade</strong><br>
+                    <span style="color: var(--text-secondary)">Publicar muitos anúncios em pouco tempo, especialmente em contas novas, é o gatilho número 1 para bloqueios.</span>
+                </div>
+            </li>
+            <li>
+                <i class="fas fa-clock"></i>
+                <div>
+                    <strong>Padrões Repetitivos</strong><br>
+                    <span style="color: var(--text-secondary)">Ações idênticas em intervalos regulares (ex: publicar a cada 60 segundos exatos) denunciam automação.</span>
+                </div>
+            </li>
+            <li>
+                <i class="fas fa-user-times"></i>
+                <div>
+                    <strong>Conta Sem Histórico</strong><br>
+                    <span style="color: var(--text-secondary)">Contas recém-criadas que já começam vendendo são automaticamente suspeitas.</span>
+                </div>
+            </li>
+            <li>
+                <i class="fas fa-copy"></i>
+                <div>
+                    <strong>Conteúdo Duplicado</strong><br>
+                    <span style="color: var(--text-secondary)">Títulos e descrições idênticos em múltiplos anúncios ou entre contas diferentes.</span>
+                </div>
+            </li>
+            <li>
+                <i class="fas fa-flag"></i>
+                <div>
+                    <strong>Denúncias de Usuários</strong><br>
+                    <span style="color: var(--text-secondary)">Compradores insatisfeitos ou concorrentes podem denunciar seus anúncios.</span>
+                </div>
+            </li>
+        </ul>
+
+        <div class="alert-box danger">
+            <div class="alert-box-header">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h4>Erro Fatal Mais Comum</h4>
+            </div>
+            <p>O erro mais comum é <strong>começar a usar automação imediatamente após criar a conta</strong>. Isso praticamente garante um bloqueio em menos de 48 horas. A plataforma monitora com muito mais atenção contas novas.</p>
+        </div>
+
+        <div class="page-number"><span>04</span></div>
+    </div>
+
+    <!-- ===== CAPÍTULO 1 - CONTINUAÇÃO ===== -->
+    <div class="page">
+        <h2>O CICLO DO BLOQUEIO</h2>
+
+        <p>Entenda como a plataforma processa e decide bloquear uma conta:</p>
+
+        <div class="step-box">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <h4>Detecção Inicial</h4>
+                <p>O algoritmo identifica um padrão suspeito (volume alto, repetição, etc.) e marca a conta para monitoramento intensivo.</p>
+            </div>
+        </div>
+
+        <div class="step-box">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <h4>Análise de Comportamento</h4>
+                <p>A plataforma cruza dados: histórico da conta, IP, dispositivo, horários de acesso, padrão de digitação.</p>
+            </div>
+        </div>
+
+        <div class="step-box">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <h4>Score de Risco</h4>
+                <p>Um score é calculado. Quanto mais fatores suspeitos, maior o score. Acima de certo limite, ações são tomadas.</p>
+            </div>
+        </div>
+
+        <div class="step-box">
+            <div class="step-number">4</div>
+            <div class="step-content">
+                <h4>Ação da Plataforma</h4>
+                <p>Pode ser: limitação temporária, remoção de anúncios, suspensão do marketplace ou bloqueio total da conta.</p>
+            </div>
+        </div>
+
+        <div class="alert-box warning">
+            <div class="alert-box-header">
+                <i class="fas fa-lightbulb"></i>
+                <h4>Insight Importante</h4>
+            </div>
+            <p>Bloqueios raramente são instantâneos. A plataforma coleta evidências ao longo de dias ou semanas. Por isso, quando o bloqueio vem, parece "do nada" — mas na verdade foi uma soma de comportamentos ao longo do tempo.</p>
+        </div>
+
+        <h2>TIPOS DE RESTRIÇÕES</h2>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Duração</th>
+                        <th>Gravidade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Limitação temporária</td>
+                        <td>24-72 horas</td>
+                        <td style="color: #FFD700;">Baixa</td>
+                    </tr>
+                    <tr>
+                        <td>Remoção de anúncios</td>
+                        <td>Imediato</td>
+                        <td style="color: var(--secondary-orange);">Média</td>
+                    </tr>
+                    <tr>
+                        <td>Suspensão do marketplace</td>
+                        <td>7-30 dias</td>
+                        <td style="color: var(--primary-orange);">Alta</td>
+                    </tr>
+                    <tr>
+                        <td>Bloqueio total</td>
+                        <td>Permanente</td>
+                        <td style="color: var(--accent-red);">Crítica</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="page-number"><span>05</span></div>
+    </div>
+
+    <!-- ===== CAPÍTULO 2 ===== -->
+    <div class="page">
+        <div class="chapter-header">
+            <div class="chapter-number">Capítulo 02</div>
+            <h1 class="chapter-title">O ALGORITMO DE <span>DETECÇÃO</span></h1>
+        </div>
+
+        <p>A plataforma utiliza <strong>inteligência artificial avançada</strong> para identificar comportamentos suspeitos. Entender como esse sistema funciona é essencial para evitá-lo.</p>
+
+        <h2>O QUE O ALGORITMO ANALISA</h2>
+
+        <h3>1. Padrões Temporais</h3>
+        <p>O algoritmo monitora:</p>
+        <ul>
+            <li>Intervalos entre ações (muito regulares = suspeito)</li>
+            <li>Horários de atividade (24h sem pausa = suspeito)</li>
+            <li>Velocidade de digitação e cliques</li>
+            <li>Tempo de permanência em cada página</li>
+        </ul>
+
+        <h3>2. Fingerprint Digital</h3>
+        <p>Cada dispositivo tem uma "impressão digital" única composta por:</p>
+        <ul>
+            <li>Resolução de tela e configurações do navegador</li>
+            <li>Plugins e extensões instaladas</li>
+            <li>Fuso horário e idioma do sistema</li>
+            <li>Fontes instaladas no computador</li>
+        </ul>
+
+        <div class="alert-box">
+            <div class="alert-box-header">
+                <i class="fas fa-info-circle"></i>
+                <h4>Por Que Isso Importa?</h4>
+            </div>
+            <p>Se múltiplas contas "diferentes" têm o mesmo fingerprint, a plataforma sabe que são da mesma pessoa. Isso pode levar ao bloqueio em cascata de todas as contas.</p>
+        </div>
+
+        <h3>3. Análise de Conteúdo</h3>
+        <p>Machine learning analisa seus anúncios buscando:</p>
+        <ul>
+            <li>Textos muito similares entre si</li>
+            <li>Imagens duplicadas ou de baixa qualidade</li>
+            <li>Preços fora do padrão de mercado</li>
+            <li>Palavras-chave suspeitas ou proibidas</li>
+        </ul>
+
+        <div class="page-number"><span>07</span></div>
+    </div>
+
+    <!-- ===== CAPÍTULO 2 - CONTINUAÇÃO ===== -->
+    <div class="page">
+        <h2>COMO O AUTOVENDAS PRO CONTORNA ISSO</h2>
+
+        <p>O AutoVendas Pro foi desenvolvido com técnicas avançadas de humanização que imitam comportamento humano real:</p>
+
+        <ul class="checklist">
+            <li>
+                <i class="fas fa-check"></i>
+                <div>
+                    <strong>Delays Aleatórios</strong><br>
+                    Intervalos variáveis entre ações (nunca o mesmo tempo)
+                </div>
+            </li>
+            <li>
+                <i class="fas fa-check"></i>
+                <div>
+                    <strong>Simulação de Digitação</strong><br>
+                    Texto é digitado caractere por caractere, com velocidade variável
+                </div>
+            </li>
+            <li>
+                <i class="fas fa-check"></i>
+                <div>
+                    <strong>Movimentos de Mouse</strong><br>
+                    Cursor se move de forma orgânica, não em linha reta
+                </div>
+            </li>
+            <li>
+                <i class="fas fa-check"></i>
+                <div>
+                    <strong>Pausas Naturais</strong><br>
+                    Pequenas pausas durante o preenchimento, como humano faria
+                </div>
+            </li>
+            <li>
+                <i class="fas fa-check"></i>
+                <div>
+                    <strong>Variação de Horários</strong><br>
+                    Sistema não opera 24h, respeita horários "humanos"
+                </div>
+            </li>
+        </ul>
+
+        <div class="alert-box success">
+            <div class="alert-box-header">
+                <i class="fas fa-shield-alt"></i>
+                <h4>Proteção Extra</h4>
+            </div>
+            <p>Mesmo com todas essas proteções do software, <strong>você ainda precisa seguir boas práticas</strong>. O AutoVendas Pro reduz o risco, mas não elimina 100%. Este guia vai te ensinar a fazer sua parte.</p>
+        </div>
+
+        <h2>MÉTRICAS QUE ATIVAM ALERTAS</h2>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Métrica</th>
+                        <th>Limite Seguro</th>
+                        <th>Zona de Risco</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Anúncios/dia (conta nova)</td>
+                        <td>5-10</td>
+                        <td style="color: var(--accent-red);">20+</td>
+                    </tr>
+                    <tr>
+                        <td>Anúncios/dia (conta aquecida)</td>
+                        <td>50-100</td>
+                        <td style="color: var(--accent-red);">200+</td>
+                    </tr>
+                    <tr>
+                        <td>Intervalo entre anúncios</td>
+                        <td>3-10 min</td>
+                        <td style="color: var(--accent-red);">&lt; 1 min</td>
+                    </tr>
+                    <tr>
+                        <td>Horas de operação/dia</td>
+                        <td>8-12h</td>
+                        <td style="color: var(--accent-red);">24h</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="page-number"><span>08</span></div>
+    </div>
+
+    <!-- ===== CAPÍTULO 3 ===== -->
+    <div class="page">
+        <div class="chapter-header">
+            <div class="chapter-number">Capítulo 03</div>
+            <h1 class="chapter-title">PREPARANDO <span>CONTAS NOVAS</span></h1>
+        </div>
+
+        <p>O aquecimento de contas é <strong>o fator mais importante</strong> para evitar bloqueios. Uma conta bem preparada pode durar meses ou até anos. Uma conta mal preparada será bloqueada em dias.</p>
+
+        <h2>O PROCESSO DE AQUECIMENTO</h2>
+
+        <p>O aquecimento deve durar <strong>no mínimo 14 dias</strong> antes de começar qualquer automação. Siga este cronograma:</p>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-day">Dias 1-3: Criação e Setup</div>
+                <ul>
+                    <li>Crie a conta com dados realistas</li>
+                    <li>Adicione foto de perfil e capa</li>
+                    <li>Preencha todas as informações do perfil</li>
+                    <li>Adicione 5-10 amigos (pessoas reais)</li>
+                    <li>Participe de 2-3 grupos relacionados ao seu nicho</li>
+                </ul>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-day">Dias 4-7: Interação Orgânica</div>
+                <ul>
+                    <li>Faça login diariamente (manhã e noite)</li>
+                    <li>Curta e comente em posts de amigos</li>
+                    <li>Compartilhe 1-2 conteúdos interessantes</li>
+                    <li>Navegue pelo marketplace (apenas olhar)</li>
+                    <li>Adicione mais 5-10 amigos</li>
+                </ul>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-day">Dias 8-10: Primeiras Ações no Marketplace</div>
+                <ul>
+                    <li>Salve alguns produtos como favoritos</li>
+                    <li>Envie mensagem para 2-3 vendedores (perguntas)</li>
+                    <li>Publique seu PRIMEIRO anúncio manualmente</li>
+                    <li>Aguarde 24h e publique mais 1-2 anúncios</li>
+                </ul>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-day">Dias 11-14: Aumento Gradual</div>
+                <ul>
+                    <li>Publique 3-5 anúncios por dia (manual)</li>
+                    <li>Responda mensagens que receber</li>
+                    <li>Continue interagindo no feed normal</li>
+                    <li>Ao final do dia 14, conta está pronta para automação LEVE</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="page-number"><span>11</span></div>
+    </div>
+
+    <!-- ===== CAPÍTULO 3 - CONTINUAÇÃO ===== -->
+    <div class="page">
+        <h2>APÓS O AQUECIMENTO INICIAL</h2>
+
+        <p>Depois dos 14 dias, você pode começar a usar o AutoVendas Pro, mas <strong>de forma gradual</strong>:</p>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Semana</th>
+                        <th>Anúncios/Dia</th>
+                        <th>Intervalo Mínimo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Semana 3</td>
+                        <td>10-15</td>
+                        <td>10 minutos</td>
+                    </tr>
+                    <tr>
+                        <td>Semana 4</td>
+                        <td>20-30</td>
+                        <td>7 minutos</td>
+                    </tr>
+                    <tr>
+                        <td>Semana 5</td>
+                        <td>40-50</td>
+                        <td>5 minutos</td>
+                    </tr>
+                    <tr>
+                        <td>Semana 6+</td>
+                        <td>70-100</td>
+                        <td>3 minutos</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="alert-box warning">
+            <div class="alert-box-header">
+                <i class="fas fa-exclamation-circle"></i>
+                <h4>Não Pule Etapas!</h4>
+            </div>
+            <p>Sabemos que é tentador acelerar o processo, mas <strong>cada dia pulado aumenta exponencialmente o risco de bloqueio</strong>. Pense no aquecimento como um investimento — 14 dias para meses de operação segura.</p>
+        </div>
+
+        <h2>CHECKLIST DE CONTA BEM PREPARADA</h2>
+
+        <ul class="checklist">
+            <li>
+                <i class="fas fa-check"></i>
+                <span>Foto de perfil real/profissional</span>
+            </li>
+            <li>
+                <i class="fas fa-check"></i>
+                <span>Foto de capa configurada</span>
+            </li>
+            <li>
+                <i class="fas fa-check"></i>
+                <span>Bio/descrição preenchida</span>
+            </li>
+            <li>
+                <i class="fas fa-check"></i>
+                <span>Mínimo 20 amigos adicionados</span>
+            </li>
+            <li>
+                <i class="fas fa-check"></i>
+                <span>Participando de 3+ grupos</span>
+            </li>
+            <li>
+                <i class="fas fa-check"></i>
+                <span>Histórico de interações no feed</span>
+            </li>
+            <li>
+                <i class="fas fa-check"></i>
+                <span>Pelo menos 5 anúncios manuais publicados</span>
+            </li>
+            <li>
+                <i class="fas fa-check"></i>
+                <span>14+ dias de idade da conta</span>
+            </li>
+        </ul>
+
+        <div class="page-number"><span>12</span></div>
+    </div>
+
+    <!-- ===== CAPÍTULO 4 ===== -->
+    <div class="page">
+        <div class="chapter-header">
+            <div class="chapter-number">Capítulo 04</div>
+            <h1 class="chapter-title">PADRÕES DE <span>USO SEGUROS</span></h1>
+        </div>
+
+        <p>Mesmo com contas bem aquecidas, você precisa manter <strong>padrões de uso que pareçam naturais</strong>. Este capítulo apresenta as melhores práticas para operação diária.</p>
+
+        <h2>REGRAS DE OURO</h2>
+
+        <div class="step-box">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <h4>Nunca Opere 24 Horas</h4>
+                <p>Defina uma janela de operação de 8-12 horas, simulando horário comercial. Ninguém publica anúncios às 3h da manhã.</p>
+            </div>
+        </div>
+
+        <div class="step-box">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <h4>Varie os Horários</h4>
+                <p>Não comece sempre no mesmo horário. Alterne entre começar às 8h, 9h, 10h em dias diferentes.</p>
+            </div>
+        </div>
+
+        <div class="step-box">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <h4>Inclua Pausas</h4>
+                <p>Configure pausas de 30-60 minutos no meio do dia, simulando almoço ou intervalo.</p>
+            </div>
+        </div>
+
+        <div class="step-box">
+            <div class="step-number">4</div>
+            <div class="step-content">
+                <h4>Descanse nos Finais de Semana</h4>
+                <p>Reduza o volume em 50% aos sábados e domingos, ou tire 1 dia de folga por semana.</p>
+            </div>
+        </div>
+
+        <div class="step-box">
+            <div class="step-number">5</div>
+            <div class="step-content">
+                <h4>Diversifique o Conteúdo</h4>
+                <p>Nunca publique 100 anúncios com o mesmo título. Use variações, sinônimos, formatos diferentes.</p>
+            </div>
+        </div>
+
+        <div class="alert-box success">
+            <div class="alert-box-header">
+                <i class="fas fa-lightbulb"></i>
+                <h4>Dica Pro</h4>
+            </div>
+            <p>Crie 3-5 variações de título e descrição para cada produto. O AutoVendas Pro pode alternar entre elas automaticamente, aumentando a naturalidade.</p>
+        </div>
+
+        <div class="page-number"><span>16</span></div>
+    </div>
+
+    <!-- ===== CAPÍTULO 4 - CONTINUAÇÃO ===== -->
+    <div class="page">
+        <h2>LIMITES RECOMENDADOS POR TIPO DE CONTA</h2>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tipo de Conta</th>
+                        <th>Anúncios/Dia</th>
+                        <th>Exclusões/Dia</th>
+                        <th>Intervalo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Nova (14-30 dias)</td>
+                        <td>15-30</td>
+                        <td>10-20</td>
+                        <td>5-10 min</td>
+                    </tr>
+                    <tr>
+                        <td>Intermediária (1-3 meses)</td>
+                        <td>50-80</td>
+                        <td>30-50</td>
+                        <td>3-7 min</td>
+                    </tr>
+                    <tr>
+                        <td>Madura (3+ meses)</td>
+                        <td>80-120</td>
+                        <td>50-80</td>
+                        <td>2-5 min</td>
+                    </tr>
+                    <tr>
+                        <td>Veterana (6+ meses)</td>
+                        <td>100-150</td>
+                        <td>80-100</td>
+                        <td>2-3 min</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2>COMPORTAMENTOS A EVITAR</h2>
+
+        <ul class="checklist">
+            <li class="danger">
+                <i class="fas fa-times"></i>
+                <span>Publicar centenas de anúncios de uma vez</span>
+            </li>
+            <li class="danger">
+                <i class="fas fa-times"></i>
+                <span>Usar o mesmo IP para múltiplas contas simultaneamente</span>
+            </li>
+            <li class="danger">
+                <i class="fas fa-times"></i>
+                <span>Copiar textos idênticos de outros vendedores</span>
+            </li>
+            <li class="danger">
+                <i class="fas fa-times"></i>
+                <span>Ignorar mensagens de compradores por dias</span>
+            </li>
+            <li class="danger">
+                <i class="fas fa-times"></i>
+                <span>Publicar produtos proibidos ou de marca sem autorização</span>
+            </li>
+            <li class="danger">
+                <i class="fas fa-times"></i>
+                <span>Usar preços absurdamente baixos (parece golpe)</span>
+            </li>
+        </ul>
+
+        <div class="alert-box danger">
+            <div class="alert-box-header">
+                <i class="fas fa-skull-crossbones"></i>
+                <h4>Morte Certa</h4>
+            </div>
+            <p>Usar a mesma foto de produto em múltiplas contas é praticamente uma sentença de bloqueio. A plataforma tem hash de imagens e detecta duplicatas instantaneamente.</p>
+        </div>
+
+        <div class="page-number"><span>17</span></div>
+    </div>
+
+    <!-- ===== CAPÍTULO 5 ===== -->
+    <div class="page">
+        <div class="chapter-header">
+            <div class="chapter-number">Capítulo 05</div>
+            <h1 class="chapter-title">CONFIGURAÇÕES <span>RECOMENDADAS</span></h1>
+        </div>
+
+        <p>O AutoVendas Pro oferece diversas opções de configuração. Aqui estão as <strong>configurações ideais</strong> para máxima proteção:</p>
+
+        <h2>CONFIGURAÇÕES DE TEMPO</h2>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Configuração</th>
+                        <th>Valor Recomendado</th>
+                        <th>Por quê</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Delay entre anúncios</td>
+                        <td>180-600 segundos</td>
+                        <td>Variação natural</td>
+                    </tr>
+                    <tr>
+                        <td>Delay de digitação</td>
+                        <td>50-150ms por caractere</td>
+                        <td>Simula digitação humana</td>
+                    </tr>
+                    <tr>
+                        <td>Pausa entre campos</td>
+                        <td>1-3 segundos</td>
+                        <td>Tempo de "pensar"</td>
+                    </tr>
+                    <tr>
+                        <td>Horário de início</td>
+                        <td>8h-10h (variar)</td>
+                        <td>Horário comercial</td>
+                    </tr>
+                    <tr>
+                        <td>Horário de término</td>
+                        <td>18h-22h (variar)</td>
+                        <td>Fim do expediente</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2>CONFIGURAÇÕES DE VOLUME</h2>
+
+        <div class="alert-box">
+            <div class="alert-box-header">
+                <i class="fas fa-sliders-h"></i>
+                <h4>Regra do 70%</h4>
+            </div>
+            <p>Nunca configure o sistema para operar em 100% da capacidade. Mantenha sempre em <strong>70% do limite máximo</strong> recomendado para sua conta. Isso cria uma margem de segurança.</p>
+        </div>
+
+        <h3>Exemplo Prático:</h3>
+        <p>Se sua conta madura pode publicar até 100 anúncios/dia com segurança:</p>
+        <ul>
+            <li>Configure o limite diário para <strong>70 anúncios</strong></li>
+            <li>Distribua ao longo de <strong>10 horas</strong></li>
+            <li>Resultado: ~7 anúncios por hora (muito natural)</li>
+        </ul>
+
+        <div class="page-number"><span>21</span></div>
+    </div>
+
+    <!-- ===== CAPÍTULO 6 ===== -->
+    <div class="page">
+        <div class="chapter-header">
+            <div class="chapter-number">Capítulo 06</div>
+            <h1 class="chapter-title">SINAIS DE <span>ALERTA</span></h1>
+        </div>
+
+        <p>Saber identificar quando algo está errado pode <strong>salvar sua conta</strong>. Estes são os sinais de que você deve parar imediatamente:</p>
+
+        <h2>SINAIS DE ALERTA LEVE</h2>
+        <p>Reduza o volume em 50% e monitore:</p>
+
+        <ul class="icon-list">
+            <li>
+                <i class="fas fa-eye" style="background: rgba(255, 215, 0, 0.15); color: #FFD700;"></i>
+                <div>
+                    <strong>Anúncios demorando para aparecer</strong><br>
+                    <span style="color: var(--text-secondary)">Normalmente aparecem em segundos. Se demorar minutos, atenção.</span>
+                </div>
+            </li>
+            <li>
+                <i class="fas fa-eye" style="background: rgba(255, 215, 0, 0.15); color: #FFD700;"></i>
+                <div>
+                    <strong>Captchas frequentes</strong><br>
+                    <span style="color: var(--text-secondary)">Se começar a pedir verificação com frequência, é sinal de monitoramento.</span>
+                </div>
+            </li>
+            <li>
+                <i class="fas fa-eye" style="background: rgba(255, 215, 0, 0.15); color: #FFD700;"></i>
+                <div>
+                    <strong>Alcance reduzido</strong><br>
+                    <span style="color: var(--text-secondary)">Menos visualizações que o normal pode indicar shadowban.</span>
+                </div>
+            </li>
+        </ul>
+
+        <h2>SINAIS DE ALERTA GRAVE</h2>
+        <p>PARE IMEDIATAMENTE e aguarde 24-48h:</p>
+
+        <ul class="icon-list">
+            <li>
+                <i class="fas fa-exclamation-triangle" style="background: rgba(255, 61, 0, 0.15); color: var(--accent-red);"></i>
+                <div>
+                    <strong>Anúncios sendo removidos automaticamente</strong><br>
+                    <span style="color: var(--text-secondary)">Publicou e sumiu? A plataforma está deletando ativamente.</span>
+                </div>
+            </li>
+            <li>
+                <i class="fas fa-exclamation-triangle" style="background: rgba(255, 61, 0, 0.15); color: var(--accent-red);"></i>
+                <div>
+                    <strong>Mensagem de "atividade suspeita"</strong><br>
+                    <span style="color: var(--text-secondary)">Qualquer aviso da plataforma é sinal para parar.</span>
+                </div>
+            </li>
+            <li>
+                <i class="fas fa-exclamation-triangle" style="background: rgba(255, 61, 0, 0.15); color: var(--accent-red);"></i>
+                <div>
+                    <strong>Pedido de verificação de identidade</strong><br>
+                    <span style="color: var(--text-secondary)">Documento, selfie, etc. A conta está sob análise.</span>
+                </div>
+            </li>
+            <li>
+                <i class="fas fa-exclamation-triangle" style="background: rgba(255, 61, 0, 0.15); color: var(--accent-red);"></i>
+                <div>
+                    <strong>Logout forçado</strong><br>
+                    <span style="color: var(--text-secondary)">Se a plataforma te deslogou, não faça login imediatamente.</span>
+                </div>
+            </li>
+        </ul>
+
+        <div class="alert-box danger">
+            <div class="alert-box-header">
+                <i class="fas fa-hand-paper"></i>
+                <h4>Ao Ver Qualquer Sinal Grave</h4>
+            </div>
+            <p><strong>PARE TODA AUTOMAÇÃO.</strong> Faça login manual, navegue normalmente, interaja com o feed. Volte a usar automação apenas após 48-72h sem sinais.</p>
+        </div>
+
+        <div class="page-number"><span>25</span></div>
+    </div>
+
+    <!-- ===== CAPÍTULO 7 ===== -->
+    <div class="page">
+        <div class="chapter-header">
+            <div class="chapter-number">Capítulo 07</div>
+            <h1 class="chapter-title">RECUPERANDO <span>CONTAS BLOQUEADAS</span></h1>
+        </div>
+
+        <p>Se apesar de todas as precauções sua conta for bloqueada, nem tudo está perdido. Dependendo do tipo de bloqueio, <strong>há chances de recuperação</strong>.</p>
+
+        <h2>TIPOS DE BLOQUEIO E SOLUÇÕES</h2>
+
+        <h3>Bloqueio Temporário do Marketplace</h3>
+        <div class="alert-box">
+            <div class="alert-box-header">
+                <i class="fas fa-clock"></i>
+                <h4>Duração: 24h a 30 dias</h4>
+            </div>
+            <p><strong>O que fazer:</strong></p>
+            <ul>
+                <li>NÃO tente burlar ou criar nova conta</li>
+                <li>Aguarde o período completo</li>
+                <li>Continue usando a rede social normalmente (sem marketplace)</li>
+                <li>Quando liberado, comece devagar (como conta nova)</li>
+            </ul>
+        </div>
+
+        <h3>Bloqueio por "Atividade Suspeita"</h3>
+        <div class="alert-box warning">
+            <div class="alert-box-header">
+                <i class="fas fa-user-shield"></i>
+                <h4>Requer Ação</h4>
+            </div>
+            <p><strong>O que fazer:</strong></p>
+            <ul>
+                <li>Complete qualquer verificação solicitada</li>
+                <li>Se pedir documento, envie documento real</li>
+                <li>Aguarde análise (pode levar 24h a 7 dias)</li>
+                <li>Se aprovado, reduza volume drasticamente por 2 semanas</li>
+            </ul>
+        </div>
+
+        <h3>Bloqueio Permanente</h3>
+        <div class="alert-box danger">
+            <div class="alert-box-header">
+                <i class="fas fa-ban"></i>
+                <h4>Situação Crítica</h4>
+            </div>
+            <p><strong>O que fazer:</strong></p>
+            <ul>
+                <li>Tente recurso através do suporte (1 tentativa)</li>
+                <li>Se negado, a conta está perdida</li>
+                <li>NÃO crie nova conta no mesmo dispositivo/IP imediatamente</li>
+                <li>Aguarde no mínimo 30 dias antes de criar nova operação</li>
+            </ul>
+        </div>
+
+        <div class="page-number"><span>29</span></div>
+    </div>
+
+    <!-- ===== CAPÍTULO 7 - CONTINUAÇÃO ===== -->
+    <div class="page">
+        <h2>MODELO DE RECURSO</h2>
+
+        <p>Se precisar enviar um recurso, use este modelo como base:</p>
+
+        <div class="alert-box" style="background: #1a1a25; font-family: monospace; font-size: 0.9rem;">
+            <p style="color: var(--text-primary); margin-bottom: 0; white-space: pre-line;">
+Olá, equipe de suporte.
+
+Minha conta foi restringida e acredito que houve um engano. Sou vendedor há [X meses/anos] e sempre segui as políticas da plataforma.
+
+Recentemente, aumentei meu volume de publicações devido ao crescimento do meu negócio de [seu nicho]. Talvez isso tenha sido interpretado como atividade suspeita.
+
+Comprometo-me a revisar minhas práticas e manter um volume adequado de publicações.
+
+Peço gentilmente que revisem meu caso e considerem restaurar meu acesso ao marketplace.
+
+Obrigado pela atenção.
+[Seu nome]
+            </p>
+        </div>
+
+        <div class="alert-box warning">
+            <div class="alert-box-header">
+                <i class="fas fa-exclamation-circle"></i>
+                <h4>Importante</h4>
+            </div>
+            <p><strong>Nunca mencione automação no recurso.</strong> Fale apenas sobre "aumento de volume" ou "crescimento do negócio". Seja educado e breve.</p>
+        </div>
+
+        <h2>PREVENINDO BLOQUEIO EM CASCATA</h2>
+
+        <p>Se uma conta for bloqueada, proteja as outras:</p>
+
+        <ol>
+            <li><strong>Pare todas as outras contas imediatamente</strong> (mesma máquina)</li>
+            <li>Não faça login nas outras contas por 24-48h</li>
+            <li>Quando retomar, use volumes muito baixos por 1 semana</li>
+            <li>Considere trocar IP se todas as contas estavam no mesmo</li>
+            <li>Diversifique: não coloque todos os ovos na mesma cesta</li>
+        </ol>
+
+        <div class="page-number"><span>30</span></div>
+    </div>
+
+    <!-- ===== CAPÍTULO 8 ===== -->
+    <div class="page">
+        <div class="chapter-header">
+            <div class="chapter-number">Capítulo 08</div>
+            <h1 class="chapter-title">CHECKLIST DIÁRIO DE <span>PROTEÇÃO</span></h1>
+        </div>
+
+        <p>Use este checklist todos os dias antes de iniciar suas operações:</p>
+
+        <h2>ANTES DE COMEÇAR</h2>
+
+        <ul class="checklist">
+            <li>
+                <i class="fas fa-check"></i>
+                <span>Verificar se há atualizações do AutoVendas Pro</span>
+            </li>
+            <li>
+                <i class="fas fa-check"></i>
+                <span>Conferir se todas as contas estão logadas corretamente</span>
+            </li>
+            <li>
+                <i class="fas fa-check"></i>
+                <span>Revisar limites configurados (não exceder recomendado)</span>
+            </li>
+            <li>
+                <i class="fas fa-check"></i>
+                <span>Verificar se o horário de operação está adequado</span>
+            </li>
+            <li>
+                <i class="fas fa-check"></i>
+                <span>Confirmar que pausas estão configuradas</span>
+            </li>
+        </ul>
+
+        <h2>DURANTE A OPERAÇÃO</h2>
+
+        <ul class="checklist">
+            <li>
+                <i class="fas fa-check"></i>
+                <span>Monitorar se anúncios estão sendo publicados corretamente</span>
+            </li>
+            <li>
+                <i class="fas fa-check"></i>
+                <span>Verificar se não há captchas pendentes</span>
+            </li>
+            <li>
+                <i class="fas fa-check"></i>
+                <span>Observar se algum anúncio foi removido automaticamente</span>
+            </li>
+            <li>
+                <i class="fas fa-check"></i>
+                <span>Responder mensagens de compradores (manter conta ativa)</span>
+            </li>
+        </ul>
+
+        <h2>AO FINALIZAR</h2>
+
+        <ul class="checklist">
+            <li>
+                <i class="fas fa-check"></i>
+                <span>Revisar quantos anúncios foram publicados (dentro do limite?)</span>
+            </li>
+            <li>
+                <i class="fas fa-check"></i>
+                <span>Verificar se houve algum erro ou aviso</span>
+            </li>
+            <li>
+                <i class="fas fa-check"></i>
+                <span>Fazer login manual em cada conta e navegar brevemente</span>
+            </li>
+            <li>
+                <i class="fas fa-check"></i>
+                <span>Anotar qualquer comportamento estranho para monitorar</span>
+            </li>
+        </ul>
+
+        <div class="page-number"><span>33</span></div>
+    </div>
+
+    <!-- ===== BÔNUS ===== -->
+    <div class="page">
+        <div class="chapter-header">
+            <div class="chapter-number"><i class="fas fa-star"></i> Bônus</div>
+            <h1 class="chapter-title">DICAS <span>AVANÇADAS</span></h1>
+        </div>
+
+        <p>Estratégias usadas pelos vendedores mais experientes:</p>
+
+        <h2>1. ROTAÇÃO DE CONTAS</h2>
+        <p>Não use todas as contas todos os dias. Crie uma rotação:</p>
+        <ul>
+            <li>Segunda/Quarta/Sexta: Contas A, B, C</li>
+            <li>Terça/Quinta/Sábado: Contas D, E, F</li>
+            <li>Domingo: Descanso ou volume mínimo</li>
+        </ul>
+
+        <h2>2. DIVERSIFICAÇÃO DE CONTEÚDO</h2>
+        <p>Para cada produto, tenha:</p>
+        <ul>
+            <li>3-5 títulos diferentes</li>
+            <li>3-5 descrições diferentes</li>
+            <li>Múltiplas fotos (ângulos diferentes)</li>
+            <li>Variações de preço (R$ 99, R$ 97, R$ 95)</li>
+        </ul>
+
+        <h2>3. MÉTODO "AQUÁRIO"</h2>
+        <p>Sempre tenha contas em diferentes estágios:</p>
+        <ul>
+            <li><strong>Produção:</strong> Contas maduras operando normalmente</li>
+            <li><strong>Aquecimento:</strong> Contas novas sendo preparadas</li>
+            <li><strong>Reserva:</strong> Contas prontas mas paradas (emergência)</li>
+        </ul>
+
+        <div class="alert-box success">
+            <div class="alert-box-header">
+                <i class="fas fa-trophy"></i>
+                <h4>Mentalidade Vencedora</h4>
+            </div>
+            <p>Os vendedores que mais lucram não são os que publicam mais, são os que <strong>publicam de forma consistente por mais tempo</strong>. Prefira 50 anúncios/dia por 12 meses do que 200/dia por 2 semanas.</p>
+        </div>
+
+        <h2>4. REGRA 80/20 DA SEGURANÇA</h2>
+        <p>80% da sua proteção vem de apenas 20% das práticas:</p>
+        <ol>
+            <li><strong>Aquecimento adequado</strong> (mais importante)</li>
+            <li><strong>Respeitar limites diários</strong></li>
+            <li><strong>Variar conteúdo</strong></li>
+            <li><strong>Não operar 24h</strong></li>
+        </ol>
+        <p>Domine esses 4 pontos e você estará 80% protegido.</p>
+
+        <div class="page-number"><span>36</span></div>
+    </div>
+
+    <!-- ===== CONCLUSÃO ===== -->
+    <div class="page">
+        <div class="chapter-header">
+            <div class="chapter-number">Conclusão</div>
+            <h1 class="chapter-title">PROTEJA SEU <span>INVESTIMENTO</span></h1>
+        </div>
+
+        <p>Você chegou ao final do Guia Anti-Bloqueio. Agora você tem em mãos o conhecimento necessário para <strong>operar com segurança e escalar suas vendas</strong> no maior marketplace de rede social do mundo.</p>
+
+        <h2>RESUMO DOS PONTOS-CHAVE</h2>
+
+        <ul class="icon-list">
+            <li>
+                <i class="fas fa-seedling"></i>
+                <div><strong>Aquecimento é obrigatório</strong> — mínimo 14 dias antes de qualquer automação</div>
+            </li>
+            <li>
+                <i class="fas fa-tachometer-alt"></i>
+                <div><strong>Respeite os limites</strong> — opere em 70% da capacidade máxima</div>
+            </li>
+            <li>
+                <i class="fas fa-random"></i>
+                <div><strong>Varie tudo</strong> — horários, conteúdo, volumes, intervalos</div>
+            </li>
+            <li>
+                <i class="fas fa-eye"></i>
+                <div><strong>Monitore sinais</strong> — ao menor alerta, reduza ou pare</div>
+            </li>
+            <li>
+                <i class="fas fa-layer-group"></i>
+                <div><strong>Diversifique</strong> — múltiplas contas em diferentes estágios</div>
+            </li>
+        </ul>
+
+        <div class="quote">
+            <p>"Consistência supera intensidade. Vença a maratona, não o sprint."</p>
+            <span class="quote-author">— Equipe AutoVendas Pro</span>
+        </div>
+
+        <div class="final-cta">
+            <h2>APLIQUE O QUE APRENDEU</h2>
+            <p>O conhecimento só tem valor quando aplicado. Comece hoje mesmo a implementar essas práticas e veja seus resultados crescerem de forma <strong>sustentável e segura</strong>.</p>
+            <div class="final-cta-logo">AUTOVENDAS PRO</div>
+        </div>
+
+        <p style="text-align: center; margin-top: 40px; color: var(--text-secondary);">
+            <strong>Dúvidas?</strong> Entre em contato com nosso suporte.<br>
+            Estamos aqui para ajudar você a vender mais.
+        </p>
+
+        <div class="page-number"><span>38</span></div>
+    </div>
+
+    <!-- ===== CONTRACAPA ===== -->
+    <div class="page cover" style="justify-content: center;">
+        <div class="cover-icon" style="margin-bottom: 30px;">
+            <i class="fas fa-shield-alt"></i>
+        </div>
+        <div class="cover-logo" style="font-size: 3rem; margin-bottom: 20px;">AUTOVENDAS PRO</div>
+        <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 40px;">
+            Guia Anti-Bloqueio — Edição 2025
+        </p>
+        <p style="color: var(--primary-orange); font-size: 0.9rem;">
+            www.autovendas.tecnologiapro.com.br
+        </p>
+    </div>
+
+</body>
+</html>
