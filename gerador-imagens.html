@@ -485,6 +485,161 @@
         .template-card.template-minimal .template-icon { background: linear-gradient(135deg, #6B7280, #374151); }
         .template-card.template-energy .template-icon { background: linear-gradient(135deg, #10B981, #34D399); }
         .template-card.template-neon .template-icon { background: linear-gradient(135deg, #EC4899, #8B5CF6); }
+        .template-card.template-product .template-icon { background: linear-gradient(135deg, #F97316, #FBBF24); }
+        .template-card.template-product { border-color: #F97316; }
+
+        /* Product Upload Section */
+        .product-upload-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .product-upload-area {
+            border: 2px dashed var(--dark-border);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: var(--dark-bg);
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .product-upload-area:hover {
+            border-color: var(--accent-orange);
+            background: rgba(249, 115, 22, 0.1);
+        }
+        .product-upload-area.dragover {
+            border-color: var(--accent-green);
+            background: rgba(16, 185, 129, 0.15);
+        }
+        .upload-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            color: #888;
+        }
+        .upload-placeholder i {
+            font-size: 2.5rem;
+            color: var(--accent-orange);
+        }
+        .upload-placeholder span {
+            font-weight: 600;
+        }
+        .upload-placeholder small {
+            opacity: 0.7;
+            font-size: 0.75rem;
+        }
+        .product-preview {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .product-preview img {
+            max-width: 200px;
+            max-height: 150px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+        .btn-remove-product {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #EF4444;
+            border: none;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+        }
+        .product-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        .product-option {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .product-option label {
+            font-size: 0.75rem;
+            color: #888;
+            font-weight: 600;
+        }
+        .product-option input[type="range"] {
+            width: 100%;
+            accent-color: var(--accent-orange);
+        }
+        .product-option select {
+            background: var(--dark-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 6px;
+            padding: 8px;
+            color: white;
+            font-size: 0.8rem;
+        }
+        .quality-badge.new {
+            background: linear-gradient(135deg, #F97316, #FBBF24);
+        }
+
+        /* Canvas Product Image */
+        .canvas-product {
+            position: absolute;
+            z-index: 15;
+            display: none;
+            transition: all 0.3s ease;
+        }
+        .canvas-product img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        .canvas-product.shadow-soft img {
+            filter: drop-shadow(0 10px 30px rgba(0,0,0,0.4));
+        }
+        .canvas-product.shadow-strong img {
+            filter: drop-shadow(0 20px 50px rgba(0,0,0,0.7));
+        }
+        .canvas-product.shadow-glow img {
+            filter: drop-shadow(0 0 30px var(--accent-orange)) drop-shadow(0 0 60px var(--accent-orange));
+        }
+        .canvas-product.effect-float {
+            animation: productFloat 3s ease-in-out infinite;
+        }
+        .canvas-product.effect-perspective {
+            transform: perspective(800px) rotateY(-5deg);
+        }
+        .canvas-product.effect-rotate {
+            animation: productRotate 6s ease-in-out infinite;
+        }
+        @keyframes productFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        @keyframes productRotate {
+            0%, 100% { transform: perspective(800px) rotateY(-5deg); }
+            50% { transform: perspective(800px) rotateY(5deg); }
+        }
+
+        /* Spotlight overlay for product */
+        .canvas.overlay-spotlight::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.7) 100%);
+            pointer-events: none;
+            z-index: 5;
+        }
 
         .template-name {
             font-weight: 700;
@@ -1101,6 +1256,61 @@
                         <div class="template-name">Neon Glow</div>
                         <div class="template-desc">Pulse + Neon Glow - Chamativo</div>
                     </div>
+                    <div class="template-card template-product" data-template="product-showcase"
+                         data-effect="float" data-transition="zoom-blur" data-text-anim="fade-up" data-overlay="spotlight">
+                        <span class="template-badge">NOVO</span>
+                        <div class="template-icon"><i class="fas fa-box-open"></i></div>
+                        <div class="template-name">Product Showcase</div>
+                        <div class="template-desc">Destaque seu produto com efeitos premium</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PRODUCT IMAGE UPLOAD -->
+            <div class="section" id="productImageSection">
+                <div class="section-title"><i class="fas fa-image"></i> Imagem do Produto <span class="quality-badge new">NOVO</span></div>
+                <div class="product-upload-container">
+                    <div class="product-upload-area" id="productUploadArea">
+                        <input type="file" id="productImageInput" accept="image/*" style="display: none;">
+                        <div class="upload-placeholder" id="uploadPlaceholder">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <span>Arraste uma imagem ou clique para selecionar</span>
+                            <small>PNG, JPG, WebP (Fundo transparente recomendado)</small>
+                        </div>
+                        <div class="product-preview" id="productPreview" style="display: none;">
+                            <img id="productPreviewImg" src="" alt="Produto">
+                            <button class="btn-remove-product" id="removeProductBtn"><i class="fas fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="product-options">
+                        <div class="product-option">
+                            <label>Tamanho do Produto</label>
+                            <input type="range" id="productSize" min="20" max="80" value="50">
+                            <span id="productSizeValue">50%</span>
+                        </div>
+                        <div class="product-option">
+                            <label>Posicao Vertical</label>
+                            <input type="range" id="productPosY" min="0" max="100" value="50">
+                        </div>
+                        <div class="product-option">
+                            <label>Sombra</label>
+                            <select id="productShadow">
+                                <option value="none">Sem sombra</option>
+                                <option value="soft" selected>Suave</option>
+                                <option value="strong">Forte</option>
+                                <option value="glow">Glow neon</option>
+                            </select>
+                        </div>
+                        <div class="product-option">
+                            <label>Efeito 3D</label>
+                            <select id="product3DEffect">
+                                <option value="none">Nenhum</option>
+                                <option value="float" selected>Flutuando</option>
+                                <option value="perspective">Perspectiva</option>
+                                <option value="rotate">Rotacao suave</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -1585,6 +1795,10 @@
                             <i class="fas fa-cloud-rain"></i>
                             <span>Rain</span>
                         </div>
+                        <div class="effect-btn" data-overlay="spotlight" title="Holofote no centro">
+                            <i class="fas fa-bullseye"></i>
+                            <span>Spotlight</span>
+                        </div>
                     </div>
                 </div>
 
@@ -1822,6 +2036,10 @@
                     <div class="canvas-bg"></div>
                     <div class="deco-circle" style="width: 60%; height: 60%; top: -15%; right: -20%;"></div>
                     <div class="deco-circle" style="width: 40%; height: 40%; bottom: -10%; left: -15%;"></div>
+                    <!-- Product Image Layer -->
+                    <div class="canvas-product" id="canvasProduct">
+                        <img id="canvasProductImg" src="" alt="Produto">
+                    </div>
                     <div class="safe-area" id="safeArea" style="display: none;">
                         <div class="safe-area-label">ÁREA SEGURA</div>
                     </div>
@@ -1924,6 +2142,13 @@
                 transition: 'zoom-in',
                 textAnim: 'scale-pop',
                 overlay: 'neon'
+            },
+            'product-showcase': {
+                effect: 'float',
+                transition: 'zoom-blur',
+                textAnim: 'fade-up',
+                overlay: 'spotlight',
+                isProductTemplate: true
             }
         };
 
@@ -2024,6 +2249,12 @@
             'jello': (p) => {
                 const skew = Math.sin(p * Math.PI * 4) * (1 - p) * 10;
                 return { scale: 1, x: 0, y: 0, rotate: 0, skewX: skew, skewY: skew * 0.5 };
+            },
+            // Product float effect
+            'float': (p) => {
+                const floatY = Math.sin(p * Math.PI * 2) * 10;
+                const floatScale = 1 + Math.sin(p * Math.PI) * 0.05;
+                return { scale: floatScale, x: 0, y: floatY, rotate: Math.sin(p * Math.PI * 2) * 2 };
             }
         };
 
@@ -2980,6 +3211,152 @@
                 safeArea.style.display = 'block';
             }
         });
+
+        // ========================================
+        // PRODUCT IMAGE HANDLING
+        // ========================================
+
+        let productImageData = null;
+        const productUploadArea = document.getElementById('productUploadArea');
+        const productImageInput = document.getElementById('productImageInput');
+        const uploadPlaceholder = document.getElementById('uploadPlaceholder');
+        const productPreview = document.getElementById('productPreview');
+        const productPreviewImg = document.getElementById('productPreviewImg');
+        const removeProductBtn = document.getElementById('removeProductBtn');
+        const canvasProduct = document.getElementById('canvasProduct');
+        const canvasProductImg = document.getElementById('canvasProductImg');
+        const productSize = document.getElementById('productSize');
+        const productSizeValue = document.getElementById('productSizeValue');
+        const productPosY = document.getElementById('productPosY');
+        const productShadow = document.getElementById('productShadow');
+        const product3DEffect = document.getElementById('product3DEffect');
+
+        // Click to upload
+        productUploadArea.addEventListener('click', () => {
+            productImageInput.click();
+        });
+
+        // Drag and drop
+        productUploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            productUploadArea.classList.add('dragover');
+        });
+
+        productUploadArea.addEventListener('dragleave', () => {
+            productUploadArea.classList.remove('dragover');
+        });
+
+        productUploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            productUploadArea.classList.remove('dragover');
+            const file = e.dataTransfer.files[0];
+            if (file && file.type.startsWith('image/')) {
+                handleProductImage(file);
+            }
+        });
+
+        // File input change
+        productImageInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                handleProductImage(file);
+            }
+        });
+
+        // Handle product image
+        function handleProductImage(file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                productImageData = e.target.result;
+                productPreviewImg.src = productImageData;
+                canvasProductImg.src = productImageData;
+                uploadPlaceholder.style.display = 'none';
+                productPreview.style.display = 'flex';
+                canvasProduct.style.display = 'block';
+                updateProductDisplay();
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Remove product image
+        removeProductBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            productImageData = null;
+            productPreviewImg.src = '';
+            canvasProductImg.src = '';
+            uploadPlaceholder.style.display = 'flex';
+            productPreview.style.display = 'none';
+            canvasProduct.style.display = 'none';
+        });
+
+        // Update product display
+        function updateProductDisplay() {
+            if (!productImageData) return;
+
+            const size = productSize.value;
+            const posY = productPosY.value;
+            const shadow = productShadow.value;
+            const effect3D = product3DEffect.value;
+
+            // Update canvas product
+            canvasProduct.style.width = `${size}%`;
+            canvasProduct.style.left = `${(100 - size) / 2}%`;
+            canvasProduct.style.top = `${posY * 0.6}%`;
+
+            // Shadow
+            canvasProduct.className = 'canvas-product';
+            if (shadow !== 'none') {
+                canvasProduct.classList.add(`shadow-${shadow}`);
+            }
+
+            // 3D Effect
+            if (effect3D !== 'none') {
+                canvasProduct.classList.add(`effect-${effect3D}`);
+            }
+
+            productSizeValue.textContent = `${size}%`;
+        }
+
+        // Event listeners for product options
+        productSize.addEventListener('input', updateProductDisplay);
+        productPosY.addEventListener('input', updateProductDisplay);
+        productShadow.addEventListener('change', updateProductDisplay);
+        product3DEffect.addEventListener('change', updateProductDisplay);
+
+        // Update template click handler to show/hide product section
+        const originalTemplateHandler = document.querySelectorAll('.template-card');
+        originalTemplateHandler.forEach(card => {
+            const originalHandler = card.onclick;
+            card.addEventListener('click', () => {
+                const templateName = card.dataset.template;
+                const productSection = document.getElementById('productImageSection');
+
+                // Show product section for product-showcase template
+                if (templateName === 'product-showcase') {
+                    productSection.style.display = 'block';
+                    productSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                    // Apply spotlight overlay to canvas
+                    canvas.classList.add('overlay-spotlight');
+                } else {
+                    // Hide product image if switching away from product template
+                    canvas.classList.remove('overlay-spotlight');
+                }
+            });
+        });
+
+        // Handle overlay changes for spotlight
+        document.querySelectorAll('.effect-btn[data-overlay]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove all overlay classes
+                canvas.classList.remove('overlay-spotlight');
+
+                if (btn.dataset.overlay === 'spotlight') {
+                    canvas.classList.add('overlay-spotlight');
+                }
+            });
+        });
+
     </script>
 </body>
 </html>
