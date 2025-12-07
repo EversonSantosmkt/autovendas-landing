@@ -653,18 +653,28 @@
         }
         .product-image-wrapper {
             position: relative;
-            max-width: 85%;
-            max-height: 85%;
+            cursor: grab;
+            transition: transform 0.1s ease;
+            user-select: none;
+        }
+        .product-image-wrapper:active {
+            cursor: grabbing;
+        }
+        .product-image-wrapper.dragging {
+            cursor: grabbing;
+            transition: none;
         }
         .product-main-image {
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
-            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5));
+            filter: drop-shadow(0 25px 50px rgba(0,0,0,0.6));
+            pointer-events: none;
+            /* No square borders - natural shape with transparency */
         }
         .product-image-placeholder {
-            width: 200px;
-            height: 200px;
+            width: 180px;
+            height: 180px;
             border: 3px dashed rgba(255,255,255,0.3);
             border-radius: 20px;
             display: flex;
@@ -1739,17 +1749,35 @@
                     </div>
                 </div>
 
+                <!-- Image Controls -->
+                <div class="product-options" style="margin-top: 15px;">
+                    <div class="product-option" style="grid-column: span 2;">
+                        <label><i class="fas fa-expand-arrows-alt"></i> Tamanho da Imagem</label>
+                        <input type="range" id="productImageSize" min="30" max="150" value="85">
+                        <span id="productImageSizeValue" style="font-size: 0.75rem; color: #888;">85%</span>
+                    </div>
+                    <div class="product-option">
+                        <label><i class="fas fa-arrows-alt-h"></i> Posicao Horizontal</label>
+                        <input type="range" id="productImagePosX" min="-50" max="50" value="0">
+                    </div>
+                    <div class="product-option">
+                        <label><i class="fas fa-arrows-alt-v"></i> Posicao Vertical</label>
+                        <input type="range" id="productImagePosY" min="-50" max="50" value="0">
+                    </div>
+                </div>
+
                 <!-- Layout Position -->
                 <div class="product-options" style="margin-top: 15px;">
                     <div class="product-option">
-                        <label>Posicao do Produto</label>
+                        <label>Layout do Texto</label>
                         <select id="productLayoutPosition">
-                            <option value="left" selected>Esquerda</option>
-                            <option value="right">Direita</option>
+                            <option value="left" selected>Produto Esquerda</option>
+                            <option value="right">Produto Direita</option>
                             <option value="center">Centro (Story)</option>
                         </select>
                     </div>
                 </div>
+                <p style="font-size: 0.7rem; color: #666; margin-top: 10px;"><i class="fas fa-info-circle"></i> Arraste a imagem no canvas para reposicionar</p>
             </div>
 
             <div class="separator"></div>
@@ -3872,6 +3900,111 @@
             productLayoutContainer.className = 'product-layout-container';
             productLayoutContainer.classList.add('layout-' + position);
         });
+
+        // ========================================
+        // IMAGE SIZE AND POSITION CONTROLS
+        // ========================================
+
+        const productImageWrapper = document.querySelector('.product-image-wrapper');
+        let imageSize = 85;
+        let imagePosX = 0;
+        let imagePosY = 0;
+
+        function updateImageTransform() {
+            if (productMainImage && productImageWrapper) {
+                productImageWrapper.style.transform = `translate(${imagePosX}px, ${imagePosY}px) scale(${imageSize / 100})`;
+            }
+        }
+
+        // Size control
+        document.getElementById('productImageSize').addEventListener('input', (e) => {
+            imageSize = parseInt(e.target.value);
+            document.getElementById('productImageSizeValue').textContent = imageSize + '%';
+            updateImageTransform();
+        });
+
+        // Position X control
+        document.getElementById('productImagePosX').addEventListener('input', (e) => {
+            imagePosX = parseInt(e.target.value);
+            updateImageTransform();
+        });
+
+        // Position Y control
+        document.getElementById('productImagePosY').addEventListener('input', (e) => {
+            imagePosY = parseInt(e.target.value);
+            updateImageTransform();
+        });
+
+        // ========================================
+        // DRAG TO MOVE IMAGE
+        // ========================================
+
+        let isDragging = false;
+        let dragStartX = 0;
+        let dragStartY = 0;
+        let dragStartPosX = 0;
+        let dragStartPosY = 0;
+
+        if (productImageWrapper) {
+            productImageWrapper.addEventListener('mousedown', (e) => {
+                if (!productImageData) return;
+                isDragging = true;
+                productImageWrapper.classList.add('dragging');
+                dragStartX = e.clientX;
+                dragStartY = e.clientY;
+                dragStartPosX = imagePosX;
+                dragStartPosY = imagePosY;
+                e.preventDefault();
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                const deltaX = e.clientX - dragStartX;
+                const deltaY = e.clientY - dragStartY;
+                imagePosX = dragStartPosX + deltaX;
+                imagePosY = dragStartPosY + deltaY;
+
+                // Update sliders
+                document.getElementById('productImagePosX').value = Math.max(-50, Math.min(50, imagePosX));
+                document.getElementById('productImagePosY').value = Math.max(-50, Math.min(50, imagePosY));
+
+                updateImageTransform();
+            });
+
+            document.addEventListener('mouseup', () => {
+                if (isDragging) {
+                    isDragging = false;
+                    productImageWrapper.classList.remove('dragging');
+                }
+            });
+
+            // Touch support for mobile
+            productImageWrapper.addEventListener('touchstart', (e) => {
+                if (!productImageData) return;
+                isDragging = true;
+                productImageWrapper.classList.add('dragging');
+                dragStartX = e.touches[0].clientX;
+                dragStartY = e.touches[0].clientY;
+                dragStartPosX = imagePosX;
+                dragStartPosY = imagePosY;
+            });
+
+            document.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                const deltaX = e.touches[0].clientX - dragStartX;
+                const deltaY = e.touches[0].clientY - dragStartY;
+                imagePosX = dragStartPosX + deltaX;
+                imagePosY = dragStartPosY + deltaY;
+                updateImageTransform();
+            });
+
+            document.addEventListener('touchend', () => {
+                if (isDragging) {
+                    isDragging = false;
+                    productImageWrapper.classList.remove('dragging');
+                }
+            });
+        }
 
         // Handle overlay changes for spotlight
         document.querySelectorAll('.effect-btn[data-overlay]').forEach(btn => {
