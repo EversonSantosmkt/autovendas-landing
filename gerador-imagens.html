@@ -1102,46 +1102,64 @@
 
                 <!-- AUDIO -->
                 <div class="section">
-                    <div class="section-title"><i class="fas fa-music"></i> Música de Fundo</div>
+                    <div class="section-title"><i class="fas fa-music"></i> Música de Fundo (Royalty-Free)</div>
                     <div class="audio-list">
-                        <div class="audio-item active" data-audio="none">
+                        <div class="audio-item active" data-audio="none" data-url="">
                             <i class="fas fa-volume-mute"></i>
                             <div class="audio-info">
                                 <div class="audio-name">Sem música</div>
                             </div>
                         </div>
-                        <div class="audio-item" data-audio="epic">
+                        <div class="audio-item" data-audio="epic" data-url="https://cdn.pixabay.com/audio/2022/05/27/audio_1808fbf07a.mp3">
                             <i class="fas fa-music"></i>
                             <div class="audio-info">
                                 <div class="audio-name">Epic Cinematic</div>
-                                <div class="audio-duration">Motivacional</div>
+                                <div class="audio-duration">Motivacional / Inspirador</div>
                             </div>
-                            <button class="play-btn"><i class="fas fa-play"></i></button>
+                            <button class="play-btn" onclick="previewAudio(event, this)"><i class="fas fa-play"></i></button>
                         </div>
-                        <div class="audio-item" data-audio="upbeat">
+                        <div class="audio-item" data-audio="upbeat" data-url="https://cdn.pixabay.com/audio/2022/10/25/audio_946ac0f0c7.mp3">
                             <i class="fas fa-music"></i>
                             <div class="audio-info">
                                 <div class="audio-name">Upbeat Energy</div>
-                                <div class="audio-duration">Energético</div>
+                                <div class="audio-duration">Energético / Dinâmico</div>
                             </div>
-                            <button class="play-btn"><i class="fas fa-play"></i></button>
+                            <button class="play-btn" onclick="previewAudio(event, this)"><i class="fas fa-play"></i></button>
                         </div>
-                        <div class="audio-item" data-audio="chill">
+                        <div class="audio-item" data-audio="chill" data-url="https://cdn.pixabay.com/audio/2022/08/02/audio_884fe92c21.mp3">
                             <i class="fas fa-music"></i>
                             <div class="audio-info">
-                                <div class="audio-name">Chill Vibes</div>
-                                <div class="audio-duration">Relaxante</div>
+                                <div class="audio-name">Chill Lofi</div>
+                                <div class="audio-duration">Relaxante / Suave</div>
                             </div>
-                            <button class="play-btn"><i class="fas fa-play"></i></button>
+                            <button class="play-btn" onclick="previewAudio(event, this)"><i class="fas fa-play"></i></button>
                         </div>
-                        <div class="audio-item" data-audio="corporate">
+                        <div class="audio-item" data-audio="corporate" data-url="https://cdn.pixabay.com/audio/2022/03/15/audio_115b9b6d3f.mp3">
                             <i class="fas fa-music"></i>
                             <div class="audio-info">
                                 <div class="audio-name">Corporate Tech</div>
-                                <div class="audio-duration">Profissional</div>
+                                <div class="audio-duration">Profissional / Moderno</div>
                             </div>
-                            <button class="play-btn"><i class="fas fa-play"></i></button>
+                            <button class="play-btn" onclick="previewAudio(event, this)"><i class="fas fa-play"></i></button>
                         </div>
+                        <div class="audio-item" data-audio="hiphop" data-url="https://cdn.pixabay.com/audio/2022/08/25/audio_4f3b0a816e.mp3">
+                            <i class="fas fa-music"></i>
+                            <div class="audio-info">
+                                <div class="audio-name">Hip Hop Beat</div>
+                                <div class="audio-duration">Urban / Moderno</div>
+                            </div>
+                            <button class="play-btn" onclick="previewAudio(event, this)"><i class="fas fa-play"></i></button>
+                        </div>
+                    </div>
+                    <audio id="audioPreview" style="display:none;"></audio>
+                </div>
+
+                <!-- VOLUME -->
+                <div class="section">
+                    <div class="section-title"><i class="fas fa-volume-up"></i> Volume da Música</div>
+                    <div class="duration-slider">
+                        <input type="range" id="audioVolume" min="0" max="100" value="50">
+                        <div class="duration-value"><span id="volumeValue">50</span>%</div>
                     </div>
                 </div>
 
@@ -1396,6 +1414,63 @@
             document.getElementById('durationValue').textContent = videoDuration;
         });
 
+        // Volume slider
+        let audioVolume = 0.5;
+        document.getElementById('audioVolume').addEventListener('input', (e) => {
+            audioVolume = parseInt(e.target.value) / 100;
+            document.getElementById('volumeValue').textContent = e.target.value;
+            const audioPreview = document.getElementById('audioPreview');
+            if (audioPreview) {
+                audioPreview.volume = audioVolume;
+            }
+        });
+
+        // Audio preview function
+        let currentlyPlayingBtn = null;
+        function previewAudio(event, btn) {
+            event.stopPropagation();
+            const audioPreview = document.getElementById('audioPreview');
+            const audioItem = btn.closest('.audio-item');
+            const audioUrl = audioItem.dataset.url;
+
+            if (!audioUrl) return;
+
+            // If same audio is playing, pause it
+            if (currentlyPlayingBtn === btn && !audioPreview.paused) {
+                audioPreview.pause();
+                btn.innerHTML = '<i class="fas fa-play"></i>';
+                currentlyPlayingBtn = null;
+                return;
+            }
+
+            // Reset previous button
+            if (currentlyPlayingBtn) {
+                currentlyPlayingBtn.innerHTML = '<i class="fas fa-play"></i>';
+            }
+
+            // Play new audio
+            audioPreview.src = audioUrl;
+            audioPreview.volume = audioVolume;
+            audioPreview.play().then(() => {
+                btn.innerHTML = '<i class="fas fa-pause"></i>';
+                currentlyPlayingBtn = btn;
+            }).catch(err => {
+                console.error('Error playing audio:', err);
+                alert('Erro ao reproduzir áudio. Tente novamente.');
+            });
+
+            audioPreview.onended = () => {
+                btn.innerHTML = '<i class="fas fa-play"></i>';
+                currentlyPlayingBtn = null;
+            };
+        }
+
+        // Get selected audio URL
+        function getSelectedAudioUrl() {
+            const activeAudio = document.querySelector('.audio-item.active');
+            return activeAudio ? activeAudio.dataset.url : '';
+        }
+
         // Download image
         document.getElementById('downloadBtn').addEventListener('click', async () => {
             const btn = document.getElementById('downloadBtn');
@@ -1443,7 +1518,7 @@
             btn.disabled = false;
         });
 
-        // Export video
+        // Export video - Optimized version with CSS animations and audio
         document.getElementById('exportVideoBtn').addEventListener('click', async () => {
             const btn = document.getElementById('exportVideoBtn');
             const overlay = document.getElementById('videoOverlay');
@@ -1454,8 +1529,8 @@
             btn.disabled = true;
             overlay.classList.add('active');
             recordingIndicator.classList.add('active');
-            status.textContent = 'Preparando canvas...';
-            progressBar.style.width = '10%';
+            status.textContent = 'Preparando...';
+            progressBar.style.width = '5%';
 
             const safeAreaVisible = safeArea.style.display !== 'none';
             safeArea.style.display = 'none';
@@ -1466,102 +1541,212 @@
             canvas.style.height = currentFormat.height + 'px';
             canvas.style.fontSize = '2em';
 
-            await new Promise(r => setTimeout(r, 500));
+            await new Promise(r => setTimeout(r, 300));
 
             try {
-                status.textContent = 'Capturando frames...';
-                progressBar.style.width = '20%';
+                status.textContent = 'Capturando imagem base...';
+                progressBar.style.width = '15%';
 
-                // Apply animation class
-                canvas.classList.add(`effect-${currentEffect}`);
+                // Capture static image first
+                const staticCanvas = await html2canvas(canvas, {
+                    scale: 1,
+                    useCORS: true,
+                    allowTaint: true,
+                    backgroundColor: null,
+                    width: currentFormat.width,
+                    height: currentFormat.height
+                });
 
-                // Create video using canvas recording
-                const frames = [];
-                const fps = 30;
-                const totalFrames = videoDuration * fps;
+                status.textContent = 'Preparando gravação...';
+                progressBar.style.width = '25%';
 
-                // Animation keyframes
-                const animations = {
-                    'kenburns-in': (progress) => `scale(${1 + progress * 0.15})`,
-                    'kenburns-out': (progress) => `scale(${1.15 - progress * 0.15})`,
-                    'zoom-pulse': (progress) => `scale(${1 + Math.sin(progress * Math.PI * 4) * 0.05})`,
-                    'pan-left': (progress) => `translateX(${-progress * 5}%)`,
-                    'pan-right': (progress) => `translateX(${progress * 5}%)`,
-                    'pan-up': (progress) => `translateY(${-progress * 5}%)`,
-                    'shake': (progress) => `translateX(${Math.sin(progress * Math.PI * 20) * 3}px)`,
-                    'glitch': (progress) => {
-                        const glitchX = Math.random() * 4 - 2;
-                        const glitchY = Math.random() * 4 - 2;
-                        return `translate(${glitchX}px, ${glitchY}px)`;
-                    },
-                    'rotate': (progress) => `rotate(${progress * 5}deg)`
-                };
-
-                // Capture frames
-                for (let i = 0; i < totalFrames; i++) {
-                    const progress = i / totalFrames;
-
-                    // Apply transform
-                    if (animations[currentEffect]) {
-                        canvas.style.transform = animations[currentEffect](progress);
-                    }
-
-                    // Apply fade transition
-                    if (currentTransition === 'fade') {
-                        if (progress < 0.1) {
-                            canvas.style.opacity = progress * 10;
-                        } else if (progress > 0.9) {
-                            canvas.style.opacity = (1 - progress) * 10;
-                        } else {
-                            canvas.style.opacity = 1;
-                        }
-                    }
-
-                    const frameCanvas = await html2canvas(canvas, {
-                        scale: 0.5,
-                        useCORS: true,
-                        allowTaint: true,
-                        width: currentFormat.width,
-                        height: currentFormat.height
-                    });
-
-                    frames.push(frameCanvas.toDataURL('image/jpeg', 0.8));
-
-                    progressBar.style.width = `${20 + (i / totalFrames) * 60}%`;
-                    status.textContent = `Capturando frame ${i + 1}/${totalFrames}...`;
-
-                    await new Promise(r => setTimeout(r, 10));
-                }
-
-                status.textContent = 'Gerando vídeo...';
-                progressBar.style.width = '85%';
-
-                // Create video blob using frames
+                // Create video canvas
                 const videoCanvas = document.createElement('canvas');
-                videoCanvas.width = currentFormat.width / 2;
-                videoCanvas.height = currentFormat.height / 2;
+                videoCanvas.width = currentFormat.width;
+                videoCanvas.height = currentFormat.height;
                 const ctx = videoCanvas.getContext('2d');
 
-                const stream = videoCanvas.captureStream(fps);
-                const recorder = new MediaRecorder(stream, {
-                    mimeType: 'video/webm;codecs=vp9',
-                    videoBitsPerSecond: 5000000
+                // Get audio if selected
+                const audioUrl = getSelectedAudioUrl();
+                let audioContext, audioSource, audioDestination;
+
+                // Setup audio context for mixing
+                if (audioUrl && window.AudioContext) {
+                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                }
+
+                // Create stream from canvas
+                const canvasStream = videoCanvas.captureStream(30);
+
+                // Determine best codec - try MP4/H.264 first
+                let mimeType = 'video/webm;codecs=vp9';
+                let fileExtension = 'webm';
+
+                if (MediaRecorder.isTypeSupported('video/mp4;codecs=h264')) {
+                    mimeType = 'video/mp4;codecs=h264';
+                    fileExtension = 'mp4';
+                } else if (MediaRecorder.isTypeSupported('video/webm;codecs=h264')) {
+                    mimeType = 'video/webm;codecs=h264';
+                    fileExtension = 'webm';
+                } else if (MediaRecorder.isTypeSupported('video/webm;codecs=vp9')) {
+                    mimeType = 'video/webm;codecs=vp9';
+                    fileExtension = 'webm';
+                } else if (MediaRecorder.isTypeSupported('video/webm')) {
+                    mimeType = 'video/webm';
+                    fileExtension = 'webm';
+                }
+
+                status.textContent = `Formato: ${fileExtension.toUpperCase()} - Iniciando gravação...`;
+                progressBar.style.width = '30%';
+
+                // If we have audio, try to load and mix it
+                let audioElement = null;
+                let combinedStream = canvasStream;
+
+                if (audioUrl) {
+                    try {
+                        audioElement = new Audio();
+                        audioElement.crossOrigin = 'anonymous';
+                        audioElement.src = audioUrl;
+                        audioElement.volume = audioVolume;
+
+                        // Wait for audio to load
+                        await new Promise((resolve, reject) => {
+                            audioElement.oncanplaythrough = resolve;
+                            audioElement.onerror = reject;
+                            setTimeout(reject, 5000); // 5s timeout
+                        });
+
+                        // Create audio stream
+                        if (audioContext) {
+                            const audioSource = audioContext.createMediaElementSource(audioElement);
+                            const audioDestination = audioContext.createMediaStreamDestination();
+
+                            // Apply volume
+                            const gainNode = audioContext.createGain();
+                            gainNode.gain.value = audioVolume;
+
+                            audioSource.connect(gainNode);
+                            gainNode.connect(audioDestination);
+                            gainNode.connect(audioContext.destination); // For monitoring
+
+                            // Combine video and audio streams
+                            const audioTrack = audioDestination.stream.getAudioTracks()[0];
+                            if (audioTrack) {
+                                combinedStream = new MediaStream([
+                                    ...canvasStream.getVideoTracks(),
+                                    audioTrack
+                                ]);
+                            }
+                        }
+                    } catch (audioError) {
+                        console.warn('Could not load audio, continuing without:', audioError);
+                        audioElement = null;
+                    }
+                }
+
+                const recorder = new MediaRecorder(combinedStream, {
+                    mimeType: mimeType,
+                    videoBitsPerSecond: 8000000
                 });
 
                 const chunks = [];
-                recorder.ondataavailable = (e) => chunks.push(e.data);
+                recorder.ondataavailable = (e) => {
+                    if (e.data.size > 0) chunks.push(e.data);
+                };
+
+                // Animation parameters
+                const fps = 30;
+                const duration = videoDuration * 1000; // in ms
+                const startTime = performance.now();
+
+                // Animation functions
+                const animations = {
+                    'kenburns-in': (p) => ({ scale: 1 + p * 0.2, x: 0, y: 0, rotate: 0 }),
+                    'kenburns-out': (p) => ({ scale: 1.2 - p * 0.2, x: 0, y: 0, rotate: 0 }),
+                    'zoom-pulse': (p) => ({ scale: 1 + Math.sin(p * Math.PI * 4) * 0.08, x: 0, y: 0, rotate: 0 }),
+                    'pan-left': (p) => ({ scale: 1.1, x: p * -100, y: 0, rotate: 0 }),
+                    'pan-right': (p) => ({ scale: 1.1, x: p * 100, y: 0, rotate: 0 }),
+                    'pan-up': (p) => ({ scale: 1.1, x: 0, y: p * -100, rotate: 0 }),
+                    'shake': (p) => ({ scale: 1, x: Math.sin(p * Math.PI * 30) * 10, y: Math.cos(p * Math.PI * 25) * 5, rotate: 0 }),
+                    'glitch': (p) => ({ scale: 1, x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 10, rotate: 0 }),
+                    'rotate': (p) => ({ scale: 1.1, x: 0, y: 0, rotate: p * 10 })
+                };
+
+                // Transition functions
+                const getOpacity = (progress) => {
+                    if (currentTransition === 'fade') {
+                        if (progress < 0.15) return progress / 0.15;
+                        if (progress > 0.85) return (1 - progress) / 0.15;
+                        return 1;
+                    }
+                    return 1;
+                };
+
+                let animationFrame;
+                let recordingStopped = false;
+
+                const animate = () => {
+                    if (recordingStopped) return;
+
+                    const elapsed = performance.now() - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+
+                    // Update progress bar
+                    progressBar.style.width = `${30 + progress * 60}%`;
+                    status.textContent = `Gravando: ${Math.round(progress * 100)}%`;
+
+                    // Clear and setup context
+                    ctx.save();
+                    ctx.fillStyle = '#0A0A0F';
+                    ctx.fillRect(0, 0, videoCanvas.width, videoCanvas.height);
+
+                    // Get animation values
+                    const anim = animations[currentEffect] ? animations[currentEffect](progress) : { scale: 1, x: 0, y: 0, rotate: 0 };
+                    const opacity = getOpacity(progress);
+
+                    // Apply transformations
+                    ctx.globalAlpha = opacity;
+                    ctx.translate(videoCanvas.width / 2 + anim.x, videoCanvas.height / 2 + anim.y);
+                    ctx.rotate(anim.rotate * Math.PI / 180);
+                    ctx.scale(anim.scale, anim.scale);
+                    ctx.translate(-videoCanvas.width / 2, -videoCanvas.height / 2);
+
+                    // Draw image
+                    ctx.drawImage(staticCanvas, 0, 0, videoCanvas.width, videoCanvas.height);
+                    ctx.restore();
+
+                    if (progress < 1) {
+                        animationFrame = requestAnimationFrame(animate);
+                    } else {
+                        // Recording complete
+                        setTimeout(() => {
+                            recordingStopped = true;
+                            recorder.stop();
+                            if (audioElement) {
+                                audioElement.pause();
+                            }
+                            if (audioContext) {
+                                audioContext.close();
+                            }
+                        }, 100);
+                    }
+                };
 
                 recorder.onstop = () => {
-                    const blob = new Blob(chunks, { type: 'video/webm' });
+                    progressBar.style.width = '95%';
+                    status.textContent = 'Finalizando vídeo...';
+
+                    const blob = new Blob(chunks, { type: mimeType.split(';')[0] });
                     const url = URL.createObjectURL(blob);
                     const a = document.createElement('a');
                     a.href = url;
-                    a.download = `autovendas-video-${currentFormat.name}-${Date.now()}.webm`;
+                    a.download = `autovendas-video-${currentFormat.name}-${Date.now()}.${fileExtension}`;
                     a.click();
                     URL.revokeObjectURL(url);
 
                     progressBar.style.width = '100%';
-                    status.textContent = 'Vídeo exportado!';
+                    status.textContent = `Vídeo ${fileExtension.toUpperCase()} exportado com sucesso!`;
 
                     setTimeout(() => {
                         overlay.classList.remove('active');
@@ -1570,25 +1755,17 @@
                     }, 1500);
                 };
 
-                recorder.start();
+                // Start recording
+                recorder.start(100); // Collect data every 100ms
 
-                // Play frames
-                let frameIndex = 0;
-                const playFrame = () => {
-                    if (frameIndex < frames.length) {
-                        const img = new Image();
-                        img.onload = () => {
-                            ctx.drawImage(img, 0, 0, videoCanvas.width, videoCanvas.height);
-                            frameIndex++;
-                            setTimeout(playFrame, 1000 / fps);
-                        };
-                        img.src = frames[frameIndex];
-                    } else {
-                        recorder.stop();
-                    }
-                };
+                // Start audio playback if available
+                if (audioElement) {
+                    audioElement.currentTime = 0;
+                    audioElement.play().catch(console.warn);
+                }
 
-                playFrame();
+                // Start animation loop
+                animate();
 
             } catch (error) {
                 console.error('Erro:', error);
@@ -1598,13 +1775,10 @@
                 btn.disabled = false;
             }
 
-            // Reset
+            // Reset canvas
             canvas.style.width = originalWidth;
             canvas.style.height = originalHeight;
             canvas.style.fontSize = '';
-            canvas.style.transform = '';
-            canvas.style.opacity = '';
-            canvas.classList.remove(`effect-${currentEffect}`);
 
             if (safeAreaVisible && currentFormat.name === 'story') {
                 safeArea.style.display = 'block';
