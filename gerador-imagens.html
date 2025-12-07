@@ -670,7 +670,11 @@
             object-fit: contain;
             filter: drop-shadow(0 25px 50px rgba(0,0,0,0.6));
             pointer-events: none;
-            /* No square borders - natural shape with transparency */
+            /* High quality rendering */
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+            image-rendering: high-quality;
+            -ms-interpolation-mode: bicubic;
         }
         .product-image-placeholder {
             width: 180px;
@@ -911,6 +915,8 @@
             max-height: 150px;
             object-fit: contain;
             border-radius: 8px;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: high-quality;
         }
         .btn-remove-product {
             position: absolute;
@@ -3155,17 +3161,21 @@
             try {
                 await new Promise(resolve => setTimeout(resolve, 500));
                 const canvasElement = await html2canvas(canvas, {
-                    scale: 1,
+                    scale: 2, // 2x resolution for high quality
                     useCORS: true,
                     allowTaint: true,
                     backgroundColor: null,
                     width: currentFormat.width,
-                    height: currentFormat.height
+                    height: currentFormat.height,
+                    imageTimeout: 0,
+                    logging: false,
+                    windowWidth: currentFormat.width,
+                    windowHeight: currentFormat.height
                 });
 
                 const link = document.createElement('a');
-                link.download = `autovendas-${currentFormat.name}-${Date.now()}.png`;
-                link.href = canvasElement.toDataURL('image/png');
+                link.download = `autovendas-${currentFormat.name}-${Date.now()}-HD.png`;
+                link.href = canvasElement.toDataURL('image/png', 1.0); // Maximum quality
                 link.click();
             } catch (error) {
                 console.error('Erro:', error);
@@ -3851,19 +3861,34 @@
         });
 
         // Handle product image
+        let originalImageFile = null; // Store original file for max quality
+
         function handleProductImage(file) {
+            originalImageFile = file;
+
+            // Create Object URL for display (maintains full quality)
+            const objectURL = URL.createObjectURL(file);
+
+            // Use Object URL for display (no quality loss)
+            productPreviewImg.src = objectURL;
+            productMainImage.src = objectURL;
+            productMainImage.style.display = 'block';
+            productImagePlaceholder.style.display = 'none';
+            uploadPlaceholder.style.display = 'none';
+            productPreview.style.display = 'flex';
+            productImageArea.classList.add('has-image');
+
+            // Also read as base64 for saving (with quality preservation)
             const reader = new FileReader();
             reader.onload = (e) => {
                 productImageData = e.target.result;
-                productPreviewImg.src = productImageData;
-                productMainImage.src = productImageData;
-                productMainImage.style.display = 'block';
-                productImagePlaceholder.style.display = 'none';
-                uploadPlaceholder.style.display = 'none';
-                productPreview.style.display = 'flex';
-                productImageArea.classList.add('has-image');
+                autoSave();
             };
             reader.readAsDataURL(file);
+
+            // Show image info
+            const sizeKB = (file.size / 1024).toFixed(1);
+            console.log(`Imagem carregada: ${file.name} (${sizeKB} KB)`);
         }
 
         // Remove product image
