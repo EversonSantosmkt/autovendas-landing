@@ -488,6 +488,363 @@
         .template-card.template-product .template-icon { background: linear-gradient(135deg, #F97316, #FBBF24); }
         .template-card.template-product { border-color: #F97316; }
 
+        /* Layout Type Selector */
+        .layout-type-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        .layout-type-card {
+            background: var(--dark-bg);
+            border: 2px solid var(--dark-border);
+            border-radius: 12px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+        .layout-type-card:hover {
+            border-color: var(--accent-orange);
+            transform: translateY(-2px);
+        }
+        .layout-type-card.active {
+            border-color: var(--accent-green);
+            background: rgba(16, 185, 129, 0.1);
+        }
+        .layout-type-preview {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border-radius: 8px;
+            height: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+        .layout-type-preview.layout-product {
+            flex-direction: row;
+            justify-content: space-between;
+            padding: 10px 15px;
+        }
+        .layout-preview-icon {
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, #F97316, #FBBF24);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+        .layout-preview-lines {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            align-items: center;
+        }
+        .layout-preview-lines .line {
+            height: 4px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 2px;
+            width: 50px;
+        }
+        .layout-preview-lines .line.short {
+            width: 30px;
+        }
+        .layout-preview-product {
+            width: 45px;
+            height: 55px;
+            background: linear-gradient(135deg, #374151, #4B5563);
+            border-radius: 6px;
+            border: 2px dashed rgba(255,255,255,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .layout-preview-product::before {
+            content: '';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+        }
+        .layout-preview-info {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            flex: 1;
+            padding-left: 12px;
+        }
+        .layout-preview-info .line {
+            height: 4px;
+            background: rgba(255,255,255,0.4);
+            border-radius: 2px;
+            width: 100%;
+        }
+        .layout-preview-info .line.short {
+            width: 60%;
+        }
+        .layout-preview-info .price-tag {
+            background: var(--accent-green);
+            color: white;
+            font-size: 0.6rem;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 4px;
+            width: fit-content;
+        }
+        .layout-type-name {
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 3px;
+        }
+        .layout-type-desc {
+            font-size: 0.7rem;
+            color: #888;
+        }
+
+        /* ======================================== */
+        /* PRODUCT SHOWCASE CANVAS LAYOUT */
+        /* ======================================== */
+        .canvas-product-layout {
+            display: none;
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        .canvas.layout-product .canvas-content {
+            display: none !important;
+        }
+        .canvas.layout-product .canvas-product-layout {
+            display: flex !important;
+        }
+        .canvas.layout-product .canvas-watermark {
+            display: none;
+        }
+
+        /* Product Layout Structure */
+        .product-layout-container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            position: relative;
+            z-index: 10;
+        }
+        .product-layout-container.layout-left {
+            flex-direction: row;
+        }
+        .product-layout-container.layout-right {
+            flex-direction: row-reverse;
+        }
+        .product-layout-container.layout-center {
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Product Image Area */
+        .product-image-area {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+        }
+        .product-image-wrapper {
+            position: relative;
+            max-width: 85%;
+            max-height: 85%;
+        }
+        .product-main-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5));
+        }
+        .product-image-placeholder {
+            width: 200px;
+            height: 200px;
+            border: 3px dashed rgba(255,255,255,0.3);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.4);
+            gap: 10px;
+        }
+        .product-image-placeholder i {
+            font-size: 3rem;
+        }
+        .product-image-placeholder span {
+            font-size: 0.8rem;
+        }
+        .product-image-area.has-image .product-image-placeholder {
+            display: none;
+        }
+
+        /* Product Info Area */
+        .product-info-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 40px 30px;
+            position: relative;
+        }
+        .product-badge {
+            background: var(--accent-orange);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 800;
+            padding: 6px 14px;
+            border-radius: 20px;
+            width: fit-content;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .product-title {
+            font-size: 2rem;
+            font-weight: 900;
+            color: white;
+            line-height: 1.1;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        .product-title span {
+            color: var(--accent-orange);
+        }
+        .product-description {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+        .product-price-container {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .product-price-old {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.4);
+            text-decoration: line-through;
+        }
+        .product-price {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--accent-green);
+        }
+        .product-price-currency {
+            font-size: 1rem;
+            vertical-align: super;
+        }
+        .product-features {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .product-feature-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.8);
+        }
+        .product-feature-item i {
+            color: var(--accent-green);
+            font-size: 0.8rem;
+        }
+        .product-cta {
+            margin-top: 20px;
+            background: linear-gradient(135deg, var(--accent-orange), #FBBF24);
+            color: white;
+            font-size: 1rem;
+            font-weight: 800;
+            padding: 15px 30px;
+            border-radius: 30px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 10px 30px rgba(249, 115, 22, 0.4);
+        }
+
+        /* Decorative Elements for Product Layout */
+        .product-deco-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.3), rgba(251, 191, 36, 0.1));
+            z-index: 1;
+        }
+        .product-deco-circle.circle-1 {
+            width: 300px;
+            height: 300px;
+            top: -100px;
+            right: -100px;
+        }
+        .product-deco-circle.circle-2 {
+            width: 200px;
+            height: 200px;
+            bottom: -50px;
+            left: -50px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(52, 211, 153, 0.1));
+        }
+        .product-corner-accent {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border: 3px solid var(--accent-orange);
+            z-index: 2;
+        }
+        .product-corner-accent.top-left {
+            top: 20px;
+            left: 20px;
+            border-right: none;
+            border-bottom: none;
+        }
+        .product-corner-accent.bottom-right {
+            bottom: 20px;
+            right: 20px;
+            border-left: none;
+            border-top: none;
+        }
+        .product-watermark {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.4);
+            z-index: 20;
+        }
+        .product-watermark i {
+            font-size: 0.8rem;
+        }
+
+        /* Responsive adjustments for product layout */
+        .canvas.format-story .product-layout-container {
+            flex-direction: column !important;
+        }
+        .canvas.format-story .product-image-area {
+            flex: 1.2;
+        }
+        .canvas.format-story .product-info-area {
+            flex: 0.8;
+            padding: 20px 40px;
+        }
+        .canvas.format-story .product-title {
+            font-size: 2.5rem;
+        }
+        .canvas.format-story .product-price {
+            font-size: 3rem;
+        }
+
         /* Product Upload Section */
         .product-upload-container {
             display: flex;
@@ -590,6 +947,41 @@
         }
         .quality-badge.new {
             background: linear-gradient(135deg, #F97316, #FBBF24);
+        }
+
+        /* Product Text Fields */
+        .product-text-fields {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .input-group label {
+            font-size: 0.75rem;
+            color: #888;
+            font-weight: 600;
+        }
+        .input-group input[type="text"] {
+            background: var(--dark-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 8px;
+            padding: 10px 12px;
+            color: white;
+            font-size: 0.85rem;
+            transition: border-color 0.3s;
+        }
+        .input-group input[type="text"]:focus {
+            outline: none;
+            border-color: var(--accent-orange);
+        }
+        .input-group-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
         }
 
         /* Canvas Product Image */
@@ -1203,6 +1595,39 @@
                 </div>
             </div>
 
+            <!-- LAYOUT TYPE SELECTOR -->
+            <div class="section" id="layoutTypeSection">
+                <div class="section-title"><i class="fas fa-th-large"></i> Tipo de Layout <span class="quality-badge new">NOVO</span></div>
+                <div class="layout-type-grid">
+                    <div class="layout-type-card active" data-layout="social-media">
+                        <div class="layout-type-preview">
+                            <div class="layout-preview-icon"><i class="fas fa-image"></i></div>
+                            <div class="layout-preview-lines">
+                                <div class="line"></div>
+                                <div class="line short"></div>
+                            </div>
+                        </div>
+                        <div class="layout-type-name">Social Media</div>
+                        <div class="layout-type-desc">Layout padrao com icone e texto</div>
+                    </div>
+                    <div class="layout-type-card" data-layout="product-showcase">
+                        <span class="template-badge">NOVO</span>
+                        <div class="layout-type-preview layout-product">
+                            <div class="layout-preview-product"></div>
+                            <div class="layout-preview-info">
+                                <div class="line"></div>
+                                <div class="line short"></div>
+                                <div class="price-tag">R$</div>
+                            </div>
+                        </div>
+                        <div class="layout-type-name">Product Showcase</div>
+                        <div class="layout-type-desc">Destaque para imagem do produto</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="separator"></div>
+
             <!-- TEMPLATES PRE-DEFINIDOS -->
             <div class="section" id="templatesSection">
                 <div class="section-title"><i class="fas fa-magic"></i> Templates de Vídeo <span class="quality-badge pro">PRO</span></div>
@@ -1256,60 +1681,73 @@
                         <div class="template-name">Neon Glow</div>
                         <div class="template-desc">Pulse + Neon Glow - Chamativo</div>
                     </div>
-                    <div class="template-card template-product" data-template="product-showcase"
-                         data-effect="float" data-transition="zoom-blur" data-text-anim="fade-up" data-overlay="spotlight">
-                        <span class="template-badge">NOVO</span>
-                        <div class="template-icon"><i class="fas fa-box-open"></i></div>
-                        <div class="template-name">Product Showcase</div>
-                        <div class="template-desc">Destaque seu produto com efeitos premium</div>
-                    </div>
                 </div>
             </div>
 
-            <!-- PRODUCT IMAGE UPLOAD -->
-            <div class="section" id="productImageSection">
-                <div class="section-title"><i class="fas fa-image"></i> Imagem do Produto <span class="quality-badge new">NOVO</span></div>
-                <div class="product-upload-container">
+            <!-- PRODUCT SHOWCASE EDITOR (Hidden by default, shown when Product layout is selected) -->
+            <div class="section" id="productEditorSection" style="display: none;">
+                <div class="section-title"><i class="fas fa-box-open"></i> Editor de Produto <span class="quality-badge new">NOVO</span></div>
+
+                <!-- Product Image Upload -->
+                <div class="product-upload-container" style="margin-bottom: 15px;">
+                    <label style="font-size: 0.8rem; color: #888; margin-bottom: 8px; display: block;">Imagem do Produto</label>
                     <div class="product-upload-area" id="productUploadArea">
                         <input type="file" id="productImageInput" accept="image/*" style="display: none;">
                         <div class="upload-placeholder" id="uploadPlaceholder">
                             <i class="fas fa-cloud-upload-alt"></i>
-                            <span>Arraste uma imagem ou clique para selecionar</span>
-                            <small>PNG, JPG, WebP (Fundo transparente recomendado)</small>
+                            <span>Arraste ou clique para selecionar</span>
+                            <small>PNG com fundo transparente recomendado</small>
                         </div>
                         <div class="product-preview" id="productPreview" style="display: none;">
                             <img id="productPreviewImg" src="" alt="Produto">
                             <button class="btn-remove-product" id="removeProductBtn"><i class="fas fa-times"></i></button>
                         </div>
                     </div>
-                    <div class="product-options">
-                        <div class="product-option">
-                            <label>Tamanho do Produto</label>
-                            <input type="range" id="productSize" min="20" max="80" value="50">
-                            <span id="productSizeValue">50%</span>
+                </div>
+
+                <!-- Product Text Fields -->
+                <div class="product-text-fields">
+                    <div class="input-group">
+                        <label>Badge/Selo</label>
+                        <input type="text" id="inputProductBadge" value="OFERTA ESPECIAL" placeholder="Ex: NOVO, PROMOCAO">
+                    </div>
+                    <div class="input-group">
+                        <label>Nome do Produto</label>
+                        <input type="text" id="inputProductTitle" value="SEU PRODUTO" placeholder="Nome do produto">
+                    </div>
+                    <div class="input-group">
+                        <label>Descricao</label>
+                        <input type="text" id="inputProductDesc" value="Descricao do seu produto vai aqui" placeholder="Descricao curta">
+                    </div>
+                    <div class="input-group-row">
+                        <div class="input-group">
+                            <label>Preco Antigo</label>
+                            <input type="text" id="inputProductOldPrice" value="R$ 199,90" placeholder="R$ 0,00">
                         </div>
-                        <div class="product-option">
-                            <label>Posicao Vertical</label>
-                            <input type="range" id="productPosY" min="0" max="100" value="50">
+                        <div class="input-group">
+                            <label>Preco Atual</label>
+                            <input type="text" id="inputProductPrice" value="R$ 99,90" placeholder="R$ 0,00">
                         </div>
-                        <div class="product-option">
-                            <label>Sombra</label>
-                            <select id="productShadow">
-                                <option value="none">Sem sombra</option>
-                                <option value="soft" selected>Suave</option>
-                                <option value="strong">Forte</option>
-                                <option value="glow">Glow neon</option>
-                            </select>
-                        </div>
-                        <div class="product-option">
-                            <label>Efeito 3D</label>
-                            <select id="product3DEffect">
-                                <option value="none">Nenhum</option>
-                                <option value="float" selected>Flutuando</option>
-                                <option value="perspective">Perspectiva</option>
-                                <option value="rotate">Rotacao suave</option>
-                            </select>
-                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Botao CTA</label>
+                        <input type="text" id="inputProductCta" value="COMPRE AGORA" placeholder="Texto do botao">
+                    </div>
+                    <div class="input-group">
+                        <label>Beneficios (separados por virgula)</label>
+                        <input type="text" id="inputProductFeatures" value="Entrega rapida, Garantia total, Parcelamento 12x" placeholder="Beneficio 1, Beneficio 2">
+                    </div>
+                </div>
+
+                <!-- Layout Position -->
+                <div class="product-options" style="margin-top: 15px;">
+                    <div class="product-option">
+                        <label>Posicao do Produto</label>
+                        <select id="productLayoutPosition">
+                            <option value="left" selected>Esquerda</option>
+                            <option value="right">Direita</option>
+                            <option value="center">Centro (Story)</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -2059,6 +2497,53 @@
                         <span>AUTOVENDAS PRO</span>
                     </div>
                     <div class="canvas-bottom-bar"></div>
+
+                    <!-- PRODUCT SHOWCASE LAYOUT (Hidden by default) -->
+                    <div class="canvas-product-layout" id="canvasProductLayout">
+                        <!-- Decorative circles -->
+                        <div class="product-deco-circle circle-1"></div>
+                        <div class="product-deco-circle circle-2"></div>
+
+                        <!-- Corner accents -->
+                        <div class="product-corner-accent top-left"></div>
+                        <div class="product-corner-accent bottom-right"></div>
+
+                        <div class="product-layout-container layout-left" id="productLayoutContainer">
+                            <!-- Product Image Side -->
+                            <div class="product-image-area" id="productImageArea">
+                                <div class="product-image-wrapper">
+                                    <div class="product-image-placeholder" id="productImagePlaceholder">
+                                        <i class="fas fa-image"></i>
+                                        <span>Sua imagem aqui</span>
+                                    </div>
+                                    <img class="product-main-image" id="productMainImage" src="" alt="Produto" style="display: none;">
+                                </div>
+                            </div>
+
+                            <!-- Product Info Side -->
+                            <div class="product-info-area">
+                                <div class="product-badge" id="productBadge">OFERTA ESPECIAL</div>
+                                <h2 class="product-title" id="productTitle">SEU <span>PRODUTO</span></h2>
+                                <p class="product-description" id="productDescription">Descricao do seu produto vai aqui</p>
+                                <div class="product-price-container">
+                                    <span class="product-price-old" id="productPriceOld">R$ 199,90</span>
+                                    <span class="product-price" id="productPrice"><span class="product-price-currency">R$</span> 99,90</span>
+                                </div>
+                                <div class="product-features" id="productFeatures">
+                                    <div class="product-feature-item"><i class="fas fa-check"></i><span>Entrega rapida</span></div>
+                                    <div class="product-feature-item"><i class="fas fa-check"></i><span>Garantia total</span></div>
+                                    <div class="product-feature-item"><i class="fas fa-check"></i><span>Parcelamento 12x</span></div>
+                                </div>
+                                <div class="product-cta" id="productCta">COMPRE AGORA</div>
+                            </div>
+                        </div>
+
+                        <!-- Watermark -->
+                        <div class="product-watermark">
+                            <i class="fas fa-rocket"></i>
+                            <span>AUTOVENDAS PRO</span>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Video overlay -->
@@ -3213,7 +3698,43 @@
         });
 
         // ========================================
-        // PRODUCT IMAGE HANDLING
+        // LAYOUT TYPE HANDLING
+        // ========================================
+
+        let currentLayoutType = 'social-media';
+
+        // Layout type selector
+        document.querySelectorAll('.layout-type-card').forEach(card => {
+            card.addEventListener('click', () => {
+                document.querySelectorAll('.layout-type-card').forEach(c => c.classList.remove('active'));
+                card.classList.add('active');
+
+                const layoutType = card.dataset.layout;
+                currentLayoutType = layoutType;
+
+                const productEditorSection = document.getElementById('productEditorSection');
+                const templatesSection = document.getElementById('templatesSection');
+
+                if (layoutType === 'product-showcase') {
+                    // Switch to product layout
+                    canvas.classList.add('layout-product');
+                    productEditorSection.style.display = 'block';
+                    // Hide the old template cards for product layout
+                    templatesSection.querySelector('.templates-grid').style.display = 'none';
+
+                    // Scroll to product editor
+                    productEditorSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                } else {
+                    // Switch to social media layout
+                    canvas.classList.remove('layout-product');
+                    productEditorSection.style.display = 'none';
+                    templatesSection.querySelector('.templates-grid').style.display = 'grid';
+                }
+            });
+        });
+
+        // ========================================
+        // PRODUCT SHOWCASE EDITOR
         // ========================================
 
         let productImageData = null;
@@ -3223,13 +3744,19 @@
         const productPreview = document.getElementById('productPreview');
         const productPreviewImg = document.getElementById('productPreviewImg');
         const removeProductBtn = document.getElementById('removeProductBtn');
-        const canvasProduct = document.getElementById('canvasProduct');
-        const canvasProductImg = document.getElementById('canvasProductImg');
-        const productSize = document.getElementById('productSize');
-        const productSizeValue = document.getElementById('productSizeValue');
-        const productPosY = document.getElementById('productPosY');
-        const productShadow = document.getElementById('productShadow');
-        const product3DEffect = document.getElementById('product3DEffect');
+        const productMainImage = document.getElementById('productMainImage');
+        const productImagePlaceholder = document.getElementById('productImagePlaceholder');
+        const productImageArea = document.getElementById('productImageArea');
+
+        // Product text elements in canvas
+        const productBadgeEl = document.getElementById('productBadge');
+        const productTitleEl = document.getElementById('productTitle');
+        const productDescEl = document.getElementById('productDescription');
+        const productPriceOldEl = document.getElementById('productPriceOld');
+        const productPriceEl = document.getElementById('productPrice');
+        const productCtaEl = document.getElementById('productCta');
+        const productFeaturesEl = document.getElementById('productFeatures');
+        const productLayoutContainer = document.getElementById('productLayoutContainer');
 
         // Click to upload
         productUploadArea.addEventListener('click', () => {
@@ -3269,11 +3796,12 @@
             reader.onload = (e) => {
                 productImageData = e.target.result;
                 productPreviewImg.src = productImageData;
-                canvasProductImg.src = productImageData;
+                productMainImage.src = productImageData;
+                productMainImage.style.display = 'block';
+                productImagePlaceholder.style.display = 'none';
                 uploadPlaceholder.style.display = 'none';
                 productPreview.style.display = 'flex';
-                canvasProduct.style.display = 'block';
-                updateProductDisplay();
+                productImageArea.classList.add('has-image');
             };
             reader.readAsDataURL(file);
         }
@@ -3283,74 +3811,72 @@
             e.stopPropagation();
             productImageData = null;
             productPreviewImg.src = '';
-            canvasProductImg.src = '';
+            productMainImage.src = '';
+            productMainImage.style.display = 'none';
+            productImagePlaceholder.style.display = 'flex';
             uploadPlaceholder.style.display = 'flex';
             productPreview.style.display = 'none';
-            canvasProduct.style.display = 'none';
+            productImageArea.classList.remove('has-image');
         });
 
-        // Update product display
-        function updateProductDisplay() {
-            if (!productImageData) return;
+        // Real-time text updates
+        document.getElementById('inputProductBadge').addEventListener('input', (e) => {
+            productBadgeEl.textContent = e.target.value;
+        });
 
-            const size = productSize.value;
-            const posY = productPosY.value;
-            const shadow = productShadow.value;
-            const effect3D = product3DEffect.value;
-
-            // Update canvas product
-            canvasProduct.style.width = `${size}%`;
-            canvasProduct.style.left = `${(100 - size) / 2}%`;
-            canvasProduct.style.top = `${posY * 0.6}%`;
-
-            // Shadow
-            canvasProduct.className = 'canvas-product';
-            if (shadow !== 'none') {
-                canvasProduct.classList.add(`shadow-${shadow}`);
+        document.getElementById('inputProductTitle').addEventListener('input', (e) => {
+            const text = e.target.value;
+            // Split by space and wrap last word in span for highlight
+            const words = text.split(' ');
+            if (words.length > 1) {
+                const lastWord = words.pop();
+                productTitleEl.innerHTML = words.join(' ') + ' <span>' + lastWord + '</span>';
+            } else {
+                productTitleEl.innerHTML = '<span>' + text + '</span>';
             }
+        });
 
-            // 3D Effect
-            if (effect3D !== 'none') {
-                canvasProduct.classList.add(`effect-${effect3D}`);
+        document.getElementById('inputProductDesc').addEventListener('input', (e) => {
+            productDescEl.textContent = e.target.value;
+        });
+
+        document.getElementById('inputProductOldPrice').addEventListener('input', (e) => {
+            productPriceOldEl.textContent = e.target.value;
+        });
+
+        document.getElementById('inputProductPrice').addEventListener('input', (e) => {
+            const priceText = e.target.value;
+            // Extract currency and value
+            const match = priceText.match(/([^\d]*)([\d,.]+)/);
+            if (match) {
+                productPriceEl.innerHTML = '<span class="product-price-currency">' + match[1].trim() + '</span> ' + match[2];
+            } else {
+                productPriceEl.textContent = priceText;
             }
+        });
 
-            productSizeValue.textContent = `${size}%`;
-        }
+        document.getElementById('inputProductCta').addEventListener('input', (e) => {
+            productCtaEl.textContent = e.target.value;
+        });
 
-        // Event listeners for product options
-        productSize.addEventListener('input', updateProductDisplay);
-        productPosY.addEventListener('input', updateProductDisplay);
-        productShadow.addEventListener('change', updateProductDisplay);
-        product3DEffect.addEventListener('change', updateProductDisplay);
+        document.getElementById('inputProductFeatures').addEventListener('input', (e) => {
+            const features = e.target.value.split(',').map(f => f.trim()).filter(f => f);
+            productFeaturesEl.innerHTML = features.map(f =>
+                '<div class="product-feature-item"><i class="fas fa-check"></i><span>' + f + '</span></div>'
+            ).join('');
+        });
 
-        // Update template click handler to show/hide product section
-        const originalTemplateHandler = document.querySelectorAll('.template-card');
-        originalTemplateHandler.forEach(card => {
-            const originalHandler = card.onclick;
-            card.addEventListener('click', () => {
-                const templateName = card.dataset.template;
-                const productSection = document.getElementById('productImageSection');
-
-                // Show product section for product-showcase template
-                if (templateName === 'product-showcase') {
-                    productSection.style.display = 'block';
-                    productSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-                    // Apply spotlight overlay to canvas
-                    canvas.classList.add('overlay-spotlight');
-                } else {
-                    // Hide product image if switching away from product template
-                    canvas.classList.remove('overlay-spotlight');
-                }
-            });
+        // Layout position change
+        document.getElementById('productLayoutPosition').addEventListener('change', (e) => {
+            const position = e.target.value;
+            productLayoutContainer.className = 'product-layout-container';
+            productLayoutContainer.classList.add('layout-' + position);
         });
 
         // Handle overlay changes for spotlight
         document.querySelectorAll('.effect-btn[data-overlay]').forEach(btn => {
             btn.addEventListener('click', () => {
-                // Remove all overlay classes
                 canvas.classList.remove('overlay-spotlight');
-
                 if (btn.dataset.overlay === 'spotlight') {
                     canvas.classList.add('overlay-spotlight');
                 }
