@@ -1751,18 +1751,50 @@
 
                 <!-- Image Controls -->
                 <div class="product-options" style="margin-top: 15px;">
-                    <div class="product-option" style="grid-column: span 2;">
-                        <label><i class="fas fa-expand-arrows-alt"></i> Tamanho da Imagem</label>
+                    <div class="product-option">
+                        <label><i class="fas fa-expand-arrows-alt"></i> Tamanho</label>
                         <input type="range" id="productImageSize" min="30" max="150" value="85">
-                        <span id="productImageSizeValue" style="font-size: 0.75rem; color: #888;">85%</span>
+                        <span id="productImageSizeValue" style="font-size: 0.7rem; color: #888;">85%</span>
                     </div>
                     <div class="product-option">
-                        <label><i class="fas fa-arrows-alt-h"></i> Posicao Horizontal</label>
-                        <input type="range" id="productImagePosX" min="-50" max="50" value="0">
+                        <label><i class="fas fa-circle"></i> Borda Arredondada</label>
+                        <input type="range" id="productImageBorderRadius" min="0" max="50" value="0">
+                        <span id="productImageBorderValue" style="font-size: 0.7rem; color: #888;">0px</span>
                     </div>
                     <div class="product-option">
-                        <label><i class="fas fa-arrows-alt-v"></i> Posicao Vertical</label>
-                        <input type="range" id="productImagePosY" min="-50" max="50" value="0">
+                        <label><i class="fas fa-arrows-alt-h"></i> Posicao X</label>
+                        <input type="range" id="productImagePosX" min="-100" max="100" value="0">
+                    </div>
+                    <div class="product-option">
+                        <label><i class="fas fa-arrows-alt-v"></i> Posicao Y</label>
+                        <input type="range" id="productImagePosY" min="-100" max="100" value="0">
+                    </div>
+                </div>
+
+                <!-- Font Size Controls -->
+                <div class="section-subtitle" style="margin-top: 15px; font-size: 0.8rem; color: #888; font-weight: 600;">
+                    <i class="fas fa-font"></i> Tamanho das Fontes
+                </div>
+                <div class="product-options" style="margin-top: 10px;">
+                    <div class="product-option">
+                        <label>Titulo</label>
+                        <input type="range" id="fontSizeTitle" min="1" max="4" value="2" step="0.1">
+                        <span id="fontSizeTitleValue" style="font-size: 0.7rem; color: #888;">2rem</span>
+                    </div>
+                    <div class="product-option">
+                        <label>Descricao</label>
+                        <input type="range" id="fontSizeDesc" min="0.6" max="1.5" value="0.9" step="0.1">
+                        <span id="fontSizeDescValue" style="font-size: 0.7rem; color: #888;">0.9rem</span>
+                    </div>
+                    <div class="product-option">
+                        <label>Preco</label>
+                        <input type="range" id="fontSizePrice" min="1.5" max="4" value="2.5" step="0.1">
+                        <span id="fontSizePriceValue" style="font-size: 0.7rem; color: #888;">2.5rem</span>
+                    </div>
+                    <div class="product-option">
+                        <label>Botao CTA</label>
+                        <input type="range" id="fontSizeCta" min="0.7" max="1.5" value="1" step="0.1">
+                        <span id="fontSizeCtaValue" style="font-size: 0.7rem; color: #888;">1rem</span>
                     </div>
                 </div>
 
@@ -4015,6 +4047,270 @@
                 }
             });
         });
+
+        // ========================================
+        // BORDER RADIUS CONTROL
+        // ========================================
+
+        let imageBorderRadius = 0;
+
+        document.getElementById('productImageBorderRadius').addEventListener('input', (e) => {
+            imageBorderRadius = parseInt(e.target.value);
+            document.getElementById('productImageBorderValue').textContent = imageBorderRadius + 'px';
+            if (productMainImage) {
+                productMainImage.style.borderRadius = imageBorderRadius + 'px';
+            }
+            autoSave();
+        });
+
+        // ========================================
+        // FONT SIZE CONTROLS
+        // ========================================
+
+        // Title font size
+        document.getElementById('fontSizeTitle').addEventListener('input', (e) => {
+            const size = parseFloat(e.target.value);
+            document.getElementById('fontSizeTitleValue').textContent = size + 'rem';
+            if (productTitleEl) {
+                productTitleEl.style.fontSize = size + 'rem';
+            }
+            autoSave();
+        });
+
+        // Description font size
+        document.getElementById('fontSizeDesc').addEventListener('input', (e) => {
+            const size = parseFloat(e.target.value);
+            document.getElementById('fontSizeDescValue').textContent = size + 'rem';
+            if (productDescEl) {
+                productDescEl.style.fontSize = size + 'rem';
+            }
+            autoSave();
+        });
+
+        // Price font size
+        document.getElementById('fontSizePrice').addEventListener('input', (e) => {
+            const size = parseFloat(e.target.value);
+            document.getElementById('fontSizePriceValue').textContent = size + 'rem';
+            if (productPriceEl) {
+                productPriceEl.style.fontSize = size + 'rem';
+            }
+            autoSave();
+        });
+
+        // CTA font size
+        document.getElementById('fontSizeCta').addEventListener('input', (e) => {
+            const size = parseFloat(e.target.value);
+            document.getElementById('fontSizeCtaValue').textContent = size + 'rem';
+            if (productCtaEl) {
+                productCtaEl.style.fontSize = size + 'rem';
+            }
+            autoSave();
+        });
+
+        // ========================================
+        // AUTO-SAVE FUNCTIONALITY
+        // ========================================
+
+        const STORAGE_KEY = 'autovendas_product_editor';
+
+        function autoSave() {
+            const data = {
+                // Layout type
+                layoutType: currentLayoutType,
+
+                // Product texts
+                badge: document.getElementById('inputProductBadge').value,
+                title: document.getElementById('inputProductTitle').value,
+                description: document.getElementById('inputProductDesc').value,
+                oldPrice: document.getElementById('inputProductOldPrice').value,
+                price: document.getElementById('inputProductPrice').value,
+                cta: document.getElementById('inputProductCta').value,
+                features: document.getElementById('inputProductFeatures').value,
+
+                // Image settings
+                imageSize: document.getElementById('productImageSize').value,
+                imagePosX: document.getElementById('productImagePosX').value,
+                imagePosY: document.getElementById('productImagePosY').value,
+                imageBorderRadius: document.getElementById('productImageBorderRadius').value,
+
+                // Font sizes
+                fontSizeTitle: document.getElementById('fontSizeTitle').value,
+                fontSizeDesc: document.getElementById('fontSizeDesc').value,
+                fontSizePrice: document.getElementById('fontSizePrice').value,
+                fontSizeCta: document.getElementById('fontSizeCta').value,
+
+                // Layout position
+                layoutPosition: document.getElementById('productLayoutPosition').value,
+
+                // Product image (base64)
+                productImage: productImageData,
+
+                // Timestamp
+                savedAt: new Date().toISOString()
+            };
+
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+            showSaveIndicator();
+        }
+
+        function showSaveIndicator() {
+            let indicator = document.getElementById('autoSaveIndicator');
+            if (!indicator) {
+                indicator = document.createElement('div');
+                indicator.id = 'autoSaveIndicator';
+                indicator.style.cssText = 'position: fixed; bottom: 20px; right: 20px; background: #10B981; color: white; padding: 8px 15px; border-radius: 20px; font-size: 0.75rem; opacity: 0; transition: opacity 0.3s; z-index: 9999; display: flex; align-items: center; gap: 6px;';
+                indicator.innerHTML = '<i class="fas fa-check"></i> Salvo automaticamente';
+                document.body.appendChild(indicator);
+            }
+            indicator.style.opacity = '1';
+            setTimeout(() => {
+                indicator.style.opacity = '0';
+            }, 1500);
+        }
+
+        function loadSavedData() {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (!saved) return;
+
+            try {
+                const data = JSON.parse(saved);
+
+                // Restore layout type
+                if (data.layoutType === 'product-showcase') {
+                    document.querySelector('.layout-type-card[data-layout="product-showcase"]').click();
+                }
+
+                // Restore texts
+                if (data.badge) {
+                    document.getElementById('inputProductBadge').value = data.badge;
+                    productBadgeEl.textContent = data.badge;
+                }
+                if (data.title) {
+                    document.getElementById('inputProductTitle').value = data.title;
+                    const words = data.title.split(' ');
+                    if (words.length > 1) {
+                        const lastWord = words.pop();
+                        productTitleEl.innerHTML = words.join(' ') + ' <span>' + lastWord + '</span>';
+                    } else {
+                        productTitleEl.innerHTML = '<span>' + data.title + '</span>';
+                    }
+                }
+                if (data.description) {
+                    document.getElementById('inputProductDesc').value = data.description;
+                    productDescEl.textContent = data.description;
+                }
+                if (data.oldPrice) {
+                    document.getElementById('inputProductOldPrice').value = data.oldPrice;
+                    productPriceOldEl.textContent = data.oldPrice;
+                }
+                if (data.price) {
+                    document.getElementById('inputProductPrice').value = data.price;
+                    const match = data.price.match(/([^\d]*)([\d,.]+)/);
+                    if (match) {
+                        productPriceEl.innerHTML = '<span class="product-price-currency">' + match[1].trim() + '</span> ' + match[2];
+                    } else {
+                        productPriceEl.textContent = data.price;
+                    }
+                }
+                if (data.cta) {
+                    document.getElementById('inputProductCta').value = data.cta;
+                    productCtaEl.textContent = data.cta;
+                }
+                if (data.features) {
+                    document.getElementById('inputProductFeatures').value = data.features;
+                    const features = data.features.split(',').map(f => f.trim()).filter(f => f);
+                    productFeaturesEl.innerHTML = features.map(f =>
+                        '<div class="product-feature-item"><i class="fas fa-check"></i><span>' + f + '</span></div>'
+                    ).join('');
+                }
+
+                // Restore image settings
+                if (data.imageSize) {
+                    document.getElementById('productImageSize').value = data.imageSize;
+                    document.getElementById('productImageSizeValue').textContent = data.imageSize + '%';
+                    imageSize = parseInt(data.imageSize);
+                }
+                if (data.imagePosX) {
+                    document.getElementById('productImagePosX').value = data.imagePosX;
+                    imagePosX = parseInt(data.imagePosX);
+                }
+                if (data.imagePosY) {
+                    document.getElementById('productImagePosY').value = data.imagePosY;
+                    imagePosY = parseInt(data.imagePosY);
+                }
+                if (data.imageBorderRadius) {
+                    document.getElementById('productImageBorderRadius').value = data.imageBorderRadius;
+                    document.getElementById('productImageBorderValue').textContent = data.imageBorderRadius + 'px';
+                    imageBorderRadius = parseInt(data.imageBorderRadius);
+                    if (productMainImage) {
+                        productMainImage.style.borderRadius = imageBorderRadius + 'px';
+                    }
+                }
+
+                // Restore font sizes
+                if (data.fontSizeTitle) {
+                    document.getElementById('fontSizeTitle').value = data.fontSizeTitle;
+                    document.getElementById('fontSizeTitleValue').textContent = data.fontSizeTitle + 'rem';
+                    productTitleEl.style.fontSize = data.fontSizeTitle + 'rem';
+                }
+                if (data.fontSizeDesc) {
+                    document.getElementById('fontSizeDesc').value = data.fontSizeDesc;
+                    document.getElementById('fontSizeDescValue').textContent = data.fontSizeDesc + 'rem';
+                    productDescEl.style.fontSize = data.fontSizeDesc + 'rem';
+                }
+                if (data.fontSizePrice) {
+                    document.getElementById('fontSizePrice').value = data.fontSizePrice;
+                    document.getElementById('fontSizePriceValue').textContent = data.fontSizePrice + 'rem';
+                    productPriceEl.style.fontSize = data.fontSizePrice + 'rem';
+                }
+                if (data.fontSizeCta) {
+                    document.getElementById('fontSizeCta').value = data.fontSizeCta;
+                    document.getElementById('fontSizeCtaValue').textContent = data.fontSizeCta + 'rem';
+                    productCtaEl.style.fontSize = data.fontSizeCta + 'rem';
+                }
+
+                // Restore layout position
+                if (data.layoutPosition) {
+                    document.getElementById('productLayoutPosition').value = data.layoutPosition;
+                    productLayoutContainer.className = 'product-layout-container layout-' + data.layoutPosition;
+                }
+
+                // Restore product image
+                if (data.productImage) {
+                    productImageData = data.productImage;
+                    productPreviewImg.src = productImageData;
+                    productMainImage.src = productImageData;
+                    productMainImage.style.display = 'block';
+                    productMainImage.style.borderRadius = imageBorderRadius + 'px';
+                    productImagePlaceholder.style.display = 'none';
+                    uploadPlaceholder.style.display = 'none';
+                    productPreview.style.display = 'flex';
+                    productImageArea.classList.add('has-image');
+                    updateImageTransform();
+                }
+
+                console.log('Dados restaurados do salvamento automatico:', data.savedAt);
+            } catch (e) {
+                console.error('Erro ao carregar dados salvos:', e);
+            }
+        }
+
+        // Add auto-save triggers to all input fields
+        document.querySelectorAll('#productEditorSection input, #productEditorSection select').forEach(input => {
+            input.addEventListener('change', autoSave);
+            if (input.type === 'text') {
+                input.addEventListener('input', autoSave);
+            }
+        });
+
+        // Load saved data on page load
+        setTimeout(loadSavedData, 500);
+
+        // Clear saved data button (optional - can be triggered from console)
+        window.clearProductEditorData = function() {
+            localStorage.removeItem(STORAGE_KEY);
+            location.reload();
+        };
 
     </script>
 </body>
