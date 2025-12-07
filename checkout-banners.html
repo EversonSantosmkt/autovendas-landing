@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banners de Checkout - AutoVendas Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: #1a1a2e;
+            padding: 40px;
+            min-height: 100vh;
+        }
+
+        h1 {
+            color: #fff;
+            text-align: center;
+            margin-bottom: 10px;
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            color: #888;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            color: #FF6B00;
+            font-size: 1.2rem;
+            margin: 40px 0 15px;
+            font-weight: 600;
+        }
+
+        .size-info {
+            color: #666;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+        }
+
+        .banner-container {
+            background: #0d0d15;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        /* ================================================
+           BANNER TOPO - 1200x150px
+           ================================================ */
+        .banner-topo {
+            width: 1200px;
+            height: 150px;
+            background: linear-gradient(135deg, #0A0A0F 0%, #12121A 50%, #0A0A0F 100%);
+            border-bottom: 3px solid #FF6B00;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 50px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .banner-topo::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(255, 107, 0, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 50%, rgba(255, 61, 0, 0.08) 0%, transparent 40%);
+            pointer-events: none;
+        }
+
+        .banner-topo .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            z-index: 1;
+        }
+
+        .banner-topo .logo-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #FF6B00, #FF3D00, #FF9500);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: #fff;
+            box-shadow: 0 0 30px rgba(255, 107, 0, 0.4);
+        }
+
+        .banner-topo .logo-text h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.2rem;
+            color: #fff;
+            letter-spacing: 3px;
+            line-height: 1;
+        }
+
+        .banner-topo .logo-text h2 span {
+            background: linear-gradient(135deg, #FF6B00, #FF3D00, #FF9500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .banner-topo .logo-text p {
+            color: #888;
+            font-size: 0.85rem;
+            margin-top: 5px;
+        }
+
+        .banner-topo .center-message {
+            text-align: center;
+            z-index: 1;
+        }
+
+        .banner-topo .center-message h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.6rem;
+            color: #fff;
+            letter-spacing: 2px;
+        }
+
+        .banner-topo .center-message p {
+            color: #FF9500;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .banner-topo .trust-badges {
+            display: flex;
+            gap: 25px;
+            z-index: 1;
+        }
+
+        .banner-topo .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #888;
+            font-size: 0.85rem;
+        }
+
+        .banner-topo .trust-badge i {
+            color: #00FF64;
+            font-size: 1rem;
+        }
+
+        /* ================================================
+           BANNER TOPO V2 - Minimalista
+           ================================================ */
+        .banner-topo-v2 {
+            width: 1200px;
+            height: 150px;
+            background: linear-gradient(90deg, #0A0A0F 0%, #151520 50%, #0A0A0F 100%);
+            border-bottom: 4px solid transparent;
+            border-image: linear-gradient(90deg, #FF6B00, #FF3D00, #FF9500) 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .banner-topo-v2::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255, 107, 0, 0.15) 0%, transparent 70%);
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .banner-topo-v2 .logo-full {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            z-index: 1;
+        }
+
+        .banner-topo-v2 .logo-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #FF6B00, #FF3D00);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            color: #fff;
+            box-shadow: 0 0 40px rgba(255, 107, 0, 0.5);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 40px rgba(255, 107, 0, 0.5); }
+            50% { box-shadow: 0 0 60px rgba(255, 107, 0, 0.7); }
+        }
+
+        .banner-topo-v2 .logo-text {
+            text-align: left;
+        }
+
+        .banner-topo-v2 .logo-text h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3rem;
+            color: #fff;
+            letter-spacing: 4px;
+            line-height: 1;
+        }
+
+        .banner-topo-v2 .logo-text h2 span {
+            background: linear-gradient(135deg, #FF6B00, #FF3D00, #FF9500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .banner-topo-v2 .logo-text p {
+            color: #666;
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .banner-topo-v2 .divider {
+            width: 2px;
+            height: 60px;
+            background: linear-gradient(180deg, transparent, #FF6B00, transparent);
+            z-index: 1;
+        }
+
+        .banner-topo-v2 .benefits {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            z-index: 1;
+        }
+
+        .banner-topo-v2 .benefit {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        .banner-topo-v2 .benefit i {
+            color: #00FF64;
+            font-size: 0.85rem;
+        }
+
+        /* ================================================
+           BANNER RODAPÉ - 1200x100px
+           ================================================ */
+        .banner-rodape {
+            width: 1200px;
+            height: 100px;
+            background: linear-gradient(135deg, #0A0A0F 0%, #0d0d15 100%);
+            border-top: 3px solid #FF6B00;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 50px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .banner-rodape::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 0%, rgba(255, 107, 0, 0.1) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .banner-rodape .security-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 1;
+        }
+
+        .banner-rodape .security-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 107, 0, 0.1);
+            border: 1px solid rgba(255, 107, 0, 0.3);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FF6B00;
+            font-size: 1.2rem;
+        }
+
+        .banner-rodape .security-text h4 {
+            color: #fff;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .banner-rodape .security-text p {
+            color: #666;
+            font-size: 0.75rem;
+        }
+
+        .banner-rodape .separator {
+            width: 1px;
+            height: 40px;
+            background: #333;
+        }
+
+        /* ================================================
+           BANNER RODAPÉ V2 - Com Garantia
+           ================================================ */
+        .banner-rodape-v2 {
+            width: 1200px;
+            height: 100px;
+            background: linear-gradient(90deg, #0A0A0F 0%, #101018 50%, #0A0A0F 100%);
+            border-top: 4px solid transparent;
+            border-image: linear-gradient(90deg, #FF6B00, #FF3D00, #FF9500) 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            position: relative;
+        }
+
+        .banner-rodape-v2 .guarantee-badge {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            z-index: 1;
+        }
+
+        .banner-rodape-v2 .guarantee-icon {
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, #00FF64, #00CC50);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0A0A0F;
+            font-size: 1.5rem;
+            box-shadow: 0 0 20px rgba(0, 255, 100, 0.3);
+        }
+
+        .banner-rodape-v2 .guarantee-text h4 {
+            color: #00FF64;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .banner-rodape-v2 .guarantee-text p {
+            color: #888;
+            font-size: 0.8rem;
+        }
+
+        .banner-rodape-v2 .payment-methods {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            z-index: 1;
+        }
+
+        .banner-rodape-v2 .payment-methods span {
+            color: #666;
+            font-size: 0.8rem;
+        }
+
+        .banner-rodape-v2 .payment-icons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .banner-rodape-v2 .payment-icons i {
+            font-size: 1.8rem;
+            color: #555;
+            transition: color 0.3s;
+        }
+
+        .banner-rodape-v2 .payment-icons i:hover {
+            color: #FF6B00;
+        }
+
+        .banner-rodape-v2 .secure-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 255, 100, 0.1);
+            border: 1px solid rgba(0, 255, 100, 0.3);
+            padding: 8px 16px;
+            border-radius: 20px;
+            z-index: 1;
+        }
+
+        .banner-rodape-v2 .secure-badge i {
+            color: #00FF64;
+        }
+
+        .banner-rodape-v2 .secure-badge span {
+            color: #00FF64;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* ================================================
+           INSTRUÇÕES
+           ================================================ */
+        .instructions {
+            background: #0d0d15;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 50px;
+        }
+
+        .instructions h3 {
+            color: #FF6B00;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .instructions ol {
+            color: #aaa;
+            padding-left: 20px;
+        }
+
+        .instructions li {
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .instructions code {
+            background: #1a1a25;
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: #FF9500;
+            font-size: 0.9rem;
+        }
+
+        /* Download buttons */
+        .download-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #FF6B00, #FF3D00);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-top: 10px;
+            cursor: pointer;
+            border: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 107, 0, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <h1>BANNERS DE CHECKOUT</h1>
+    <p class="subtitle">AutoVendas Pro — Salve como imagem (Print Screen ou Snipping Tool)</p>
+
+    <!-- ================================================
+         BANNER TOPO V1
+         ================================================ -->
+    <p class="section-title">BANNER TOPO — Versão Completa</p>
+    <p class="size-info">Tamanho: 1200 x 150 pixels</p>
+    <div class="banner-container">
+        <div class="banner-topo" id="banner-topo-1">
+            <div class="logo-section">
+                <div class="logo-icon">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <div class="logo-text">
+                    <h2>AUTO<span>VENDAS</span> PRO</h2>
+                    <p>Automação Inteligente de Anúncios</p>
+                </div>
+            </div>
+
+            <div class="center-message">
+                <h3>VOCÊ ESTÁ A UM PASSO DO SUCESSO</h3>
+                <p>Complete sua compra com segurança</p>
+            </div>
+
+            <div class="trust-badges">
+                <div class="trust-badge">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Compra Segura</span>
+                </div>
+                <div class="trust-badge">
+                    <i class="fas fa-lock"></i>
+                    <span>Dados Protegidos</span>
+                </div>
+                <div class="trust-badge">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Acesso Imediato</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================
+         BANNER TOPO V2
+         ================================================ -->
+    <p class="section-title">BANNER TOPO — Versão Minimalista</p>
+    <p class="size-info">Tamanho: 1200 x 150 pixels</p>
+    <div class="banner-container">
+        <div class="banner-topo-v2" id="banner-topo-2">
+            <div class="logo-full">
+                <div class="logo-icon">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <div class="logo-text">
+                    <h2>AUTO<span>VENDAS</span> PRO</h2>
+                    <p>Automação de Marketplace</p>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="benefits">
+                <div class="benefit">
+                    <i class="fas fa-check"></i>
+                    <span>Publique 1.000+ anúncios por dia</span>
+                </div>
+                <div class="benefit">
+                    <i class="fas fa-check"></i>
+                    <span>Economize 8+ horas de trabalho</span>
+                </div>
+                <div class="benefit">
+                    <i class="fas fa-check"></i>
+                    <span>Suporte completo incluso</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================
+         BANNER RODAPÉ V1
+         ================================================ -->
+    <p class="section-title">BANNER RODAPÉ — Selos de Segurança</p>
+    <p class="size-info">Tamanho: 1200 x 100 pixels</p>
+    <div class="banner-container">
+        <div class="banner-rodape" id="banner-rodape-1">
+            <div class="security-item">
+                <div class="security-icon">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <div class="security-text">
+                    <h4>Pagamento Seguro</h4>
+                    <p>Criptografia SSL 256-bit</p>
+                </div>
+            </div>
+
+            <div class="separator"></div>
+
+            <div class="security-item">
+                <div class="security-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="security-text">
+                    <h4>Dados Protegidos</h4>
+                    <p>Suas informações estão seguras</p>
+                </div>
+            </div>
+
+            <div class="separator"></div>
+
+            <div class="security-item">
+                <div class="security-icon">
+                    <i class="fas fa-undo"></i>
+                </div>
+                <div class="security-text">
+                    <h4>Garantia 7 Dias</h4>
+                    <p>Devolução sem burocracia</p>
+                </div>
+            </div>
+
+            <div class="separator"></div>
+
+            <div class="security-item">
+                <div class="security-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <div class="security-text">
+                    <h4>Acesso Imediato</h4>
+                    <p>Receba agora após a compra</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================
+         BANNER RODAPÉ V2
+         ================================================ -->
+    <p class="section-title">BANNER RODAPÉ — Com Garantia e Pagamentos</p>
+    <p class="size-info">Tamanho: 1200 x 100 pixels</p>
+    <div class="banner-container">
+        <div class="banner-rodape-v2" id="banner-rodape-2">
+            <div class="guarantee-badge">
+                <div class="guarantee-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="guarantee-text">
+                    <h4>GARANTIA DE 7 DIAS</h4>
+                    <p>Satisfação garantida ou seu dinheiro de volta</p>
+                </div>
+            </div>
+
+            <div class="payment-methods">
+                <span>Aceitamos:</span>
+                <div class="payment-icons">
+                    <i class="fab fa-cc-visa"></i>
+                    <i class="fab fa-cc-mastercard"></i>
+                    <i class="fab fa-cc-amex"></i>
+                    <i class="fab fa-pix"></i>
+                    <i class="fas fa-barcode"></i>
+                </div>
+            </div>
+
+            <div class="secure-badge">
+                <i class="fas fa-lock"></i>
+                <span>Compra 100% Segura</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================
+         INSTRUÇÕES
+         ================================================ -->
+    <div class="instructions">
+        <h3><i class="fas fa-info-circle"></i> Como Salvar os Banners</h3>
+        <ol>
+            <li>Use a <strong>Ferramenta de Captura</strong> do Windows (Win + Shift + S)</li>
+            <li>Selecione apenas a área do banner desejado</li>
+            <li>Salve a imagem como <code>.PNG</code> para manter a qualidade</li>
+            <li>Faça upload no painel do seu checkout (Kiwify, Hotmart, etc.)</li>
+        </ol>
+
+        <h3 style="margin-top: 30px;"><i class="fas fa-palette"></i> Cores da Identidade Visual</h3>
+        <ol>
+            <li><strong>Laranja Principal:</strong> <code>#FF6B00</code></li>
+            <li><strong>Vermelho Accent:</strong> <code>#FF3D00</code></li>
+            <li><strong>Laranja Claro:</strong> <code>#FF9500</code></li>
+            <li><strong>Fundo Escuro:</strong> <code>#0A0A0F</code></li>
+            <li><strong>Verde Sucesso:</strong> <code>#00FF64</code></li>
+        </ol>
+    </div>
+
+</body>
+</html>

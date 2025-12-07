@@ -1,0 +1,425 @@
+/* ================================================
+   CSS PERSONALIZADO PARA CHECKOUT
+   AutoVendas Pro - Identidade Visual
+   ================================================
+
+   INSTRUÇÕES:
+   - Copie este CSS e cole no campo de personalização do seu checkout
+   - Funciona com: Kiwify, Hotmart, Eduzz, Monetizze, Ticto, etc.
+   - Ajuste os seletores conforme necessário para sua plataforma
+
+   ================================================ */
+
+/* ===== IMPORTAR FONTES ===== */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+
+/* ===== VARIÁVEIS DE COR ===== */
+:root {
+    --av-primary: #FF6B00;
+    --av-secondary: #FF9500;
+    --av-accent: #FF3D00;
+    --av-dark: #0A0A0F;
+    --av-dark-card: #12121A;
+    --av-dark-border: #1E1E2A;
+    --av-text: #FFFFFF;
+    --av-text-muted: #A0A0B0;
+    --av-success: #00FF64;
+    --av-gradient: linear-gradient(135deg, #FF6B00, #FF3D00, #FF9500);
+    --av-glow: 0 0 30px rgba(255, 107, 0, 0.4);
+}
+
+/* ===== CORPO / FUNDO GERAL ===== */
+body,
+.checkout-container,
+.checkout-page,
+[class*="checkout"] {
+    background: var(--av-dark) !important;
+    background-image:
+        radial-gradient(circle at 30% 20%, rgba(255, 107, 0, 0.06) 0%, transparent 50%),
+        radial-gradient(circle at 70% 80%, rgba(255, 61, 0, 0.04) 0%, transparent 40%) !important;
+    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif !important;
+}
+
+/* ===== CARDS / CONTAINERS ===== */
+.card,
+.checkout-card,
+.payment-card,
+.summary-card,
+[class*="card"],
+[class*="container"] {
+    background: var(--av-dark-card) !important;
+    border: 1px solid var(--av-dark-border) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* ===== TÍTULOS ===== */
+h1, h2, h3, h4, h5, h6,
+.title,
+.checkout-title,
+[class*="title"],
+[class*="heading"] {
+    font-family: 'Bebas Neue', sans-serif !important;
+    color: var(--av-text) !important;
+    letter-spacing: 2px !important;
+}
+
+/* ===== TEXTOS ===== */
+p, span, label,
+.text,
+.description,
+[class*="text"],
+[class*="description"] {
+    font-family: 'Outfit', sans-serif !important;
+    color: var(--av-text-muted) !important;
+}
+
+/* ===== NOME DO PRODUTO ===== */
+.product-name,
+.product-title,
+[class*="product-name"],
+[class*="product-title"] {
+    font-family: 'Bebas Neue', sans-serif !important;
+    font-size: 1.8rem !important;
+    color: var(--av-text) !important;
+    letter-spacing: 3px !important;
+}
+
+/* ===== PREÇO ===== */
+.price,
+.total,
+.amount,
+[class*="price"],
+[class*="total"],
+[class*="amount"] {
+    font-family: 'Bebas Neue', sans-serif !important;
+    background: var(--av-gradient) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+}
+
+/* Preço riscado (de) */
+.old-price,
+.original-price,
+[class*="old-price"],
+[class*="original"],
+del, s {
+    color: var(--av-text-muted) !important;
+    text-decoration: line-through !important;
+    opacity: 0.7 !important;
+}
+
+/* ===== INPUTS / CAMPOS ===== */
+input,
+select,
+textarea,
+.input,
+.form-control,
+[class*="input"],
+[class*="field"] {
+    background: var(--av-dark) !important;
+    border: 2px solid var(--av-dark-border) !important;
+    border-radius: 12px !important;
+    color: var(--av-text) !important;
+    font-family: 'Outfit', sans-serif !important;
+    padding: 14px 18px !important;
+    transition: all 0.3s ease !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+.input:focus,
+[class*="input"]:focus {
+    border-color: var(--av-primary) !important;
+    box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.2) !important;
+    outline: none !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #555 !important;
+}
+
+/* ===== LABELS ===== */
+label,
+.label,
+[class*="label"] {
+    color: var(--av-text) !important;
+    font-weight: 600 !important;
+    font-size: 0.9rem !important;
+    margin-bottom: 8px !important;
+}
+
+/* ===== BOTÃO PRINCIPAL DE COMPRA ===== */
+button[type="submit"],
+.btn-primary,
+.buy-button,
+.purchase-button,
+.checkout-button,
+[class*="buy"],
+[class*="purchase"],
+[class*="submit"],
+[class*="cta"] {
+    background: var(--av-gradient) !important;
+    background-size: 200% auto !important;
+    border: none !important;
+    border-radius: 50px !important;
+    color: white !important;
+    font-family: 'Outfit', sans-serif !important;
+    font-size: 1.1rem !important;
+    font-weight: 700 !important;
+    padding: 18px 40px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+    cursor: pointer !important;
+    transition: all 0.4s ease !important;
+    box-shadow: var(--av-glow) !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+button[type="submit"]:hover,
+.btn-primary:hover,
+.buy-button:hover,
+.purchase-button:hover,
+.checkout-button:hover,
+[class*="buy"]:hover,
+[class*="purchase"]:hover {
+    background-position: right center !important;
+    transform: translateY(-3px) !important;
+    box-shadow: 0 0 50px rgba(255, 107, 0, 0.6) !important;
+}
+
+/* Efeito shimmer no botão */
+button[type="submit"]::before,
+.buy-button::before,
+.purchase-button::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: -100% !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent) !important;
+    animation: shimmer 2s infinite !important;
+}
+
+@keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+/* ===== SELETOR DE PAGAMENTO ===== */
+.payment-method,
+.payment-option,
+[class*="payment-method"],
+[class*="payment-option"] {
+    background: var(--av-dark) !important;
+    border: 2px solid var(--av-dark-border) !important;
+    border-radius: 12px !important;
+    padding: 15px 20px !important;
+    transition: all 0.3s ease !important;
+}
+
+.payment-method:hover,
+.payment-option:hover,
+.payment-method.selected,
+.payment-option.selected,
+.payment-method.active,
+.payment-option.active,
+[class*="payment-method"]:hover,
+[class*="payment-method"].selected {
+    border-color: var(--av-primary) !important;
+    background: rgba(255, 107, 0, 0.05) !important;
+    box-shadow: 0 0 20px rgba(255, 107, 0, 0.2) !important;
+}
+
+/* ===== RADIO E CHECKBOX ===== */
+input[type="radio"],
+input[type="checkbox"] {
+    accent-color: var(--av-primary) !important;
+    width: 20px !important;
+    height: 20px !important;
+}
+
+/* ===== RESUMO DO PEDIDO ===== */
+.order-summary,
+.summary,
+[class*="summary"],
+[class*="order"] {
+    background: var(--av-dark-card) !important;
+    border: 1px solid var(--av-dark-border) !important;
+    border-radius: 16px !important;
+    padding: 25px !important;
+}
+
+/* ===== BADGES / TAGS ===== */
+.badge,
+.tag,
+.discount-badge,
+[class*="badge"],
+[class*="tag"],
+[class*="discount"] {
+    background: var(--av-gradient) !important;
+    color: white !important;
+    font-weight: 700 !important;
+    padding: 6px 14px !important;
+    border-radius: 20px !important;
+    font-size: 0.8rem !important;
+}
+
+/* ===== GARANTIA ===== */
+.guarantee,
+.warranty,
+[class*="guarantee"],
+[class*="warranty"] {
+    background: rgba(0, 255, 100, 0.1) !important;
+    border: 1px solid rgba(0, 255, 100, 0.3) !important;
+    border-radius: 12px !important;
+    padding: 15px !important;
+    color: var(--av-success) !important;
+}
+
+/* ===== SELOS DE SEGURANÇA ===== */
+.security,
+.trust-badge,
+.secure,
+[class*="security"],
+[class*="trust"],
+[class*="secure"] {
+    background: rgba(255, 107, 0, 0.1) !important;
+    border: 1px solid rgba(255, 107, 0, 0.3) !important;
+    border-radius: 10px !important;
+    padding: 10px 15px !important;
+}
+
+/* ===== COUNTDOWN / TIMER ===== */
+.countdown,
+.timer,
+[class*="countdown"],
+[class*="timer"] {
+    background: rgba(255, 61, 0, 0.15) !important;
+    border: 1px solid var(--av-accent) !important;
+    border-radius: 10px !important;
+    padding: 12px 20px !important;
+    font-family: 'Bebas Neue', sans-serif !important;
+    color: var(--av-accent) !important;
+    letter-spacing: 2px !important;
+}
+
+/* ===== ORDER BUMP / UPSELL ===== */
+.order-bump,
+.bump,
+.upsell,
+[class*="bump"],
+[class*="upsell"] {
+    background: var(--av-dark-card) !important;
+    border: 2px dashed var(--av-primary) !important;
+    border-radius: 16px !important;
+    padding: 20px !important;
+    position: relative !important;
+}
+
+.order-bump::before,
+[class*="bump"]::before {
+    content: 'OFERTA ESPECIAL' !important;
+    position: absolute !important;
+    top: -12px !important;
+    left: 20px !important;
+    background: var(--av-gradient) !important;
+    padding: 5px 15px !important;
+    border-radius: 20px !important;
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 1px !important;
+}
+
+/* ===== LINKS ===== */
+a,
+.link,
+[class*="link"] {
+    color: var(--av-primary) !important;
+    text-decoration: none !important;
+    transition: color 0.3s ease !important;
+}
+
+a:hover,
+.link:hover {
+    color: var(--av-secondary) !important;
+}
+
+/* ===== MENSAGENS DE ERRO ===== */
+.error,
+.error-message,
+[class*="error"] {
+    color: #FF4444 !important;
+    background: rgba(255, 68, 68, 0.1) !important;
+    border: 1px solid rgba(255, 68, 68, 0.3) !important;
+    border-radius: 8px !important;
+    padding: 10px 15px !important;
+}
+
+/* ===== MENSAGENS DE SUCESSO ===== */
+.success,
+.success-message,
+[class*="success"] {
+    color: var(--av-success) !important;
+    background: rgba(0, 255, 100, 0.1) !important;
+    border: 1px solid rgba(0, 255, 100, 0.3) !important;
+    border-radius: 8px !important;
+    padding: 10px 15px !important;
+}
+
+/* ===== ÍCONES ===== */
+i,
+.icon,
+[class*="icon"] {
+    color: var(--av-primary) !important;
+}
+
+/* Ícones de sucesso/check */
+.fa-check,
+.fa-check-circle,
+[class*="check"] {
+    color: var(--av-success) !important;
+}
+
+/* ===== SCROLLBAR PERSONALIZADA ===== */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--av-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--av-primary);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--av-secondary);
+}
+
+/* ===== RESPONSIVO ===== */
+@media (max-width: 768px) {
+    button[type="submit"],
+    .btn-primary,
+    .buy-button,
+    .purchase-button {
+        padding: 16px 30px !important;
+        font-size: 1rem !important;
+    }
+
+    .product-name,
+    .product-title {
+        font-size: 1.4rem !important;
+    }
+}
+
+/* ================================================
+   FIM DO CSS PERSONALIZADO
+   ================================================ */
