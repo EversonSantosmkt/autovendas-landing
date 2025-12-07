@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <link rel="stylesheet" href="video-effects.css">
     <style>
         :root {
             --primary-orange: #FF6B00;
@@ -393,6 +394,134 @@
             align-items: center;
             justify-content: center;
             font-size: 0.7rem;
+        }
+
+        /* Separator */
+        .separator {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--dark-border), transparent);
+            margin: 20px 0;
+        }
+
+        /* Quality badges */
+        .quality-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(255, 107, 0, 0.15);
+            border: 1px solid rgba(255, 107, 0, 0.3);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.6rem;
+            font-weight: 700;
+            color: var(--primary-orange);
+            margin-left: 8px;
+        }
+
+        .quality-badge.pro {
+            background: rgba(139, 92, 246, 0.15);
+            border-color: rgba(139, 92, 246, 0.3);
+            color: var(--accent-purple);
+        }
+
+        /* Templates grid */
+        .templates-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .template-card {
+            background: var(--dark-bg);
+            border: 2px solid var(--dark-border);
+            border-radius: 12px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .template-card:hover {
+            border-color: var(--primary-orange);
+            transform: translateY(-2px);
+        }
+
+        .template-card.active {
+            border-color: var(--primary-orange);
+            background: rgba(255, 107, 0, 0.1);
+            box-shadow: 0 0 20px rgba(255, 107, 0, 0.2);
+        }
+
+        .template-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-fire);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .template-card.active::before { opacity: 1; }
+
+        .template-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--gradient-fire);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .template-card.template-glitch .template-icon { background: linear-gradient(135deg, #8B5CF6, #EC4899); }
+        .template-card.template-corporate .template-icon { background: linear-gradient(135deg, #3B82F6, #06B6D4); }
+        .template-card.template-retro .template-icon { background: linear-gradient(135deg, #F59E0B, #EF4444); }
+        .template-card.template-minimal .template-icon { background: linear-gradient(135deg, #6B7280, #374151); }
+        .template-card.template-energy .template-icon { background: linear-gradient(135deg, #10B981, #34D399); }
+        .template-card.template-neon .template-icon { background: linear-gradient(135deg, #EC4899, #8B5CF6); }
+
+        .template-name {
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-bottom: 4px;
+        }
+
+        .template-desc {
+            font-size: 0.65rem;
+            color: var(--text-secondary);
+            line-height: 1.3;
+        }
+
+        .template-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: var(--accent-purple);
+            padding: 2px 6px;
+            border-radius: 8px;
+            font-size: 0.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        /* Effect buttons 4 columns */
+        .effects-grid[style*="repeat(4"] .effect-btn {
+            padding: 8px 4px;
+        }
+
+        .effects-grid[style*="repeat(4"] .effect-btn i {
+            font-size: 1rem;
+            margin-bottom: 3px;
+        }
+
+        .effects-grid[style*="repeat(4"] .effect-btn span {
+            font-size: 0.6rem;
         }
 
         /* Duration slider */
@@ -919,6 +1048,64 @@
                 </div>
             </div>
 
+            <!-- TEMPLATES PRE-DEFINIDOS -->
+            <div class="section" id="templatesSection">
+                <div class="section-title"><i class="fas fa-magic"></i> Templates de Vídeo <span class="quality-badge pro">PRO</span></div>
+                <div class="templates-grid">
+                    <div class="template-card active" data-template="viral-reels"
+                         data-effect="velocity-pulse" data-transition="zoom-blur" data-text-anim="bounce-in" data-overlay="none">
+                        <div class="template-icon"><i class="fas fa-fire"></i></div>
+                        <div class="template-name">Viral Reels</div>
+                        <div class="template-desc">Zoom + Flash + Texto bounce - Perfeito para TikTok/Reels</div>
+                    </div>
+                    <div class="template-card template-glitch" data-template="cinematic-epic"
+                         data-effect="dolly-zoom" data-transition="fade" data-text-anim="fade-up" data-overlay="cinematic-bars">
+                        <div class="template-icon"><i class="fas fa-film"></i></div>
+                        <div class="template-name">Cinematic Epic</div>
+                        <div class="template-desc">Dolly zoom + Barras cinema + Texto elegante</div>
+                    </div>
+                    <div class="template-card template-glitch" data-template="glitch-tech"
+                         data-effect="glitch-heavy" data-transition="glitch" data-text-anim="glitch" data-overlay="vhs">
+                        <span class="template-badge">VIRAL</span>
+                        <div class="template-icon"><i class="fas fa-bolt"></i></div>
+                        <div class="template-name">Glitch Tech</div>
+                        <div class="template-desc">Glitch + RGB Split + VHS - Super impactante</div>
+                    </div>
+                    <div class="template-card template-corporate" data-template="clean-corporate"
+                         data-effect="kenburns-slow" data-transition="slide-up" data-text-anim="fade-up" data-overlay="none">
+                        <div class="template-icon"><i class="fas fa-briefcase"></i></div>
+                        <div class="template-name">Clean Corporate</div>
+                        <div class="template-desc">Ken Burns suave + Fade - Profissional</div>
+                    </div>
+                    <div class="template-card template-energy" data-template="energy-hype"
+                         data-effect="whip-pan" data-transition="flash" data-text-anim="scale-pop" data-overlay="light-leak">
+                        <div class="template-icon"><i class="fas fa-rocket"></i></div>
+                        <div class="template-name">Energy Hype</div>
+                        <div class="template-desc">Whip Pan + Flash + Light Leak - Alta energia</div>
+                    </div>
+                    <div class="template-card template-retro" data-template="retro-vhs"
+                         data-effect="handheld" data-transition="glitch" data-text-anim="glitch" data-overlay="vhs-full">
+                        <div class="template-icon"><i class="fas fa-compact-disc"></i></div>
+                        <div class="template-name">Retro VHS</div>
+                        <div class="template-desc">Scanlines + Noise + Distorção - Estilo 80s</div>
+                    </div>
+                    <div class="template-card template-minimal" data-template="minimal-elegant"
+                         data-effect="parallax" data-transition="fade" data-text-anim="blur-reveal" data-overlay="vignette">
+                        <div class="template-icon"><i class="fas fa-feather"></i></div>
+                        <div class="template-name">Minimal Elegant</div>
+                        <div class="template-desc">Parallax + Vinheta - Sofisticado</div>
+                    </div>
+                    <div class="template-card template-neon" data-template="neon-glow"
+                         data-effect="pulse" data-transition="zoom-in" data-text-anim="scale-pop" data-overlay="neon">
+                        <div class="template-icon"><i class="fas fa-sun"></i></div>
+                        <div class="template-name">Neon Glow</div>
+                        <div class="template-desc">Pulse + Neon Glow - Chamativo</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="separator"></div>
+
             <!-- STYLE -->
             <div class="section">
                 <div class="section-title"><i class="fas fa-palette"></i> Estilo</div>
@@ -1112,64 +1299,291 @@
 
             <!-- VIDEO OPTIONS (shown when video tab is active) -->
             <div id="videoOptions" style="display: none;">
-                <!-- MOTION EFFECTS -->
+                <!-- MOTION EFFECTS - EXPANDED -->
                 <div class="section">
-                    <div class="section-title"><i class="fas fa-film"></i> Efeito de Movimento</div>
-                    <div class="effects-grid">
-                        <div class="effect-btn active" data-effect="kenburns-in">
+                    <div class="section-title"><i class="fas fa-film"></i> Efeito de Movimento <span class="quality-badge">20+</span></div>
+                    <div class="effects-grid" style="grid-template-columns: repeat(4, 1fr);">
+                        <!-- Ken Burns -->
+                        <div class="effect-btn active" data-effect="kenburns-in" title="Zoom suave para dentro">
                             <i class="fas fa-search-plus"></i>
                             <span>Ken Burns In</span>
                         </div>
-                        <div class="effect-btn" data-effect="kenburns-out">
+                        <div class="effect-btn" data-effect="kenburns-out" title="Zoom suave para fora">
                             <i class="fas fa-search-minus"></i>
                             <span>Ken Burns Out</span>
                         </div>
-                        <div class="effect-btn" data-effect="zoom-pulse">
-                            <i class="fas fa-heartbeat"></i>
-                            <span>Zoom Pulse</span>
+                        <div class="effect-btn" data-effect="kenburns-diagonal" title="Zoom diagonal">
+                            <i class="fas fa-compress-arrows-alt"></i>
+                            <span>Ken Diagonal</span>
                         </div>
-                        <div class="effect-btn" data-effect="pan-left">
+                        <div class="effect-btn" data-effect="dolly-zoom" title="Efeito Vertigo">
+                            <i class="fas fa-video"></i>
+                            <span>Dolly Zoom</span>
+                        </div>
+                        <!-- Pan -->
+                        <div class="effect-btn" data-effect="pan-left" title="Pan para esquerda">
                             <i class="fas fa-arrow-left"></i>
                             <span>Pan Esquerda</span>
                         </div>
-                        <div class="effect-btn" data-effect="pan-right">
+                        <div class="effect-btn" data-effect="pan-right" title="Pan para direita">
                             <i class="fas fa-arrow-right"></i>
                             <span>Pan Direita</span>
                         </div>
-                        <div class="effect-btn" data-effect="pan-up">
+                        <div class="effect-btn" data-effect="pan-up" title="Pan para cima">
                             <i class="fas fa-arrow-up"></i>
                             <span>Pan Cima</span>
                         </div>
-                        <div class="effect-btn" data-effect="shake">
+                        <div class="effect-btn" data-effect="pan-down" title="Pan para baixo">
+                            <i class="fas fa-arrow-down"></i>
+                            <span>Pan Baixo</span>
+                        </div>
+                        <!-- Camera Moves -->
+                        <div class="effect-btn" data-effect="whip-pan-h" title="Movimento rápido horizontal">
+                            <i class="fas fa-exchange-alt"></i>
+                            <span>Whip Pan H</span>
+                        </div>
+                        <div class="effect-btn" data-effect="whip-pan-v" title="Movimento rápido vertical">
+                            <i class="fas fa-sort"></i>
+                            <span>Whip Pan V</span>
+                        </div>
+                        <div class="effect-btn" data-effect="orbit" title="Movimento circular">
+                            <i class="fas fa-circle-notch"></i>
+                            <span>Orbit</span>
+                        </div>
+                        <div class="effect-btn" data-effect="parallax" title="Efeito 3D de profundidade">
+                            <i class="fas fa-layer-group"></i>
+                            <span>Parallax</span>
+                        </div>
+                        <!-- Velocity/Dynamic -->
+                        <div class="effect-btn" data-effect="velocity-in" title="Speed ramp entrada">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>Velocity In</span>
+                        </div>
+                        <div class="effect-btn" data-effect="velocity-out" title="Speed ramp saída">
+                            <i class="fas fa-hourglass-end"></i>
+                            <span>Velocity Out</span>
+                        </div>
+                        <div class="effect-btn" data-effect="zoom-pulse" title="Pulso de zoom">
+                            <i class="fas fa-heartbeat"></i>
+                            <span>Zoom Pulse</span>
+                        </div>
+                        <div class="effect-btn" data-effect="bounce" title="Efeito elástico">
+                            <i class="fas fa-basketball-ball"></i>
+                            <span>Bounce</span>
+                        </div>
+                        <!-- Shake/Glitch -->
+                        <div class="effect-btn" data-effect="handheld" title="Tremido de câmera real">
+                            <i class="fas fa-hand-paper"></i>
+                            <span>Handheld</span>
+                        </div>
+                        <div class="effect-btn" data-effect="shake-light" title="Tremido suave">
+                            <i class="fas fa-water"></i>
+                            <span>Shake Leve</span>
+                        </div>
+                        <div class="effect-btn" data-effect="shake-heavy" title="Tremido intenso">
                             <i class="fas fa-wave-square"></i>
-                            <span>Shake</span>
+                            <span>Shake Forte</span>
                         </div>
-                        <div class="effect-btn" data-effect="glitch">
+                        <div class="effect-btn" data-effect="glitch-light" title="Glitch suave">
                             <i class="fas fa-bolt"></i>
-                            <span>Glitch</span>
+                            <span>Glitch Leve</span>
                         </div>
-                        <div class="effect-btn" data-effect="rotate">
+                        <div class="effect-btn" data-effect="glitch-heavy" title="Glitch intenso">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Glitch Forte</span>
+                        </div>
+                        <div class="effect-btn" data-effect="rotate" title="Rotação suave">
                             <i class="fas fa-sync"></i>
                             <span>Rotação</span>
+                        </div>
+                        <div class="effect-btn" data-effect="wobble" title="Balanço">
+                            <i class="fas fa-dice"></i>
+                            <span>Wobble</span>
+                        </div>
+                        <div class="effect-btn" data-effect="jello" title="Efeito gelatina">
+                            <i class="fas fa-lemon"></i>
+                            <span>Jello</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- TRANSITIONS -->
+                <!-- TRANSITIONS - EXPANDED -->
                 <div class="section">
-                    <div class="section-title"><i class="fas fa-random"></i> Transições</div>
-                    <div class="effects-grid">
-                        <div class="effect-btn active" data-transition="fade">
+                    <div class="section-title"><i class="fas fa-random"></i> Transições Cinematográficas <span class="quality-badge">15+</span></div>
+                    <div class="effects-grid" style="grid-template-columns: repeat(4, 1fr);">
+                        <div class="effect-btn active" data-transition="fade" title="Fade suave">
                             <i class="fas fa-adjust"></i>
                             <span>Fade</span>
                         </div>
-                        <div class="effect-btn" data-transition="slide">
-                            <i class="fas fa-arrows-alt-h"></i>
-                            <span>Slide</span>
+                        <div class="effect-btn" data-transition="dissolve" title="Cross dissolve">
+                            <i class="fas fa-ghost"></i>
+                            <span>Dissolve</span>
                         </div>
-                        <div class="effect-btn" data-transition="zoom">
+                        <div class="effect-btn" data-transition="zoom-in" title="Zoom para dentro">
+                            <i class="fas fa-compress"></i>
+                            <span>Zoom In</span>
+                        </div>
+                        <div class="effect-btn" data-transition="zoom-out" title="Zoom para fora">
                             <i class="fas fa-expand"></i>
-                            <span>Zoom</span>
+                            <span>Zoom Out</span>
+                        </div>
+                        <div class="effect-btn" data-transition="zoom-blur" title="Zoom com blur">
+                            <i class="fas fa-bullseye"></i>
+                            <span>Zoom Blur</span>
+                        </div>
+                        <div class="effect-btn" data-transition="slide-left" title="Desliza da direita">
+                            <i class="fas fa-arrow-circle-left"></i>
+                            <span>Slide Left</span>
+                        </div>
+                        <div class="effect-btn" data-transition="slide-right" title="Desliza da esquerda">
+                            <i class="fas fa-arrow-circle-right"></i>
+                            <span>Slide Right</span>
+                        </div>
+                        <div class="effect-btn" data-transition="slide-up" title="Desliza de baixo">
+                            <i class="fas fa-arrow-circle-up"></i>
+                            <span>Slide Up</span>
+                        </div>
+                        <div class="effect-btn" data-transition="flash" title="Clarão branco">
+                            <i class="fas fa-sun"></i>
+                            <span>Flash</span>
+                        </div>
+                        <div class="effect-btn" data-transition="glitch" title="Transição glitch">
+                            <i class="fas fa-bolt"></i>
+                            <span>Glitch</span>
+                        </div>
+                        <div class="effect-btn" data-transition="flip-x" title="Gira no eixo X">
+                            <i class="fas fa-arrows-alt-v"></i>
+                            <span>Flip X</span>
+                        </div>
+                        <div class="effect-btn" data-transition="flip-y" title="Gira no eixo Y">
+                            <i class="fas fa-arrows-alt-h"></i>
+                            <span>Flip Y</span>
+                        </div>
+                        <div class="effect-btn" data-transition="bounce" title="Entra pulando">
+                            <i class="fas fa-angle-double-down"></i>
+                            <span>Bounce</span>
+                        </div>
+                        <div class="effect-btn" data-transition="elastic" title="Efeito elástico">
+                            <i class="fas fa-expand-arrows-alt"></i>
+                            <span>Elastic</span>
+                        </div>
+                        <div class="effect-btn" data-transition="split-h" title="Divide horizontal">
+                            <i class="fas fa-grip-lines"></i>
+                            <span>Split H</span>
+                        </div>
+                        <div class="effect-btn" data-transition="split-v" title="Divide vertical">
+                            <i class="fas fa-grip-lines-vertical"></i>
+                            <span>Split V</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TEXT ANIMATIONS - NEW -->
+                <div class="section">
+                    <div class="section-title"><i class="fas fa-font"></i> Animação de Texto <span class="quality-badge pro">NEW</span></div>
+                    <div class="effects-grid" style="grid-template-columns: repeat(4, 1fr);">
+                        <div class="effect-btn active" data-text-anim="none" title="Sem animação">
+                            <i class="fas fa-minus"></i>
+                            <span>Nenhuma</span>
+                        </div>
+                        <div class="effect-btn" data-text-anim="typewriter" title="Digita letra por letra">
+                            <i class="fas fa-keyboard"></i>
+                            <span>Typewriter</span>
+                        </div>
+                        <div class="effect-btn" data-text-anim="fade-up" title="Sobe com fade">
+                            <i class="fas fa-level-up-alt"></i>
+                            <span>Fade Up</span>
+                        </div>
+                        <div class="effect-btn" data-text-anim="fade-down" title="Desce com fade">
+                            <i class="fas fa-level-down-alt"></i>
+                            <span>Fade Down</span>
+                        </div>
+                        <div class="effect-btn" data-text-anim="bounce-in" title="Entra pulando">
+                            <i class="fas fa-arrow-down"></i>
+                            <span>Bounce In</span>
+                        </div>
+                        <div class="effect-btn" data-text-anim="scale-pop" title="Escala do centro">
+                            <i class="fas fa-expand-alt"></i>
+                            <span>Scale Pop</span>
+                        </div>
+                        <div class="effect-btn" data-text-anim="slide-left" title="Desliza da direita">
+                            <i class="fas fa-arrow-left"></i>
+                            <span>Slide Left</span>
+                        </div>
+                        <div class="effect-btn" data-text-anim="slide-right" title="Desliza da esquerda">
+                            <i class="fas fa-arrow-right"></i>
+                            <span>Slide Right</span>
+                        </div>
+                        <div class="effect-btn" data-text-anim="blur-reveal" title="Revela do blur">
+                            <i class="fas fa-eye"></i>
+                            <span>Blur Reveal</span>
+                        </div>
+                        <div class="effect-btn" data-text-anim="glitch" title="Texto com glitch">
+                            <i class="fas fa-bolt"></i>
+                            <span>Glitch Text</span>
+                        </div>
+                        <div class="effect-btn" data-text-anim="wave" title="Texto em onda">
+                            <i class="fas fa-water"></i>
+                            <span>Wave</span>
+                        </div>
+                        <div class="effect-btn" data-text-anim="shake" title="Texto tremendo">
+                            <i class="fas fa-hand-rock"></i>
+                            <span>Shake</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- OVERLAYS - NEW -->
+                <div class="section">
+                    <div class="section-title"><i class="fas fa-layer-group"></i> Overlays & Filtros <span class="quality-badge pro">NEW</span></div>
+                    <div class="effects-grid" style="grid-template-columns: repeat(4, 1fr);">
+                        <div class="effect-btn active" data-overlay="none" title="Sem overlay">
+                            <i class="fas fa-ban"></i>
+                            <span>Nenhum</span>
+                        </div>
+                        <div class="effect-btn" data-overlay="vhs" title="Linhas VHS">
+                            <i class="fas fa-tv"></i>
+                            <span>VHS Lines</span>
+                        </div>
+                        <div class="effect-btn" data-overlay="grain" title="Granulado de filme">
+                            <i class="fas fa-film"></i>
+                            <span>Film Grain</span>
+                        </div>
+                        <div class="effect-btn" data-overlay="vignette" title="Escurece bordas">
+                            <i class="fas fa-circle"></i>
+                            <span>Vignette</span>
+                        </div>
+                        <div class="effect-btn" data-overlay="light-leak" title="Vazamento de luz">
+                            <i class="fas fa-sun"></i>
+                            <span>Light Leak</span>
+                        </div>
+                        <div class="effect-btn" data-overlay="bokeh" title="Luzes desfocadas">
+                            <i class="fas fa-dot-circle"></i>
+                            <span>Bokeh</span>
+                        </div>
+                        <div class="effect-btn" data-overlay="dust" title="Partículas de poeira">
+                            <i class="fas fa-snowflake"></i>
+                            <span>Dust</span>
+                        </div>
+                        <div class="effect-btn" data-overlay="neon" title="Brilho neon">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Neon Glow</span>
+                        </div>
+                        <div class="effect-btn" data-overlay="chromatic" title="Aberração cromática">
+                            <i class="fas fa-eye-dropper"></i>
+                            <span>Chromatic</span>
+                        </div>
+                        <div class="effect-btn" data-overlay="cinematic-bars" title="Barras de cinema">
+                            <i class="fas fa-minus"></i>
+                            <span>Cinema Bars</span>
+                        </div>
+                        <div class="effect-btn" data-overlay="noise" title="Ruído estático">
+                            <i class="fas fa-broadcast-tower"></i>
+                            <span>Noise</span>
+                        </div>
+                        <div class="effect-btn" data-overlay="rain" title="Efeito de chuva">
+                            <i class="fas fa-cloud-rain"></i>
+                            <span>Rain</span>
                         </div>
                     </div>
                 </div>
@@ -1451,8 +1865,210 @@
         let currentMode = 'image';
         let currentEffect = 'kenburns-in';
         let currentTransition = 'fade';
+        let currentTextAnim = 'none';
+        let currentOverlay = 'none';
+        let currentTemplate = 'viral-reels';
         let currentAudio = 'none';
         let videoDuration = 5;
+
+        // Templates presets - combinações prontas de efeitos
+        const templates = {
+            'viral-reels': {
+                effect: 'velocity-pulse',
+                transition: 'zoom-blur',
+                textAnim: 'bounce-in',
+                overlay: 'none'
+            },
+            'cinematic-epic': {
+                effect: 'dolly-zoom',
+                transition: 'fade',
+                textAnim: 'fade-up',
+                overlay: 'cinematic-bars'
+            },
+            'glitch-tech': {
+                effect: 'glitch-heavy',
+                transition: 'glitch',
+                textAnim: 'glitch',
+                overlay: 'vhs'
+            },
+            'clean-corporate': {
+                effect: 'kenburns-in',
+                transition: 'slide-up',
+                textAnim: 'fade-up',
+                overlay: 'none'
+            },
+            'energy-hype': {
+                effect: 'whip-pan-h',
+                transition: 'flash',
+                textAnim: 'scale-pop',
+                overlay: 'light-leak'
+            },
+            'retro-vhs': {
+                effect: 'handheld',
+                transition: 'glitch',
+                textAnim: 'glitch',
+                overlay: 'vhs'
+            },
+            'minimal-elegant': {
+                effect: 'parallax',
+                transition: 'fade',
+                textAnim: 'blur-reveal',
+                overlay: 'vignette'
+            },
+            'neon-glow': {
+                effect: 'zoom-pulse',
+                transition: 'zoom-in',
+                textAnim: 'scale-pop',
+                overlay: 'neon'
+            }
+        };
+
+        // Animation functions for video export - EXPANDED
+        const motionEffects = {
+            // Ken Burns
+            'kenburns-in': (p) => ({ scale: 1 + p * 0.2, x: 0, y: 0, rotate: 0 }),
+            'kenburns-out': (p) => ({ scale: 1.2 - p * 0.2, x: 0, y: 0, rotate: 0 }),
+            'kenburns-diagonal': (p) => ({ scale: 1 + p * 0.25, x: -p * 5, y: -p * 5, rotate: 0 }),
+            'dolly-zoom': (p) => {
+                const wave = Math.sin(p * Math.PI);
+                return { scale: 1 + wave * 0.15, x: 0, y: 0, rotate: 0 };
+            },
+            // Pan
+            'pan-left': (p) => ({ scale: 1.1, x: p * -80, y: 0, rotate: 0 }),
+            'pan-right': (p) => ({ scale: 1.1, x: p * 80, y: 0, rotate: 0 }),
+            'pan-up': (p) => ({ scale: 1.1, x: 0, y: p * -80, rotate: 0 }),
+            'pan-down': (p) => ({ scale: 1.1, x: 0, y: p * 80, rotate: 0 }),
+            // Camera moves
+            'whip-pan-h': (p) => {
+                if (p < 0.4) return { scale: 1, x: -p * 250, y: 0, rotate: -2, blur: p * 15 };
+                if (p < 0.6) return { scale: 1, x: (p - 0.5) * 500, y: 0, rotate: 2, blur: 15 };
+                return { scale: 1, x: (1 - p) * 250, y: 0, rotate: 0, blur: (1 - p) * 15 };
+            },
+            'whip-pan-v': (p) => {
+                if (p < 0.4) return { scale: 1, x: 0, y: -p * 250, rotate: 0, blur: p * 15 };
+                if (p < 0.6) return { scale: 1, x: 0, y: (p - 0.5) * 500, rotate: 0, blur: 15 };
+                return { scale: 1, x: 0, y: (1 - p) * 250, rotate: 0, blur: (1 - p) * 15 };
+            },
+            'orbit': (p) => ({
+                scale: 1.05,
+                x: Math.sin(p * Math.PI * 2) * 30,
+                y: Math.cos(p * Math.PI * 2) * 30,
+                rotate: p * 5
+            }),
+            'parallax': (p) => ({ scale: 1.15, x: 0, y: -p * 50, rotate: 0 }),
+            // Velocity
+            'velocity-in': (p) => {
+                if (p < 0.3) return { scale: 0.8 + p * 1.3, x: 0, y: 0, rotate: 0, blur: (0.3 - p) * 30, opacity: p * 3.3 };
+                return { scale: 1.1 - (p - 0.3) * 0.14, x: 0, y: 0, rotate: 0, blur: 0, opacity: 1 };
+            },
+            'velocity-out': (p) => {
+                if (p < 0.7) return { scale: 1, x: 0, y: 0, rotate: 0, blur: 0, opacity: 1 };
+                return { scale: 1 + (p - 0.7) * 0.5, x: 0, y: 0, rotate: 0, blur: (p - 0.7) * 50, opacity: 1 - (p - 0.7) * 3.3 };
+            },
+            'zoom-pulse': (p) => ({ scale: 1 + Math.sin(p * Math.PI * 4) * 0.08, x: 0, y: 0, rotate: 0 }),
+            'bounce': (p) => {
+                const bounce = Math.abs(Math.sin(p * Math.PI * 3)) * (1 - p);
+                return { scale: 1 + bounce * 0.1, x: 0, y: 0, rotate: 0 };
+            },
+            // Shake/Glitch
+            'handheld': (p) => ({
+                scale: 1,
+                x: Math.sin(p * 47) * 3 + Math.cos(p * 31) * 2,
+                y: Math.cos(p * 53) * 2 + Math.sin(p * 37) * 3,
+                rotate: Math.sin(p * 41) * 0.5
+            }),
+            'shake-light': (p) => ({
+                scale: 1,
+                x: Math.sin(p * Math.PI * 30) * 5,
+                y: Math.cos(p * Math.PI * 25) * 3,
+                rotate: 0
+            }),
+            'shake-heavy': (p) => ({
+                scale: 1,
+                x: Math.sin(p * Math.PI * 40) * 15,
+                y: Math.cos(p * Math.PI * 35) * 10,
+                rotate: Math.sin(p * Math.PI * 20) * 2
+            }),
+            'glitch-light': (p) => {
+                const glitch = Math.random() < 0.1;
+                return {
+                    scale: 1,
+                    x: glitch ? (Math.random() - 0.5) * 10 : 0,
+                    y: glitch ? (Math.random() - 0.5) * 5 : 0,
+                    rotate: 0,
+                    hueRotate: glitch ? Math.random() * 30 : 0
+                };
+            },
+            'glitch-heavy': (p) => {
+                const glitch = Math.random() < 0.3;
+                return {
+                    scale: glitch ? 1 + (Math.random() - 0.5) * 0.05 : 1,
+                    x: glitch ? (Math.random() - 0.5) * 30 : 0,
+                    y: glitch ? (Math.random() - 0.5) * 15 : 0,
+                    rotate: glitch ? (Math.random() - 0.5) * 3 : 0,
+                    hueRotate: glitch ? Math.random() * 180 : 0,
+                    clipInset: glitch ? `${Math.random() * 50}% 0 ${Math.random() * 50}% 0` : null
+                };
+            },
+            'rotate': (p) => ({ scale: 1.05, x: 0, y: 0, rotate: p * 8 }),
+            'wobble': (p) => ({
+                scale: 1,
+                x: Math.sin(p * Math.PI * 3) * 20 * (1 - p),
+                y: 0,
+                rotate: Math.sin(p * Math.PI * 3) * 5 * (1 - p)
+            }),
+            'jello': (p) => {
+                const skew = Math.sin(p * Math.PI * 4) * (1 - p) * 10;
+                return { scale: 1, x: 0, y: 0, rotate: 0, skewX: skew, skewY: skew * 0.5 };
+            }
+        };
+
+        // Transition functions
+        const transitionEffects = {
+            'fade': (p) => ({ opacity: p < 0.15 ? p / 0.15 : (p > 0.85 ? (1 - p) / 0.15 : 1) }),
+            'dissolve': (p) => ({ opacity: p < 0.2 ? p * 5 : (p > 0.8 ? (1 - p) * 5 : 1) }),
+            'zoom-in': (p) => ({ scale: p < 0.2 ? 0.5 + p * 2.5 : 1, opacity: p < 0.2 ? p * 5 : 1 }),
+            'zoom-out': (p) => ({ scale: p < 0.2 ? 1.5 - p * 2.5 : 1, opacity: p < 0.2 ? p * 5 : 1 }),
+            'zoom-blur': (p) => {
+                if (p < 0.2) return { scale: 2 - p * 5, opacity: p * 5, blur: (0.2 - p) * 100 };
+                return { scale: 1, opacity: 1, blur: 0 };
+            },
+            'slide-left': (p) => ({ x: p < 0.2 ? (0.2 - p) * 500 : 0, opacity: p < 0.2 ? p * 5 : 1 }),
+            'slide-right': (p) => ({ x: p < 0.2 ? (p - 0.2) * 500 : 0, opacity: p < 0.2 ? p * 5 : 1 }),
+            'slide-up': (p) => ({ y: p < 0.2 ? (0.2 - p) * 500 : 0, opacity: p < 0.2 ? p * 5 : 1 }),
+            'flash': (p) => {
+                if (p < 0.1) return { opacity: 1, brightness: 1 + p * 20 };
+                if (p < 0.2) return { opacity: 1, brightness: 3 - p * 10 };
+                return { opacity: 1, brightness: 1 };
+            },
+            'glitch': (p) => {
+                if (p < 0.15 || p > 0.85) {
+                    return {
+                        opacity: 1,
+                        x: (Math.random() - 0.5) * 20,
+                        hueRotate: Math.random() * 360
+                    };
+                }
+                return { opacity: 1, x: 0, hueRotate: 0 };
+            },
+            'flip-x': (p) => ({ rotateX: p < 0.2 ? 90 - p * 450 : 0, opacity: p < 0.1 ? p * 10 : 1 }),
+            'flip-y': (p) => ({ rotateY: p < 0.2 ? 90 - p * 450 : 0, opacity: p < 0.1 ? p * 10 : 1 }),
+            'bounce': (p) => {
+                if (p < 0.1) return { scale: 0, y: -100, opacity: 0 };
+                if (p < 0.3) return { scale: 1.2, y: 10, opacity: 1 };
+                if (p < 0.4) return { scale: 0.9, y: -5, opacity: 1 };
+                return { scale: 1, y: 0, opacity: 1 };
+            },
+            'elastic': (p) => {
+                if (p < 0.1) return { scale: 0, opacity: 0 };
+                if (p < 0.25) return { scale: 1.1, opacity: 1 };
+                if (p < 0.35) return { scale: 0.95, opacity: 1 };
+                if (p < 0.45) return { scale: 1.02, opacity: 1 };
+                return { scale: 1, opacity: 1 };
+            },
+            'split-h': (p) => ({ clipH: p < 0.2 ? p * 5 : 1 }),
+            'split-v': (p) => ({ clipV: p < 0.2 ? p * 5 : 1 })
+        };
 
         // Elements
         const canvas = document.getElementById('canvas');
@@ -1606,6 +2222,66 @@
                 document.querySelectorAll('.effect-btn[data-transition]').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 currentTransition = btn.dataset.transition;
+            });
+        });
+
+        // Text animation buttons
+        document.querySelectorAll('.effect-btn[data-text-anim]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.effect-btn[data-text-anim]').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentTextAnim = btn.dataset.textAnim;
+            });
+        });
+
+        // Overlay buttons
+        document.querySelectorAll('.effect-btn[data-overlay]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.effect-btn[data-overlay]').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentOverlay = btn.dataset.overlay;
+            });
+        });
+
+        // Template cards - aplicam preset completo de efeitos
+        document.querySelectorAll('.template-card').forEach(card => {
+            card.addEventListener('click', () => {
+                document.querySelectorAll('.template-card').forEach(c => c.classList.remove('active'));
+                card.classList.add('active');
+
+                const templateName = card.dataset.template;
+                currentTemplate = templateName;
+
+                // Aplica o preset do template
+                if (templates[templateName]) {
+                    const preset = templates[templateName];
+
+                    // Atualiza efeito
+                    currentEffect = preset.effect;
+                    document.querySelectorAll('.effect-btn[data-effect]').forEach(b => {
+                        b.classList.toggle('active', b.dataset.effect === preset.effect);
+                    });
+
+                    // Atualiza transição
+                    currentTransition = preset.transition;
+                    document.querySelectorAll('.effect-btn[data-transition]').forEach(b => {
+                        b.classList.toggle('active', b.dataset.transition === preset.transition);
+                    });
+
+                    // Atualiza animação de texto
+                    currentTextAnim = preset.textAnim;
+                    document.querySelectorAll('.effect-btn[data-text-anim]').forEach(b => {
+                        b.classList.toggle('active', b.dataset.textAnim === preset.textAnim);
+                    });
+
+                    // Atualiza overlay
+                    currentOverlay = preset.overlay;
+                    document.querySelectorAll('.effect-btn[data-overlay]').forEach(b => {
+                        b.classList.toggle('active', b.dataset.overlay === preset.overlay);
+                    });
+
+                    console.log(`Template "${templateName}" aplicado:`, preset);
+                }
             });
         });
 
