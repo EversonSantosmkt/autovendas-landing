@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerador de Imagens - AutoVendas Pro</title>
+    <title>Gerador de Imagens e Vídeos - AutoVendas Pro</title>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
@@ -19,13 +19,12 @@
             --text-secondary: #A0A0B0;
             --gradient-fire: linear-gradient(135deg, #FF6B00, #FF3D00, #FF9500);
             --success-green: #00FF64;
+            --accent-purple: #8B5CF6;
+            --accent-blue: #3B82F6;
+            --accent-pink: #EC4899;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Outfit', sans-serif;
@@ -38,143 +37,142 @@
         .header {
             background: var(--dark-card);
             border-bottom: 1px solid var(--dark-border);
-            padding: 20px 30px;
+            padding: 15px 30px;
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
+        .logo { display: flex; align-items: center; gap: 15px; }
 
         .logo-icon {
-            width: 45px;
-            height: 45px;
+            width: 45px; height: 45px;
             background: var(--gradient-fire);
             border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             font-size: 1.3rem;
         }
 
-        .logo h1 {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.5rem;
-            letter-spacing: 2px;
+        .logo h1 { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 2px; }
+        .logo h1 span { background: var(--gradient-fire); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .logo p { color: var(--text-secondary); font-size: 0.8rem; }
+
+        /* Tab navigation */
+        .tab-nav {
+            display: flex;
+            gap: 10px;
         }
 
-        .logo h1 span {
-            background: var(--gradient-fire);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .logo p {
+        .tab-btn {
+            background: transparent;
+            border: 2px solid var(--dark-border);
+            border-radius: 10px;
+            padding: 10px 20px;
             color: var(--text-secondary);
-            font-size: 0.8rem;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
+
+        .tab-btn:hover { border-color: var(--primary-orange); color: var(--primary-orange); }
+        .tab-btn.active { background: var(--gradient-fire); border-color: transparent; color: white; }
 
         /* ===== MAIN LAYOUT ===== */
         .main-container {
             display: grid;
-            grid-template-columns: 350px 1fr;
-            min-height: calc(100vh - 85px);
+            grid-template-columns: 380px 1fr;
+            min-height: calc(100vh - 75px);
         }
 
         /* ===== SIDEBAR ===== */
         .sidebar {
             background: var(--dark-card);
             border-right: 1px solid var(--dark-border);
-            padding: 25px;
+            padding: 20px;
             overflow-y: auto;
-            max-height: calc(100vh - 85px);
+            max-height: calc(100vh - 75px);
         }
 
-        .section {
-            margin-bottom: 25px;
-        }
+        .section { margin-bottom: 20px; }
 
         .section-title {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--text-secondary);
             text-transform: uppercase;
             letter-spacing: 2px;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
-        .section-title i {
-            color: var(--primary-orange);
+        .section-title i { color: var(--primary-orange); }
+
+        /* Collapsible sections */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding: 8px 0;
+        }
+
+        .section-header i.toggle-icon {
+            transition: transform 0.3s;
+        }
+
+        .section-content {
+            max-height: 1000px;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .section.collapsed .section-content {
+            max-height: 0;
+        }
+
+        .section.collapsed .toggle-icon {
+            transform: rotate(-90deg);
         }
 
         /* Format selector */
         .format-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
+            gap: 8px;
         }
 
         .format-btn {
             background: var(--dark-bg);
             border: 2px solid var(--dark-border);
-            border-radius: 12px;
-            padding: 15px 10px;
+            border-radius: 10px;
+            padding: 12px 8px;
             cursor: pointer;
             transition: all 0.3s;
             text-align: center;
         }
 
-        .format-btn:hover {
-            border-color: var(--primary-orange);
-        }
-
-        .format-btn.active {
-            border-color: var(--primary-orange);
-            background: rgba(255, 107, 0, 0.1);
-        }
+        .format-btn:hover { border-color: var(--primary-orange); }
+        .format-btn.active { border-color: var(--primary-orange); background: rgba(255, 107, 0, 0.1); }
 
         .format-btn .format-icon {
-            width: 100%;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 8px;
+            width: 100%; height: 40px;
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 6px;
         }
 
-        .format-btn .format-preview {
-            background: var(--dark-border);
-            border-radius: 4px;
-        }
-
-        .format-btn .format-name {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .format-btn .format-size {
-            font-size: 0.7rem;
-            color: var(--text-secondary);
-        }
+        .format-btn .format-preview { background: var(--dark-border); border-radius: 3px; }
+        .format-btn .format-name { font-size: 0.8rem; font-weight: 600; color: var(--text-primary); }
+        .format-btn .format-size { font-size: 0.65rem; color: var(--text-secondary); }
 
         /* Input groups */
-        .input-group {
-            margin-bottom: 15px;
-        }
-
-        .input-group label {
-            display: block;
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            margin-bottom: 8px;
-        }
+        .input-group { margin-bottom: 12px; }
+        .input-group label { display: block; font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 6px; }
 
         .input-group input,
         .input-group textarea,
@@ -182,11 +180,11 @@
             width: 100%;
             background: var(--dark-bg);
             border: 2px solid var(--dark-border);
-            border-radius: 10px;
-            padding: 12px 15px;
+            border-radius: 8px;
+            padding: 10px 12px;
             color: var(--text-primary);
             font-family: 'Outfit', sans-serif;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             transition: border-color 0.3s;
         }
 
@@ -197,83 +195,90 @@
             border-color: var(--primary-orange);
         }
 
-        .input-group textarea {
-            resize: vertical;
-            min-height: 80px;
+        .input-group textarea { resize: vertical; min-height: 60px; }
+
+        /* Code editor */
+        .code-editor {
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 0.75rem;
+            min-height: 100px;
+            background: #0d0d12;
+            border-color: var(--dark-border);
         }
 
         /* Icon selector */
         .icon-grid {
             display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 8px;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 6px;
         }
 
         .icon-btn {
-            width: 45px;
-            height: 45px;
+            width: 38px; height: 38px;
             background: var(--dark-bg);
             border: 2px solid var(--dark-border);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
             cursor: pointer;
             transition: all 0.3s;
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: var(--text-secondary);
         }
 
-        .icon-btn:hover {
-            border-color: var(--primary-orange);
-            color: var(--primary-orange);
-        }
+        .icon-btn:hover { border-color: var(--primary-orange); color: var(--primary-orange); }
+        .icon-btn.active { border-color: var(--primary-orange); background: rgba(255, 107, 0, 0.15); color: var(--primary-orange); }
 
-        .icon-btn.active {
-            border-color: var(--primary-orange);
-            background: rgba(255, 107, 0, 0.15);
-            color: var(--primary-orange);
-        }
-
-        /* Style selector */
+        /* Style selector - Extended */
         .style-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
         }
 
         .style-btn {
-            height: 60px;
+            height: 50px;
             border: 2px solid var(--dark-border);
-            border-radius: 10px;
+            border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s;
             overflow: hidden;
+            position: relative;
         }
 
-        .style-btn:hover {
-            border-color: var(--primary-orange);
+        .style-btn:hover { border-color: var(--primary-orange); }
+        .style-btn.active { border-color: var(--primary-orange); box-shadow: 0 0 15px rgba(255, 107, 0, 0.3); }
+
+        .style-btn .style-name {
+            position: absolute;
+            bottom: 2px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 0.55rem;
+            color: white;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
         }
 
-        .style-btn.active {
-            border-color: var(--primary-orange);
-            box-shadow: 0 0 15px rgba(255, 107, 0, 0.3);
-        }
-
+        /* Style presets */
         .style-1 { background: linear-gradient(145deg, #0A0A0F 0%, #12121A 50%, #0A0A0F 100%); }
         .style-2 { background: linear-gradient(145deg, #FF6B00 0%, #FF3D00 100%); }
         .style-3 { background: linear-gradient(145deg, #0A0A0F 0%, #1a1a2e 100%); }
+        .style-4 { background: linear-gradient(145deg, #8B5CF6 0%, #6D28D9 100%); }
+        .style-5 { background: linear-gradient(145deg, #3B82F6 0%, #1D4ED8 100%); }
+        .style-6 { background: linear-gradient(145deg, #EC4899 0%, #BE185D 100%); }
+        .style-7 { background: linear-gradient(145deg, #10B981 0%, #059669 100%); }
+        .style-8 { background: linear-gradient(45deg, #FF6B00, #EC4899, #8B5CF6, #3B82F6); background-size: 300% 300%; }
 
-        /* Download button */
-        .btn-download {
+        /* Buttons */
+        .btn-primary {
             width: 100%;
             background: var(--gradient-fire);
             border: none;
-            border-radius: 12px;
-            padding: 16px;
+            border-radius: 10px;
+            padding: 14px;
             color: white;
             font-family: 'Outfit', sans-serif;
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 700;
             cursor: pointer;
             display: flex;
@@ -283,16 +288,150 @@
             transition: all 0.3s;
             text-transform: uppercase;
             letter-spacing: 1px;
+            margin-bottom: 10px;
         }
 
-        .btn-download:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(255, 107, 0, 0.4);
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(255, 107, 0, 0.4); }
+        .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+        .btn-secondary {
+            width: 100%;
+            background: transparent;
+            border: 2px solid var(--primary-orange);
+            border-radius: 10px;
+            padding: 12px;
+            color: var(--primary-orange);
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover { background: rgba(255, 107, 0, 0.1); }
+
+        /* Toggle */
+        .toggle-group { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+
+        .toggle {
+            position: relative;
+            width: 40px; height: 22px;
+            background: var(--dark-border);
+            border-radius: 11px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .toggle.active { background: var(--primary-orange); }
+
+        .toggle::after {
+            content: '';
+            position: absolute;
+            top: 2px; left: 2px;
+            width: 18px; height: 18px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+
+        .toggle.active::after { transform: translateX(18px); }
+        .toggle-label { font-size: 0.85rem; color: var(--text-secondary); }
+
+        /* Video effects grid */
+        .effects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .effect-btn {
+            background: var(--dark-bg);
+            border: 2px solid var(--dark-border);
+            border-radius: 8px;
+            padding: 10px 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .effect-btn:hover { border-color: var(--primary-orange); }
+        .effect-btn.active { border-color: var(--primary-orange); background: rgba(255, 107, 0, 0.1); }
+
+        .effect-btn i { font-size: 1.2rem; color: var(--primary-orange); margin-bottom: 5px; display: block; }
+        .effect-btn span { font-size: 0.7rem; color: var(--text-secondary); }
+
+        /* Audio selector */
+        .audio-item {
+            background: var(--dark-bg);
+            border: 2px solid var(--dark-border);
+            border-radius: 8px;
+            padding: 10px 12px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .audio-item:hover { border-color: var(--primary-orange); }
+        .audio-item.active { border-color: var(--primary-orange); background: rgba(255, 107, 0, 0.1); }
+
+        .audio-item i { color: var(--primary-orange); font-size: 1.2rem; }
+        .audio-item .audio-info { flex: 1; }
+        .audio-item .audio-name { font-size: 0.85rem; font-weight: 600; }
+        .audio-item .audio-duration { font-size: 0.7rem; color: var(--text-secondary); }
+
+        .audio-item .play-btn {
+            width: 30px; height: 30px;
+            background: var(--gradient-fire);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+        }
+
+        /* Duration slider */
+        .duration-slider {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .duration-slider input[type="range"] {
+            flex: 1;
+            -webkit-appearance: none;
+            height: 6px;
+            background: var(--dark-border);
+            border-radius: 3px;
+            outline: none;
+        }
+
+        .duration-slider input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            background: var(--primary-orange);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .duration-value {
+            background: var(--dark-bg);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.85rem;
+            min-width: 50px;
+            text-align: center;
         }
 
         /* ===== PREVIEW AREA ===== */
         .preview-area {
-            padding: 30px;
+            padding: 25px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -308,7 +447,7 @@
             overflow: hidden;
         }
 
-        /* ===== CANVAS STYLES ===== */
+        /* Canvas styles (mantido igual mas com novos estilos) */
         .canvas {
             position: relative;
             overflow: hidden;
@@ -318,26 +457,19 @@
             justify-content: center;
         }
 
-        /* Background styles */
-        .canvas.style-dark {
-            background: linear-gradient(145deg, #0A0A0F 0%, #12121A 50%, #0A0A0F 100%);
-        }
+        .canvas.style-dark { background: linear-gradient(145deg, #0A0A0F 0%, #12121A 50%, #0A0A0F 100%); }
+        .canvas.style-gradient { background: linear-gradient(145deg, #FF6B00 0%, #FF3D00 50%, #FF9500 100%); }
+        .canvas.style-dark-blue { background: linear-gradient(145deg, #0A0A0F 0%, #0d1020 50%, #0A0A0F 100%); }
+        .canvas.style-purple { background: linear-gradient(145deg, #8B5CF6 0%, #6D28D9 50%, #4C1D95 100%); }
+        .canvas.style-blue { background: linear-gradient(145deg, #3B82F6 0%, #1D4ED8 50%, #1E40AF 100%); }
+        .canvas.style-pink { background: linear-gradient(145deg, #EC4899 0%, #BE185D 50%, #9D174D 100%); }
+        .canvas.style-green { background: linear-gradient(145deg, #10B981 0%, #059669 50%, #047857 100%); }
+        .canvas.style-rainbow { background: linear-gradient(45deg, #FF6B00, #EC4899, #8B5CF6, #3B82F6); }
+        .canvas.style-custom { /* Will be set by custom CSS */ }
 
-        .canvas.style-gradient {
-            background: linear-gradient(145deg, #FF6B00 0%, #FF3D00 50%, #FF9500 100%);
-        }
-
-        .canvas.style-dark-blue {
-            background: linear-gradient(145deg, #0A0A0F 0%, #0d1020 50%, #0A0A0F 100%);
-        }
-
-        /* Canvas background effects */
         .canvas-bg {
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             pointer-events: none;
         }
 
@@ -349,13 +481,17 @@
                 radial-gradient(circle at 80% 70%, rgba(255, 149, 0, 0.06) 0%, transparent 35%);
         }
 
-        .canvas.style-gradient .canvas-bg {
+        .canvas.style-gradient .canvas-bg,
+        .canvas.style-purple .canvas-bg,
+        .canvas.style-blue .canvas-bg,
+        .canvas.style-pink .canvas-bg,
+        .canvas.style-green .canvas-bg,
+        .canvas.style-rainbow .canvas-bg {
             background:
                 radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
                 radial-gradient(circle at 20% 80%, rgba(0, 0, 0, 0.1) 0%, transparent 40%);
         }
 
-        /* Decorative elements */
         .deco-circle {
             position: absolute;
             border: 2px solid rgba(255, 107, 0, 0.1);
@@ -363,11 +499,15 @@
             pointer-events: none;
         }
 
-        .canvas.style-gradient .deco-circle {
+        .canvas.style-gradient .deco-circle,
+        .canvas.style-purple .deco-circle,
+        .canvas.style-blue .deco-circle,
+        .canvas.style-pink .deco-circle,
+        .canvas.style-green .deco-circle,
+        .canvas.style-rainbow .deco-circle {
             border-color: rgba(255, 255, 255, 0.15);
         }
 
-        /* Canvas content */
         .canvas-content {
             position: relative;
             z-index: 10;
@@ -381,13 +521,10 @@
             height: 100%;
         }
 
-        /* Story safe area indicator */
         .safe-area {
             position: absolute;
-            top: 155px;
-            bottom: 155px;
-            left: 0;
-            right: 0;
+            top: 155px; bottom: 155px;
+            left: 0; right: 0;
             border: 2px dashed rgba(255, 107, 0, 0.3);
             pointer-events: none;
             z-index: 5;
@@ -405,7 +542,6 @@
             color: white;
         }
 
-        /* Badge */
         .canvas-badge {
             background: var(--gradient-fire);
             padding: 10px 25px;
@@ -419,19 +555,20 @@
             box-shadow: 0 5px 20px rgba(255, 107, 0, 0.4);
         }
 
-        .canvas.style-gradient .canvas-badge {
+        .canvas.style-gradient .canvas-badge,
+        .canvas.style-purple .canvas-badge,
+        .canvas.style-blue .canvas-badge,
+        .canvas.style-pink .canvas-badge,
+        .canvas.style-green .canvas-badge,
+        .canvas.style-rainbow .canvas-badge {
             background: rgba(0, 0, 0, 0.3);
         }
 
-        /* Icon */
         .canvas-icon {
-            width: 120px;
-            height: 120px;
+            width: 120px; height: 120px;
             background: var(--gradient-fire);
             border-radius: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             font-size: 3.5rem;
             color: white;
             margin-bottom: 35px;
@@ -439,7 +576,12 @@
             position: relative;
         }
 
-        .canvas.style-gradient .canvas-icon {
+        .canvas.style-gradient .canvas-icon,
+        .canvas.style-purple .canvas-icon,
+        .canvas.style-blue .canvas-icon,
+        .canvas.style-pink .canvas-icon,
+        .canvas.style-green .canvas-icon,
+        .canvas.style-rainbow .canvas-icon {
             background: rgba(0, 0, 0, 0.25);
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
         }
@@ -452,11 +594,15 @@
             border-radius: 35px;
         }
 
-        .canvas.style-gradient .canvas-icon::after {
+        .canvas.style-gradient .canvas-icon::after,
+        .canvas.style-purple .canvas-icon::after,
+        .canvas.style-blue .canvas-icon::after,
+        .canvas.style-pink .canvas-icon::after,
+        .canvas.style-green .canvas-icon::after,
+        .canvas.style-rainbow .canvas-icon::after {
             border-color: rgba(255, 255, 255, 0.2);
         }
 
-        /* Title */
         .canvas-title {
             font-family: 'Bebas Neue', sans-serif;
             font-size: 3.5rem;
@@ -475,13 +621,17 @@
             background-clip: text;
         }
 
-        .canvas.style-gradient .canvas-title span {
+        .canvas.style-gradient .canvas-title span,
+        .canvas.style-purple .canvas-title span,
+        .canvas.style-blue .canvas-title span,
+        .canvas.style-pink .canvas-title span,
+        .canvas.style-green .canvas-title span,
+        .canvas.style-rainbow .canvas-title span {
             background: white;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        /* Subtitle */
         .canvas-subtitle {
             font-size: 1.1rem;
             color: #888;
@@ -489,11 +639,15 @@
             line-height: 1.6;
         }
 
-        .canvas.style-gradient .canvas-subtitle {
+        .canvas.style-gradient .canvas-subtitle,
+        .canvas.style-purple .canvas-subtitle,
+        .canvas.style-blue .canvas-subtitle,
+        .canvas.style-pink .canvas-subtitle,
+        .canvas.style-green .canvas-subtitle,
+        .canvas.style-rainbow .canvas-subtitle {
             color: rgba(255, 255, 255, 0.85);
         }
 
-        /* Features */
         .canvas-features {
             display: flex;
             gap: 20px;
@@ -512,40 +666,45 @@
             border-radius: 25px;
         }
 
-        .canvas.style-gradient .canvas-feature {
+        .canvas.style-gradient .canvas-feature,
+        .canvas.style-purple .canvas-feature,
+        .canvas.style-blue .canvas-feature,
+        .canvas.style-pink .canvas-feature,
+        .canvas.style-green .canvas-feature,
+        .canvas.style-rainbow .canvas-feature {
             background: rgba(0, 0, 0, 0.2);
             border-color: rgba(255, 255, 255, 0.2);
         }
 
-        .canvas-feature i {
-            color: var(--success-green);
-        }
+        .canvas-feature i { color: var(--success-green); }
 
-        .canvas.style-gradient .canvas-feature i {
+        .canvas.style-gradient .canvas-feature i,
+        .canvas.style-purple .canvas-feature i,
+        .canvas.style-blue .canvas-feature i,
+        .canvas.style-pink .canvas-feature i,
+        .canvas.style-green .canvas-feature i,
+        .canvas.style-rainbow .canvas-feature i {
             color: white;
         }
 
-        .canvas-feature span {
-            color: white;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
+        .canvas-feature span { color: white; font-size: 0.9rem; font-weight: 500; }
 
-        /* Bottom bar */
         .canvas-bottom-bar {
             position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            bottom: 0; left: 0; right: 0;
             height: 8px;
             background: var(--gradient-fire);
         }
 
-        .canvas.style-gradient .canvas-bottom-bar {
+        .canvas.style-gradient .canvas-bottom-bar,
+        .canvas.style-purple .canvas-bottom-bar,
+        .canvas.style-blue .canvas-bottom-bar,
+        .canvas.style-pink .canvas-bottom-bar,
+        .canvas.style-green .canvas-bottom-bar,
+        .canvas.style-rainbow .canvas-bottom-bar {
             background: rgba(0, 0, 0, 0.3);
         }
 
-        /* Logo watermark */
         .canvas-watermark {
             position: absolute;
             bottom: 25px;
@@ -556,18 +715,20 @@
         }
 
         .canvas-watermark-icon {
-            width: 30px;
-            height: 30px;
+            width: 30px; height: 30px;
             background: var(--gradient-fire);
             border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             font-size: 0.9rem;
             color: white;
         }
 
-        .canvas.style-gradient .canvas-watermark-icon {
+        .canvas.style-gradient .canvas-watermark-icon,
+        .canvas.style-purple .canvas-watermark-icon,
+        .canvas.style-blue .canvas-watermark-icon,
+        .canvas.style-pink .canvas-watermark-icon,
+        .canvas.style-green .canvas-watermark-icon,
+        .canvas.style-rainbow .canvas-watermark-icon {
             background: rgba(0, 0, 0, 0.3);
         }
 
@@ -578,98 +739,132 @@
             letter-spacing: 2px;
         }
 
-        /* Size adjustments for different formats */
-        .canvas.format-story .canvas-content {
-            padding: 180px 50px;
-        }
-
-        .canvas.format-story .canvas-icon {
-            width: 140px;
-            height: 140px;
-            font-size: 4rem;
-            border-radius: 35px;
-        }
-
-        .canvas.format-story .canvas-title {
-            font-size: 4rem;
-        }
-
-        .canvas.format-story .canvas-subtitle {
-            font-size: 1.3rem;
-        }
-
+        .canvas.format-story .canvas-content { padding: 180px 50px; }
+        .canvas.format-story .canvas-icon { width: 140px; height: 140px; font-size: 4rem; border-radius: 35px; }
+        .canvas.format-story .canvas-title { font-size: 4rem; }
+        .canvas.format-story .canvas-subtitle { font-size: 1.3rem; }
         .canvas.format-feed-tall .canvas-title,
-        .canvas.format-feed-vertical .canvas-title {
-            font-size: 3rem;
-        }
+        .canvas.format-feed-vertical .canvas-title { font-size: 3rem; }
 
-        /* Checkbox toggle */
-        .toggle-group {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-
-        .toggle {
-            position: relative;
-            width: 44px;
-            height: 24px;
-            background: var(--dark-border);
-            border-radius: 12px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .toggle.active {
-            background: var(--primary-orange);
-        }
-
-        .toggle::after {
-            content: '';
-            position: absolute;
-            top: 2px;
-            left: 2px;
-            width: 20px;
-            height: 20px;
-            background: white;
-            border-radius: 50%;
-            transition: transform 0.3s;
-        }
-
-        .toggle.active::after {
-            transform: translateX(20px);
-        }
-
-        .toggle-label {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-        }
-
-        /* Preview info */
         .preview-info {
-            margin-top: 20px;
+            margin-top: 15px;
             text-align: center;
             color: var(--text-secondary);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
 
-        .preview-info strong {
+        .preview-info strong { color: var(--primary-orange); }
+
+        /* Video preview overlay */
+        .video-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            z-index: 100;
+        }
+
+        .video-overlay.active { display: flex; }
+
+        .video-progress {
+            width: 80%;
+            max-width: 300px;
+            height: 8px;
+            background: var(--dark-border);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .video-progress-bar {
+            height: 100%;
+            background: var(--gradient-fire);
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        .video-status {
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        /* Custom CSS container */
+        .custom-css-container {
+            background: #0d0d12;
+            border: 1px solid var(--dark-border);
+            border-radius: 8px;
+            padding: 10px;
+        }
+
+        .custom-css-container code {
+            display: block;
+            color: var(--text-secondary);
+            font-size: 0.7rem;
+            margin-bottom: 8px;
+        }
+
+        /* Video mode indicator */
+        .mode-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(139, 92, 246, 0.2);
+            border: 1px solid var(--accent-purple);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: var(--accent-purple);
+            margin-left: 15px;
+        }
+
+        .mode-indicator.image-mode {
+            background: rgba(255, 107, 0, 0.2);
+            border-color: var(--primary-orange);
             color: var(--primary-orange);
         }
 
-        /* Scale indicator */
-        .scale-indicator {
+        /* Recording indicator */
+        .recording-indicator {
+            display: none;
+            align-items: center;
+            gap: 8px;
             position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 0.7rem;
-            color: var(--text-secondary);
+            top: 15px;
+            left: 15px;
+            background: rgba(255, 0, 0, 0.8);
+            padding: 8px 15px;
+            border-radius: 20px;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 50;
+        }
+
+        .recording-indicator.active { display: flex; }
+
+        .recording-indicator .rec-dot {
+            width: 10px; height: 10px;
+            background: white;
+            border-radius: 50%;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* Separator */
+        .separator {
+            height: 1px;
+            background: var(--dark-border);
+            margin: 15px 0;
         }
     </style>
+    <style id="customStyles"></style>
 </head>
 <body>
     <!-- HEADER -->
@@ -680,8 +875,16 @@
             </div>
             <div>
                 <h1>AUTO<span>VENDAS</span> PRO</h1>
-                <p>Gerador de Imagens</p>
+                <p>Gerador de Imagens e Vídeos</p>
             </div>
+        </div>
+        <div class="tab-nav">
+            <button class="tab-btn active" data-tab="image">
+                <i class="fas fa-image"></i> Imagem
+            </button>
+            <button class="tab-btn" data-tab="video">
+                <i class="fas fa-video"></i> Vídeo
+            </button>
         </div>
     </header>
 
@@ -691,35 +894,25 @@
         <aside class="sidebar">
             <!-- FORMAT -->
             <div class="section">
-                <div class="section-title">
-                    <i class="fas fa-expand"></i> Formato
-                </div>
+                <div class="section-title"><i class="fas fa-expand"></i> Formato</div>
                 <div class="format-grid">
                     <div class="format-btn active" data-format="feed-square" data-width="1080" data-height="1080">
-                        <div class="format-icon">
-                            <div class="format-preview" style="width: 40px; height: 40px;"></div>
-                        </div>
+                        <div class="format-icon"><div class="format-preview" style="width: 35px; height: 35px;"></div></div>
                         <div class="format-name">Quadrado</div>
                         <div class="format-size">1080 x 1080</div>
                     </div>
                     <div class="format-btn" data-format="feed-vertical" data-width="1080" data-height="1350">
-                        <div class="format-icon">
-                            <div class="format-preview" style="width: 35px; height: 44px;"></div>
-                        </div>
+                        <div class="format-icon"><div class="format-preview" style="width: 30px; height: 38px;"></div></div>
                         <div class="format-name">Vertical 4:5</div>
                         <div class="format-size">1080 x 1350</div>
                     </div>
                     <div class="format-btn" data-format="feed-tall" data-width="1080" data-height="1440">
-                        <div class="format-icon">
-                            <div class="format-preview" style="width: 32px; height: 43px;"></div>
-                        </div>
+                        <div class="format-icon"><div class="format-preview" style="width: 28px; height: 38px;"></div></div>
                         <div class="format-name">Vertical 3:4</div>
                         <div class="format-size">1080 x 1440</div>
                     </div>
                     <div class="format-btn" data-format="story" data-width="1080" data-height="1920">
-                        <div class="format-icon">
-                            <div class="format-preview" style="width: 28px; height: 50px;"></div>
-                        </div>
+                        <div class="format-icon"><div class="format-preview" style="width: 24px; height: 42px;"></div></div>
                         <div class="format-name">Story</div>
                         <div class="format-size">1080 x 1920</div>
                     </div>
@@ -728,21 +921,40 @@
 
             <!-- STYLE -->
             <div class="section">
-                <div class="section-title">
-                    <i class="fas fa-palette"></i> Estilo
-                </div>
+                <div class="section-title"><i class="fas fa-palette"></i> Estilo</div>
                 <div class="style-grid">
-                    <div class="style-btn style-1 active" data-style="dark"></div>
-                    <div class="style-btn style-2" data-style="gradient"></div>
-                    <div class="style-btn style-3" data-style="dark-blue"></div>
+                    <div class="style-btn style-1 active" data-style="dark"><span class="style-name">Escuro</span></div>
+                    <div class="style-btn style-2" data-style="gradient"><span class="style-name">Fogo</span></div>
+                    <div class="style-btn style-3" data-style="dark-blue"><span class="style-name">Azul</span></div>
+                    <div class="style-btn style-4" data-style="purple"><span class="style-name">Roxo</span></div>
+                    <div class="style-btn style-5" data-style="blue"><span class="style-name">Celeste</span></div>
+                    <div class="style-btn style-6" data-style="pink"><span class="style-name">Rosa</span></div>
+                    <div class="style-btn style-7" data-style="green"><span class="style-name">Verde</span></div>
+                    <div class="style-btn style-8" data-style="rainbow"><span class="style-name">Arco-íris</span></div>
+                </div>
+            </div>
+
+            <!-- CUSTOM CSS -->
+            <div class="section">
+                <div class="section-title"><i class="fas fa-code"></i> CSS Personalizado</div>
+                <div class="custom-css-container">
+                    <code>/* Exemplo: mudar cor do fundo */</code>
+                    <textarea id="customCss" class="code-editor" placeholder=".canvas {
+  background: linear-gradient(135deg, #1a1a2e, #16213e) !important;
+}
+
+.canvas-icon {
+  background: #e94560 !important;
+}"></textarea>
+                    <button class="btn-secondary" id="applyCss" style="margin-top: 10px;">
+                        <i class="fas fa-check"></i> Aplicar CSS
+                    </button>
                 </div>
             </div>
 
             <!-- ICON -->
             <div class="section">
-                <div class="section-title">
-                    <i class="fas fa-icons"></i> Ícone
-                </div>
+                <div class="section-title"><i class="fas fa-icons"></i> Ícone</div>
                 <div class="icon-grid">
                     <div class="icon-btn active" data-icon="fa-rocket"><i class="fas fa-rocket"></i></div>
                     <div class="icon-btn" data-icon="fa-shield-alt"><i class="fas fa-shield-alt"></i></div>
@@ -756,139 +968,249 @@
                     <div class="icon-btn" data-icon="fa-bullseye"><i class="fas fa-bullseye"></i></div>
                     <div class="icon-btn" data-icon="fa-lightbulb"><i class="fas fa-lightbulb"></i></div>
                     <div class="icon-btn" data-icon="fa-gift"><i class="fas fa-gift"></i></div>
+                    <div class="icon-btn" data-icon="fa-heart"><i class="fas fa-heart"></i></div>
+                    <div class="icon-btn" data-icon="fa-money-bill-wave"><i class="fas fa-money-bill-wave"></i></div>
+                    <div class="icon-btn" data-icon="fa-shopping-cart"><i class="fas fa-shopping-cart"></i></div>
+                    <div class="icon-btn" data-icon="fa-percent"><i class="fas fa-percent"></i></div>
                 </div>
             </div>
 
             <!-- TEXT -->
             <div class="section">
-                <div class="section-title">
-                    <i class="fas fa-font"></i> Textos
-                </div>
+                <div class="section-title"><i class="fas fa-font"></i> Textos</div>
                 <div class="input-group">
-                    <label>Badge (topo)</label>
-                    <input type="text" id="badgeText" placeholder="Ex: Novidade" value="AutoVendas Pro">
+                    <label>Badge</label>
+                    <input type="text" id="badgeText" value="AutoVendas Pro">
                 </div>
                 <div class="input-group">
                     <label>Título (linha 1)</label>
-                    <input type="text" id="titleLine1" placeholder="Primeira linha" value="AUTO">
+                    <input type="text" id="titleLine1" value="AUTO">
                 </div>
                 <div class="input-group">
                     <label>Título (linha 2 - destaque)</label>
-                    <input type="text" id="titleLine2" placeholder="Segunda linha em destaque" value="VENDAS PRO">
+                    <input type="text" id="titleLine2" value="VENDAS PRO">
                 </div>
                 <div class="input-group">
                     <label>Subtítulo</label>
-                    <textarea id="subtitle" placeholder="Descrição ou chamada">Automação Inteligente de Marketplace</textarea>
-                </div>
-            </div>
-
-            <!-- FEATURES -->
-            <div class="section">
-                <div class="section-title">
-                    <i class="fas fa-list-check"></i> Features (separar por vírgula)
+                    <textarea id="subtitle">Automação Inteligente de Marketplace</textarea>
                 </div>
                 <div class="input-group">
-                    <input type="text" id="features" placeholder="Ex: Rápido, Fácil, Seguro" value="1000+ Anúncios, 8h Economizadas, Suporte 24h">
+                    <label>Features (separar por vírgula)</label>
+                    <input type="text" id="features" value="1000+ Anúncios, 8h Economizadas, Suporte 24h">
                 </div>
             </div>
 
-            <!-- TOGGLES -->
+            <!-- OPTIONS -->
             <div class="section">
-                <div class="section-title">
-                    <i class="fas fa-sliders-h"></i> Opções
-                </div>
+                <div class="section-title"><i class="fas fa-sliders-h"></i> Opções</div>
                 <div class="toggle-group">
                     <div class="toggle active" id="toggleBadge"></div>
-                    <span class="toggle-label">Mostrar badge</span>
+                    <span class="toggle-label">Badge</span>
                 </div>
                 <div class="toggle-group">
                     <div class="toggle active" id="toggleIcon"></div>
-                    <span class="toggle-label">Mostrar ícone</span>
+                    <span class="toggle-label">Ícone</span>
                 </div>
                 <div class="toggle-group">
                     <div class="toggle active" id="toggleFeatures"></div>
-                    <span class="toggle-label">Mostrar features</span>
+                    <span class="toggle-label">Features</span>
                 </div>
                 <div class="toggle-group">
                     <div class="toggle active" id="toggleWatermark"></div>
-                    <span class="toggle-label">Mostrar logo</span>
+                    <span class="toggle-label">Logo</span>
                 </div>
                 <div class="toggle-group">
                     <div class="toggle" id="toggleSafeArea"></div>
-                    <span class="toggle-label">Mostrar área segura (Story)</span>
+                    <span class="toggle-label">Área segura (Story)</span>
                 </div>
             </div>
 
-            <!-- DOWNLOAD -->
+            <div class="separator"></div>
+
+            <!-- VIDEO OPTIONS (shown when video tab is active) -->
+            <div id="videoOptions" style="display: none;">
+                <!-- MOTION EFFECTS -->
+                <div class="section">
+                    <div class="section-title"><i class="fas fa-film"></i> Efeito de Movimento</div>
+                    <div class="effects-grid">
+                        <div class="effect-btn active" data-effect="kenburns-in">
+                            <i class="fas fa-search-plus"></i>
+                            <span>Ken Burns In</span>
+                        </div>
+                        <div class="effect-btn" data-effect="kenburns-out">
+                            <i class="fas fa-search-minus"></i>
+                            <span>Ken Burns Out</span>
+                        </div>
+                        <div class="effect-btn" data-effect="zoom-pulse">
+                            <i class="fas fa-heartbeat"></i>
+                            <span>Zoom Pulse</span>
+                        </div>
+                        <div class="effect-btn" data-effect="pan-left">
+                            <i class="fas fa-arrow-left"></i>
+                            <span>Pan Esquerda</span>
+                        </div>
+                        <div class="effect-btn" data-effect="pan-right">
+                            <i class="fas fa-arrow-right"></i>
+                            <span>Pan Direita</span>
+                        </div>
+                        <div class="effect-btn" data-effect="pan-up">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>Pan Cima</span>
+                        </div>
+                        <div class="effect-btn" data-effect="shake">
+                            <i class="fas fa-wave-square"></i>
+                            <span>Shake</span>
+                        </div>
+                        <div class="effect-btn" data-effect="glitch">
+                            <i class="fas fa-bolt"></i>
+                            <span>Glitch</span>
+                        </div>
+                        <div class="effect-btn" data-effect="rotate">
+                            <i class="fas fa-sync"></i>
+                            <span>Rotação</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TRANSITIONS -->
+                <div class="section">
+                    <div class="section-title"><i class="fas fa-random"></i> Transições</div>
+                    <div class="effects-grid">
+                        <div class="effect-btn active" data-transition="fade">
+                            <i class="fas fa-adjust"></i>
+                            <span>Fade</span>
+                        </div>
+                        <div class="effect-btn" data-transition="slide">
+                            <i class="fas fa-arrows-alt-h"></i>
+                            <span>Slide</span>
+                        </div>
+                        <div class="effect-btn" data-transition="zoom">
+                            <i class="fas fa-expand"></i>
+                            <span>Zoom</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DURATION -->
+                <div class="section">
+                    <div class="section-title"><i class="fas fa-clock"></i> Duração</div>
+                    <div class="duration-slider">
+                        <input type="range" id="videoDuration" min="3" max="15" value="5">
+                        <div class="duration-value"><span id="durationValue">5</span>s</div>
+                    </div>
+                </div>
+
+                <!-- AUDIO -->
+                <div class="section">
+                    <div class="section-title"><i class="fas fa-music"></i> Música de Fundo</div>
+                    <div class="audio-list">
+                        <div class="audio-item active" data-audio="none">
+                            <i class="fas fa-volume-mute"></i>
+                            <div class="audio-info">
+                                <div class="audio-name">Sem música</div>
+                            </div>
+                        </div>
+                        <div class="audio-item" data-audio="epic">
+                            <i class="fas fa-music"></i>
+                            <div class="audio-info">
+                                <div class="audio-name">Epic Cinematic</div>
+                                <div class="audio-duration">Motivacional</div>
+                            </div>
+                            <button class="play-btn"><i class="fas fa-play"></i></button>
+                        </div>
+                        <div class="audio-item" data-audio="upbeat">
+                            <i class="fas fa-music"></i>
+                            <div class="audio-info">
+                                <div class="audio-name">Upbeat Energy</div>
+                                <div class="audio-duration">Energético</div>
+                            </div>
+                            <button class="play-btn"><i class="fas fa-play"></i></button>
+                        </div>
+                        <div class="audio-item" data-audio="chill">
+                            <i class="fas fa-music"></i>
+                            <div class="audio-info">
+                                <div class="audio-name">Chill Vibes</div>
+                                <div class="audio-duration">Relaxante</div>
+                            </div>
+                            <button class="play-btn"><i class="fas fa-play"></i></button>
+                        </div>
+                        <div class="audio-item" data-audio="corporate">
+                            <i class="fas fa-music"></i>
+                            <div class="audio-info">
+                                <div class="audio-name">Corporate Tech</div>
+                                <div class="audio-duration">Profissional</div>
+                            </div>
+                            <button class="play-btn"><i class="fas fa-play"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="separator"></div>
+            </div>
+
+            <!-- EXPORT BUTTONS -->
             <div class="section">
-                <button class="btn-download" id="downloadBtn">
+                <button class="btn-primary" id="downloadBtn">
                     <i class="fas fa-download"></i>
-                    Baixar Imagem PNG
+                    <span id="downloadText">Baixar Imagem PNG</span>
                 </button>
+                <div id="videoExportBtn" style="display: none;">
+                    <button class="btn-primary" id="exportVideoBtn" style="background: linear-gradient(135deg, #8B5CF6, #6D28D9);">
+                        <i class="fas fa-video"></i>
+                        Exportar Vídeo MP4
+                    </button>
+                </div>
             </div>
         </aside>
 
         <!-- PREVIEW -->
         <main class="preview-area">
             <div class="preview-container" id="previewContainer">
+                <!-- Recording indicator -->
+                <div class="recording-indicator" id="recordingIndicator">
+                    <div class="rec-dot"></div>
+                    <span>GRAVANDO</span>
+                </div>
+
                 <div class="canvas style-dark format-feed-square" id="canvas" style="width: 540px; height: 540px;">
                     <div class="canvas-bg"></div>
-
-                    <!-- Decorative circles -->
                     <div class="deco-circle" style="width: 60%; height: 60%; top: -15%; right: -20%;"></div>
                     <div class="deco-circle" style="width: 40%; height: 40%; bottom: -10%; left: -15%;"></div>
-
-                    <!-- Safe area indicator (for story) -->
                     <div class="safe-area" id="safeArea" style="display: none;">
                         <div class="safe-area-label">ÁREA SEGURA</div>
                     </div>
-
-                    <!-- Content -->
                     <div class="canvas-content">
                         <div class="canvas-badge" id="canvasBadge">AutoVendas Pro</div>
-
-                        <div class="canvas-icon" id="canvasIcon">
-                            <i class="fas fa-rocket"></i>
-                        </div>
-
-                        <h2 class="canvas-title" id="canvasTitle">
-                            AUTO
-                            <span>VENDAS PRO</span>
-                        </h2>
-
+                        <div class="canvas-icon" id="canvasIcon"><i class="fas fa-rocket"></i></div>
+                        <h2 class="canvas-title" id="canvasTitle">AUTO<span>VENDAS PRO</span></h2>
                         <p class="canvas-subtitle" id="canvasSubtitle">Automação Inteligente de Marketplace</p>
-
                         <div class="canvas-features" id="canvasFeatures">
-                            <div class="canvas-feature">
-                                <i class="fas fa-check"></i>
-                                <span>1000+ Anúncios</span>
-                            </div>
-                            <div class="canvas-feature">
-                                <i class="fas fa-check"></i>
-                                <span>8h Economizadas</span>
-                            </div>
-                            <div class="canvas-feature">
-                                <i class="fas fa-check"></i>
-                                <span>Suporte 24h</span>
-                            </div>
+                            <div class="canvas-feature"><i class="fas fa-check"></i><span>1000+ Anúncios</span></div>
+                            <div class="canvas-feature"><i class="fas fa-check"></i><span>8h Economizadas</span></div>
+                            <div class="canvas-feature"><i class="fas fa-check"></i><span>Suporte 24h</span></div>
                         </div>
                     </div>
-
-                    <!-- Watermark -->
                     <div class="canvas-watermark" id="canvasWatermark">
-                        <div class="canvas-watermark-icon">
-                            <i class="fas fa-rocket"></i>
-                        </div>
+                        <div class="canvas-watermark-icon"><i class="fas fa-rocket"></i></div>
                         <span>AUTOVENDAS PRO</span>
                     </div>
-
-                    <!-- Bottom bar -->
                     <div class="canvas-bottom-bar"></div>
+                </div>
+
+                <!-- Video overlay -->
+                <div class="video-overlay" id="videoOverlay">
+                    <div class="video-progress">
+                        <div class="video-progress-bar" id="videoProgressBar"></div>
+                    </div>
+                    <div class="video-status" id="videoStatus">Preparando...</div>
                 </div>
             </div>
 
             <div class="preview-info">
-                Pré-visualização em <strong>50%</strong> do tamanho original | Formato: <strong id="currentFormat">1080 x 1080</strong>
+                Pré-visualização em <strong>50%</strong> | Formato: <strong id="currentFormat">1080 x 1080</strong>
+                <span class="mode-indicator image-mode" id="modeIndicator">
+                    <i class="fas fa-image"></i> Modo Imagem
+                </span>
             </div>
         </main>
     </div>
@@ -898,6 +1220,11 @@
         let currentFormat = { width: 1080, height: 1080, name: 'feed-square' };
         let currentStyle = 'dark';
         let currentIcon = 'fa-rocket';
+        let currentMode = 'image';
+        let currentEffect = 'kenburns-in';
+        let currentTransition = 'fade';
+        let currentAudio = 'none';
+        let videoDuration = 5;
 
         // Elements
         const canvas = document.getElementById('canvas');
@@ -909,35 +1236,53 @@
         const canvasWatermark = document.getElementById('canvasWatermark');
         const safeArea = document.getElementById('safeArea');
         const currentFormatDisplay = document.getElementById('currentFormat');
+        const modeIndicator = document.getElementById('modeIndicator');
+        const videoOptions = document.getElementById('videoOptions');
+        const videoExportBtn = document.getElementById('videoExportBtn');
+        const downloadText = document.getElementById('downloadText');
+
+        // Tab navigation
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentMode = btn.dataset.tab;
+
+                if (currentMode === 'video') {
+                    videoOptions.style.display = 'block';
+                    videoExportBtn.style.display = 'block';
+                    downloadText.textContent = 'Baixar Imagem PNG';
+                    modeIndicator.innerHTML = '<i class="fas fa-video"></i> Modo Vídeo';
+                    modeIndicator.classList.remove('image-mode');
+                } else {
+                    videoOptions.style.display = 'none';
+                    videoExportBtn.style.display = 'none';
+                    downloadText.textContent = 'Baixar Imagem PNG';
+                    modeIndicator.innerHTML = '<i class="fas fa-image"></i> Modo Imagem';
+                    modeIndicator.classList.add('image-mode');
+                }
+            });
+        });
 
         // Format buttons
         document.querySelectorAll('.format-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.format-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-
                 const width = parseInt(btn.dataset.width);
                 const height = parseInt(btn.dataset.height);
                 const format = btn.dataset.format;
-
                 currentFormat = { width, height, name: format };
-
-                // Update canvas size (50% preview)
                 canvas.style.width = (width / 2) + 'px';
                 canvas.style.height = (height / 2) + 'px';
-
-                // Update format class
                 canvas.className = canvas.className.replace(/format-\S+/g, '');
                 canvas.classList.add(`format-${format}`);
                 canvas.classList.add(`style-${currentStyle}`);
-
-                // Show/hide safe area for story
                 if (format === 'story' && document.getElementById('toggleSafeArea').classList.contains('active')) {
                     safeArea.style.display = 'block';
                 } else {
                     safeArea.style.display = 'none';
                 }
-
                 currentFormatDisplay.textContent = `${width} x ${height}`;
             });
         });
@@ -947,7 +1292,6 @@
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.style-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-
                 currentStyle = btn.dataset.style;
                 canvas.className = canvas.className.replace(/style-\S+/g, '');
                 canvas.classList.add(`style-${currentStyle}`);
@@ -959,7 +1303,6 @@
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.icon-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-
                 currentIcon = btn.dataset.icon;
                 canvasIcon.innerHTML = `<i class="fas ${currentIcon}"></i>`;
             });
@@ -997,23 +1340,13 @@
         document.querySelectorAll('.toggle').forEach(toggle => {
             toggle.addEventListener('click', () => {
                 toggle.classList.toggle('active');
-
                 const id = toggle.id;
                 const isActive = toggle.classList.contains('active');
-
                 switch(id) {
-                    case 'toggleBadge':
-                        canvasBadge.style.display = isActive ? 'block' : 'none';
-                        break;
-                    case 'toggleIcon':
-                        canvasIcon.style.display = isActive ? 'flex' : 'none';
-                        break;
-                    case 'toggleFeatures':
-                        canvasFeatures.style.display = isActive ? 'flex' : 'none';
-                        break;
-                    case 'toggleWatermark':
-                        canvasWatermark.style.display = isActive ? 'flex' : 'none';
-                        break;
+                    case 'toggleBadge': canvasBadge.style.display = isActive ? 'block' : 'none'; break;
+                    case 'toggleIcon': canvasIcon.style.display = isActive ? 'flex' : 'none'; break;
+                    case 'toggleFeatures': canvasFeatures.style.display = isActive ? 'flex' : 'none'; break;
+                    case 'toggleWatermark': canvasWatermark.style.display = isActive ? 'flex' : 'none'; break;
                     case 'toggleSafeArea':
                         if (currentFormat.name === 'story') {
                             safeArea.style.display = isActive ? 'block' : 'none';
@@ -1023,28 +1356,63 @@
             });
         });
 
-        // Download
+        // Custom CSS
+        document.getElementById('applyCss').addEventListener('click', () => {
+            const customCss = document.getElementById('customCss').value;
+            document.getElementById('customStyles').textContent = customCss;
+            alert('CSS aplicado com sucesso!');
+        });
+
+        // Effect buttons
+        document.querySelectorAll('.effect-btn[data-effect]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.effect-btn[data-effect]').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentEffect = btn.dataset.effect;
+            });
+        });
+
+        // Transition buttons
+        document.querySelectorAll('.effect-btn[data-transition]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.effect-btn[data-transition]').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentTransition = btn.dataset.transition;
+            });
+        });
+
+        // Audio selection
+        document.querySelectorAll('.audio-item').forEach(item => {
+            item.addEventListener('click', () => {
+                document.querySelectorAll('.audio-item').forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+                currentAudio = item.dataset.audio;
+            });
+        });
+
+        // Duration slider
+        document.getElementById('videoDuration').addEventListener('input', (e) => {
+            videoDuration = parseInt(e.target.value);
+            document.getElementById('durationValue').textContent = videoDuration;
+        });
+
+        // Download image
         document.getElementById('downloadBtn').addEventListener('click', async () => {
             const btn = document.getElementById('downloadBtn');
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Gerando...';
             btn.disabled = true;
 
-            // Hide safe area for export
             const safeAreaVisible = safeArea.style.display !== 'none';
             safeArea.style.display = 'none';
 
-            // Set canvas to full size for export
             const originalWidth = canvas.style.width;
             const originalHeight = canvas.style.height;
             canvas.style.width = currentFormat.width + 'px';
             canvas.style.height = currentFormat.height + 'px';
-
-            // Adjust font sizes for full resolution
             canvas.style.fontSize = '2em';
 
             try {
                 await new Promise(resolve => setTimeout(resolve, 500));
-
                 const canvasElement = await html2canvas(canvas, {
                     scale: 1,
                     useCORS: true,
@@ -1059,22 +1427,188 @@
                 link.href = canvasElement.toDataURL('image/png');
                 link.click();
             } catch (error) {
-                console.error('Erro ao gerar imagem:', error);
-                alert('Erro ao gerar imagem. Tente novamente.');
+                console.error('Erro:', error);
+                alert('Erro ao gerar imagem.');
             }
 
-            // Restore preview size
             canvas.style.width = originalWidth;
             canvas.style.height = originalHeight;
             canvas.style.fontSize = '';
 
-            // Restore safe area if it was visible
             if (safeAreaVisible && currentFormat.name === 'story') {
                 safeArea.style.display = 'block';
             }
 
-            btn.innerHTML = '<i class="fas fa-download"></i> Baixar Imagem PNG';
+            btn.innerHTML = '<i class="fas fa-download"></i> <span id="downloadText">Baixar Imagem PNG</span>';
             btn.disabled = false;
+        });
+
+        // Export video
+        document.getElementById('exportVideoBtn').addEventListener('click', async () => {
+            const btn = document.getElementById('exportVideoBtn');
+            const overlay = document.getElementById('videoOverlay');
+            const progressBar = document.getElementById('videoProgressBar');
+            const status = document.getElementById('videoStatus');
+            const recordingIndicator = document.getElementById('recordingIndicator');
+
+            btn.disabled = true;
+            overlay.classList.add('active');
+            recordingIndicator.classList.add('active');
+            status.textContent = 'Preparando canvas...';
+            progressBar.style.width = '10%';
+
+            const safeAreaVisible = safeArea.style.display !== 'none';
+            safeArea.style.display = 'none';
+
+            const originalWidth = canvas.style.width;
+            const originalHeight = canvas.style.height;
+            canvas.style.width = currentFormat.width + 'px';
+            canvas.style.height = currentFormat.height + 'px';
+            canvas.style.fontSize = '2em';
+
+            await new Promise(r => setTimeout(r, 500));
+
+            try {
+                status.textContent = 'Capturando frames...';
+                progressBar.style.width = '20%';
+
+                // Apply animation class
+                canvas.classList.add(`effect-${currentEffect}`);
+
+                // Create video using canvas recording
+                const frames = [];
+                const fps = 30;
+                const totalFrames = videoDuration * fps;
+
+                // Animation keyframes
+                const animations = {
+                    'kenburns-in': (progress) => `scale(${1 + progress * 0.15})`,
+                    'kenburns-out': (progress) => `scale(${1.15 - progress * 0.15})`,
+                    'zoom-pulse': (progress) => `scale(${1 + Math.sin(progress * Math.PI * 4) * 0.05})`,
+                    'pan-left': (progress) => `translateX(${-progress * 5}%)`,
+                    'pan-right': (progress) => `translateX(${progress * 5}%)`,
+                    'pan-up': (progress) => `translateY(${-progress * 5}%)`,
+                    'shake': (progress) => `translateX(${Math.sin(progress * Math.PI * 20) * 3}px)`,
+                    'glitch': (progress) => {
+                        const glitchX = Math.random() * 4 - 2;
+                        const glitchY = Math.random() * 4 - 2;
+                        return `translate(${glitchX}px, ${glitchY}px)`;
+                    },
+                    'rotate': (progress) => `rotate(${progress * 5}deg)`
+                };
+
+                // Capture frames
+                for (let i = 0; i < totalFrames; i++) {
+                    const progress = i / totalFrames;
+
+                    // Apply transform
+                    if (animations[currentEffect]) {
+                        canvas.style.transform = animations[currentEffect](progress);
+                    }
+
+                    // Apply fade transition
+                    if (currentTransition === 'fade') {
+                        if (progress < 0.1) {
+                            canvas.style.opacity = progress * 10;
+                        } else if (progress > 0.9) {
+                            canvas.style.opacity = (1 - progress) * 10;
+                        } else {
+                            canvas.style.opacity = 1;
+                        }
+                    }
+
+                    const frameCanvas = await html2canvas(canvas, {
+                        scale: 0.5,
+                        useCORS: true,
+                        allowTaint: true,
+                        width: currentFormat.width,
+                        height: currentFormat.height
+                    });
+
+                    frames.push(frameCanvas.toDataURL('image/jpeg', 0.8));
+
+                    progressBar.style.width = `${20 + (i / totalFrames) * 60}%`;
+                    status.textContent = `Capturando frame ${i + 1}/${totalFrames}...`;
+
+                    await new Promise(r => setTimeout(r, 10));
+                }
+
+                status.textContent = 'Gerando vídeo...';
+                progressBar.style.width = '85%';
+
+                // Create video blob using frames
+                const videoCanvas = document.createElement('canvas');
+                videoCanvas.width = currentFormat.width / 2;
+                videoCanvas.height = currentFormat.height / 2;
+                const ctx = videoCanvas.getContext('2d');
+
+                const stream = videoCanvas.captureStream(fps);
+                const recorder = new MediaRecorder(stream, {
+                    mimeType: 'video/webm;codecs=vp9',
+                    videoBitsPerSecond: 5000000
+                });
+
+                const chunks = [];
+                recorder.ondataavailable = (e) => chunks.push(e.data);
+
+                recorder.onstop = () => {
+                    const blob = new Blob(chunks, { type: 'video/webm' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `autovendas-video-${currentFormat.name}-${Date.now()}.webm`;
+                    a.click();
+                    URL.revokeObjectURL(url);
+
+                    progressBar.style.width = '100%';
+                    status.textContent = 'Vídeo exportado!';
+
+                    setTimeout(() => {
+                        overlay.classList.remove('active');
+                        recordingIndicator.classList.remove('active');
+                        btn.disabled = false;
+                    }, 1500);
+                };
+
+                recorder.start();
+
+                // Play frames
+                let frameIndex = 0;
+                const playFrame = () => {
+                    if (frameIndex < frames.length) {
+                        const img = new Image();
+                        img.onload = () => {
+                            ctx.drawImage(img, 0, 0, videoCanvas.width, videoCanvas.height);
+                            frameIndex++;
+                            setTimeout(playFrame, 1000 / fps);
+                        };
+                        img.src = frames[frameIndex];
+                    } else {
+                        recorder.stop();
+                    }
+                };
+
+                playFrame();
+
+            } catch (error) {
+                console.error('Erro:', error);
+                alert('Erro ao gerar vídeo: ' + error.message);
+                overlay.classList.remove('active');
+                recordingIndicator.classList.remove('active');
+                btn.disabled = false;
+            }
+
+            // Reset
+            canvas.style.width = originalWidth;
+            canvas.style.height = originalHeight;
+            canvas.style.fontSize = '';
+            canvas.style.transform = '';
+            canvas.style.opacity = '';
+            canvas.classList.remove(`effect-${currentEffect}`);
+
+            if (safeAreaVisible && currentFormat.name === 'story') {
+                safeArea.style.display = 'block';
+            }
         });
     </script>
 </body>
