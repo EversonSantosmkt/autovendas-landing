@@ -1797,6 +1797,10 @@
                     <span id="downloadText">Baixar Imagem PNG</span>
                 </button>
                 <div id="videoExportBtn" style="display: none;">
+                    <button class="btn-secondary" id="previewVideoBtn" style="margin-bottom: 10px; border-color: #10B981; color: #10B981;">
+                        <i class="fas fa-play-circle"></i>
+                        Preview do Vídeo
+                    </button>
                     <button class="btn-primary" id="exportVideoBtn" style="background: linear-gradient(135deg, #8B5CF6, #6D28D9);">
                         <i class="fas fa-video"></i>
                         Exportar Vídeo MP4
@@ -2404,6 +2408,173 @@
             btn.disabled = false;
         });
 
+        // Preview video - shows animation in real-time without exporting
+        let isPreviewPlaying = false;
+        let previewAnimationFrame = null;
+
+        document.getElementById('previewVideoBtn').addEventListener('click', async () => {
+            const btn = document.getElementById('previewVideoBtn');
+
+            // If preview is playing, stop it
+            if (isPreviewPlaying) {
+                isPreviewPlaying = false;
+                if (previewAnimationFrame) {
+                    cancelAnimationFrame(previewAnimationFrame);
+                }
+                btn.innerHTML = '<i class="fas fa-play-circle"></i> Preview do Vídeo';
+                btn.style.borderColor = '#10B981';
+                btn.style.color = '#10B981';
+                canvas.style.transform = '';
+                canvas.style.opacity = '';
+                canvas.style.filter = '';
+                // Remove overlay elements
+                document.querySelectorAll('.preview-overlay').forEach(el => el.remove());
+                return;
+            }
+
+            // Start preview
+            isPreviewPlaying = true;
+            btn.innerHTML = '<i class="fas fa-stop-circle"></i> Parar Preview';
+            btn.style.borderColor = '#EF4444';
+            btn.style.color = '#EF4444';
+
+            const duration = videoDuration * 1000;
+            const startTime = performance.now();
+
+            // Create overlay container for effects
+            let overlayEl = document.querySelector('.preview-overlay');
+            if (!overlayEl) {
+                overlayEl = document.createElement('div');
+                overlayEl.className = 'preview-overlay';
+                overlayEl.style.cssText = 'position:absolute;inset:0;pointer-events:none;z-index:100;overflow:hidden;border-radius:inherit;';
+                canvas.parentElement.style.position = 'relative';
+                canvas.parentElement.appendChild(overlayEl);
+            }
+
+            const animatePreview = () => {
+                if (!isPreviewPlaying) return;
+
+                const elapsed = performance.now() - startTime;
+                const progress = (elapsed % duration) / duration; // Loop the animation
+
+                // Get motion effect
+                const motionFn = motionEffects[currentEffect] || motionEffects['kenburns-in'];
+                const motion = motionFn(progress);
+
+                // Get transition effect
+                const transitionFn = transitionEffects[currentTransition] || transitionEffects['fade'];
+                const transition = transitionFn(progress);
+
+                // Combine effects
+                const scale = (motion.scale || 1) * (transition.scale || 1);
+                const x = (motion.x || 0) + (transition.x || 0);
+                const y = (motion.y || 0) + (transition.y || 0);
+                const rotate = motion.rotate || 0;
+                const opacity = transition.opacity !== undefined ? transition.opacity : 1;
+                const blur = (motion.blur || 0) + (transition.blur || 0);
+                const brightness = transition.brightness || 1;
+
+                // Apply transformations to canvas
+                let transform = `translate(${x}px, ${y}px) scale(${scale}) rotate(${rotate}deg)`;
+                if (motion.skewX || motion.skewY) {
+                    transform += ` skew(${motion.skewX || 0}deg, ${motion.skewY || 0}deg)`;
+                }
+
+                canvas.style.transform = transform;
+                canvas.style.opacity = Math.max(0, Math.min(1, opacity));
+
+                let filterStr = '';
+                if (blur > 0) filterStr += `blur(${blur}px) `;
+                if (brightness !== 1) filterStr += `brightness(${brightness}) `;
+                if (motion.hueRotate || transition.hueRotate) {
+                    filterStr += `hue-rotate(${(motion.hueRotate || 0) + (transition.hueRotate || 0)}deg) `;
+                }
+                canvas.style.filter = filterStr || 'none';
+
+                // Apply overlay effects
+                overlayEl.innerHTML = '';
+
+                if (currentOverlay !== 'none') {
+                    switch(currentOverlay) {
+                        case 'vhs':
+                            overlayEl.innerHTML = `
+                                <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,0.1) 0px,rgba(0,0,0,0.1) 1px,transparent 1px,transparent 2px);"></div>
+                                <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 0%,rgba(255,255,255,0.03) 50%,transparent 100%);animation:vhsFlicker 0.1s infinite;"></div>
+                            `;
+                            break;
+
+                        case 'vignette':
+                            overlayEl.innerHTML = `<div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 0%,transparent 50%,rgba(0,0,0,0.5) 100%);"></div>`;
+                            break;
+
+                        case 'light-leak':
+                            const leakX = (progress * 200 - 50);
+                            overlayEl.innerHTML = `<div style="position:absolute;inset:0;background:linear-gradient(125deg,transparent,rgba(255,107,0,0.15) 50%,transparent);transform:translateX(${leakX}%);"></div>`;
+                            break;
+
+                        case 'grain':
+                            overlayEl.innerHTML = `<div style="position:absolute;inset:0;opacity:0.1;background-image:url('data:image/svg+xml,<svg viewBox=%220 0 256 256%22 xmlns=%22http://www.w3.org/2000/svg%22><filter id=%22n%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22/></filter><rect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/></svg>');"></div>`;
+                            break;
+
+                        case 'cinematic-bars':
+                            overlayEl.innerHTML = `
+                                <div style="position:absolute;top:0;left:0;right:0;height:12%;background:#000;"></div>
+                                <div style="position:absolute;bottom:0;left:0;right:0;height:12%;background:#000;"></div>
+                            `;
+                            break;
+
+                        case 'bokeh':
+                            let bokehHtml = '';
+                            for (let i = 0; i < 5; i++) {
+                                const bx = (Math.sin(progress * 2 + i) * 30 + 20 + i * 15);
+                                const by = (Math.cos(progress * 3 + i) * 30 + 30 + i * 10);
+                                bokehHtml += `<div style="position:absolute;left:${bx}%;top:${by}%;width:${50 + i * 20}px;height:${50 + i * 20}px;background:radial-gradient(circle,rgba(255,107,0,0.2),transparent 70%);border-radius:50%;"></div>`;
+                            }
+                            overlayEl.innerHTML = bokehHtml;
+                            break;
+
+                        case 'neon':
+                            canvas.style.filter = (filterStr || '') + ` drop-shadow(0 0 10px #FF6B00) drop-shadow(0 0 20px #FF6B00)`;
+                            break;
+
+                        case 'dust':
+                            let dustHtml = '';
+                            for (let i = 0; i < 15; i++) {
+                                const dx = (Math.sin(progress * 3 + i * 0.5) * 50 + 50);
+                                const dy = ((progress * 50 + i * 7) % 100);
+                                dustHtml += `<div style="position:absolute;left:${dx}%;top:${dy}%;width:2px;height:2px;background:rgba(255,255,255,0.5);border-radius:50%;"></div>`;
+                            }
+                            overlayEl.innerHTML = dustHtml;
+                            break;
+
+                        case 'rain':
+                            let rainHtml = '';
+                            for (let i = 0; i < 30; i++) {
+                                const rx = (i * 3.3);
+                                const ry = ((progress * 100 + i * 5) % 110) - 10;
+                                rainHtml += `<div style="position:absolute;left:${rx}%;top:${ry}%;width:1px;height:15px;background:linear-gradient(transparent,rgba(255,255,255,0.3));"></div>`;
+                            }
+                            overlayEl.innerHTML = rainHtml;
+                            break;
+
+                        case 'chromatic':
+                            canvas.style.filter = (filterStr || '') + ` drop-shadow(-2px 0 0 rgba(255,0,0,0.3)) drop-shadow(2px 0 0 rgba(0,255,255,0.3))`;
+                            break;
+
+                        case 'noise':
+                            if (Math.random() < 0.2) {
+                                overlayEl.innerHTML = `<div style="position:absolute;inset:0;background:rgba(255,255,255,${Math.random() * 0.1});"></div>`;
+                            }
+                            break;
+                    }
+                }
+
+                previewAnimationFrame = requestAnimationFrame(animatePreview);
+            };
+
+            animatePreview();
+        });
+
         // Export video - Optimized version with CSS animations and audio
         document.getElementById('exportVideoBtn').addEventListener('click', async () => {
             const btn = document.getElementById('exportVideoBtn');
@@ -2546,29 +2717,6 @@
                 const duration = videoDuration * 1000; // in ms
                 const startTime = performance.now();
 
-                // Animation functions
-                const animations = {
-                    'kenburns-in': (p) => ({ scale: 1 + p * 0.2, x: 0, y: 0, rotate: 0 }),
-                    'kenburns-out': (p) => ({ scale: 1.2 - p * 0.2, x: 0, y: 0, rotate: 0 }),
-                    'zoom-pulse': (p) => ({ scale: 1 + Math.sin(p * Math.PI * 4) * 0.08, x: 0, y: 0, rotate: 0 }),
-                    'pan-left': (p) => ({ scale: 1.1, x: p * -100, y: 0, rotate: 0 }),
-                    'pan-right': (p) => ({ scale: 1.1, x: p * 100, y: 0, rotate: 0 }),
-                    'pan-up': (p) => ({ scale: 1.1, x: 0, y: p * -100, rotate: 0 }),
-                    'shake': (p) => ({ scale: 1, x: Math.sin(p * Math.PI * 30) * 10, y: Math.cos(p * Math.PI * 25) * 5, rotate: 0 }),
-                    'glitch': (p) => ({ scale: 1, x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 10, rotate: 0 }),
-                    'rotate': (p) => ({ scale: 1.1, x: 0, y: 0, rotate: p * 10 })
-                };
-
-                // Transition functions
-                const getOpacity = (progress) => {
-                    if (currentTransition === 'fade') {
-                        if (progress < 0.15) return progress / 0.15;
-                        if (progress > 0.85) return (1 - progress) / 0.15;
-                        return 1;
-                    }
-                    return 1;
-                };
-
                 let animationFrame;
                 let recordingStopped = false;
 
@@ -2587,19 +2735,181 @@
                     ctx.fillStyle = '#0A0A0F';
                     ctx.fillRect(0, 0, videoCanvas.width, videoCanvas.height);
 
-                    // Get animation values
-                    const anim = animations[currentEffect] ? animations[currentEffect](progress) : { scale: 1, x: 0, y: 0, rotate: 0 };
-                    const opacity = getOpacity(progress);
+                    // Get motion effect values (usando os efeitos expandidos)
+                    const motionFn = motionEffects[currentEffect] || motionEffects['kenburns-in'];
+                    const motion = motionFn(progress);
+
+                    // Get transition effect values
+                    const transitionFn = transitionEffects[currentTransition] || transitionEffects['fade'];
+                    const transition = transitionFn(progress);
+
+                    // Combine motion and transition
+                    const scale = (motion.scale || 1) * (transition.scale || 1);
+                    const x = (motion.x || 0) + (transition.x || 0);
+                    const y = (motion.y || 0) + (transition.y || 0);
+                    const rotate = (motion.rotate || 0);
+                    const opacity = transition.opacity !== undefined ? transition.opacity : 1;
+                    const blur = (motion.blur || 0) + (transition.blur || 0);
+                    const brightness = transition.brightness || 1;
+                    const hueRotate = (motion.hueRotate || 0) + (transition.hueRotate || 0);
+                    const skewX = motion.skewX || 0;
+                    const skewY = motion.skewY || 0;
 
                     // Apply transformations
-                    ctx.globalAlpha = opacity;
-                    ctx.translate(videoCanvas.width / 2 + anim.x, videoCanvas.height / 2 + anim.y);
-                    ctx.rotate(anim.rotate * Math.PI / 180);
-                    ctx.scale(anim.scale, anim.scale);
+                    ctx.globalAlpha = Math.max(0, Math.min(1, opacity));
+
+                    // Move to center
+                    ctx.translate(videoCanvas.width / 2 + x, videoCanvas.height / 2 + y);
+
+                    // Apply rotation
+                    ctx.rotate(rotate * Math.PI / 180);
+
+                    // Apply scale
+                    ctx.scale(scale, scale);
+
+                    // Move back
                     ctx.translate(-videoCanvas.width / 2, -videoCanvas.height / 2);
 
-                    // Draw image
+                    // Draw main image
                     ctx.drawImage(staticCanvas, 0, 0, videoCanvas.width, videoCanvas.height);
+
+                    // Apply overlays
+                    if (currentOverlay !== 'none') {
+                        ctx.globalCompositeOperation = 'source-over';
+
+                        switch(currentOverlay) {
+                            case 'vhs':
+                                // VHS scanlines
+                                ctx.fillStyle = 'rgba(0,0,0,0.03)';
+                                for (let i = 0; i < videoCanvas.height; i += 2) {
+                                    ctx.fillRect(0, i, videoCanvas.width, 1);
+                                }
+                                break;
+
+                            case 'grain':
+                                // Film grain
+                                const grainData = ctx.getImageData(0, 0, videoCanvas.width, videoCanvas.height);
+                                for (let i = 0; i < grainData.data.length; i += 4) {
+                                    const noise = (Math.random() - 0.5) * 20;
+                                    grainData.data[i] += noise;
+                                    grainData.data[i + 1] += noise;
+                                    grainData.data[i + 2] += noise;
+                                }
+                                ctx.putImageData(grainData, 0, 0);
+                                break;
+
+                            case 'vignette':
+                                // Vignette
+                                const gradient = ctx.createRadialGradient(
+                                    videoCanvas.width / 2, videoCanvas.height / 2, 0,
+                                    videoCanvas.width / 2, videoCanvas.height / 2, videoCanvas.width * 0.7
+                                );
+                                gradient.addColorStop(0, 'rgba(0,0,0,0)');
+                                gradient.addColorStop(0.5, 'rgba(0,0,0,0)');
+                                gradient.addColorStop(1, 'rgba(0,0,0,0.6)');
+                                ctx.fillStyle = gradient;
+                                ctx.fillRect(0, 0, videoCanvas.width, videoCanvas.height);
+                                break;
+
+                            case 'light-leak':
+                                // Light leak
+                                const leakProgress = (progress * 2) % 1;
+                                const leakGradient = ctx.createLinearGradient(
+                                    leakProgress * videoCanvas.width * 2 - videoCanvas.width, 0,
+                                    leakProgress * videoCanvas.width * 2, videoCanvas.height
+                                );
+                                leakGradient.addColorStop(0, 'rgba(255,107,0,0)');
+                                leakGradient.addColorStop(0.5, 'rgba(255,107,0,0.15)');
+                                leakGradient.addColorStop(1, 'rgba(255,149,0,0)');
+                                ctx.fillStyle = leakGradient;
+                                ctx.fillRect(0, 0, videoCanvas.width, videoCanvas.height);
+                                break;
+
+                            case 'bokeh':
+                                // Bokeh lights
+                                ctx.globalAlpha = 0.15;
+                                const bokehColors = ['rgba(255,107,0,0.3)', 'rgba(255,149,0,0.2)', 'rgba(255,61,0,0.25)'];
+                                for (let i = 0; i < 5; i++) {
+                                    const bx = (Math.sin(progress * 2 + i) * 0.3 + 0.2 + i * 0.15) * videoCanvas.width;
+                                    const by = (Math.cos(progress * 3 + i) * 0.3 + 0.3 + i * 0.1) * videoCanvas.height;
+                                    const br = 50 + i * 30;
+                                    const bokehGrad = ctx.createRadialGradient(bx, by, 0, bx, by, br);
+                                    bokehGrad.addColorStop(0, bokehColors[i % 3]);
+                                    bokehGrad.addColorStop(1, 'rgba(0,0,0,0)');
+                                    ctx.fillStyle = bokehGrad;
+                                    ctx.fillRect(0, 0, videoCanvas.width, videoCanvas.height);
+                                }
+                                ctx.globalAlpha = opacity;
+                                break;
+
+                            case 'neon':
+                                // Neon glow effect
+                                ctx.shadowColor = '#FF6B00';
+                                ctx.shadowBlur = 30 + Math.sin(progress * Math.PI * 4) * 15;
+                                break;
+
+                            case 'cinematic-bars':
+                                // Cinema bars
+                                ctx.fillStyle = '#000';
+                                const barHeight = videoCanvas.height * 0.12;
+                                ctx.fillRect(0, 0, videoCanvas.width, barHeight);
+                                ctx.fillRect(0, videoCanvas.height - barHeight, videoCanvas.width, barHeight);
+                                break;
+
+                            case 'chromatic':
+                                // Simple chromatic aberration simulation
+                                ctx.globalCompositeOperation = 'lighter';
+                                ctx.globalAlpha = 0.1;
+                                ctx.drawImage(staticCanvas, -3, 0, videoCanvas.width, videoCanvas.height);
+                                ctx.drawImage(staticCanvas, 3, 0, videoCanvas.width, videoCanvas.height);
+                                ctx.globalAlpha = opacity;
+                                ctx.globalCompositeOperation = 'source-over';
+                                break;
+
+                            case 'noise':
+                                // Static noise
+                                if (Math.random() < 0.3) {
+                                    ctx.fillStyle = `rgba(255,255,255,${Math.random() * 0.1})`;
+                                    ctx.fillRect(0, 0, videoCanvas.width, videoCanvas.height);
+                                }
+                                break;
+
+                            case 'dust':
+                                // Dust particles
+                                ctx.fillStyle = 'rgba(255,255,255,0.5)';
+                                for (let i = 0; i < 20; i++) {
+                                    const dx = (Math.sin(progress * 5 + i * 0.5) * 0.5 + 0.5) * videoCanvas.width;
+                                    const dy = ((progress * 0.5 + i * 0.05) % 1) * videoCanvas.height;
+                                    ctx.beginPath();
+                                    ctx.arc(dx, dy, 1 + Math.random(), 0, Math.PI * 2);
+                                    ctx.fill();
+                                }
+                                break;
+
+                            case 'rain':
+                                // Rain effect
+                                ctx.strokeStyle = 'rgba(255,255,255,0.3)';
+                                ctx.lineWidth = 1;
+                                for (let i = 0; i < 50; i++) {
+                                    const rx = (i * 37 + progress * 200) % videoCanvas.width;
+                                    const ry = ((progress * 1000 + i * 50) % (videoCanvas.height + 20)) - 20;
+                                    ctx.beginPath();
+                                    ctx.moveTo(rx, ry);
+                                    ctx.lineTo(rx - 2, ry + 15);
+                                    ctx.stroke();
+                                }
+                                break;
+                        }
+                    }
+
+                    // Apply brightness for flash effect
+                    if (brightness > 1) {
+                        ctx.globalCompositeOperation = 'lighter';
+                        ctx.fillStyle = `rgba(255,255,255,${(brightness - 1) * 0.5})`;
+                        ctx.fillRect(0, 0, videoCanvas.width, videoCanvas.height);
+                        ctx.globalCompositeOperation = 'source-over';
+                    }
+
                     ctx.restore();
 
                     if (progress < 1) {
